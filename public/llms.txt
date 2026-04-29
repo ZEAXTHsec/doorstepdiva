@@ -1,0 +1,31 @@
+# DoorStep Diva — LLM Site Information
+
+> DoorStep Diva is a premium at-home beauty services company operating across Delhi NCR, Lucknow, and Ayodhya, India.
+
+## What We Do
+We send certified, professional beauty artists to clients' homes. No travel to a salon required.
+
+## Services
+- Hair: Cuts, colour, balayage, keratin treatments, Olaplex, blow-dry
+- Skin: Waxing, brightening facials, chemical peels, body polish, threading
+- Makeup: Party glam, bridal makeup, sangeet, engagement looks
+- Eyelash Extensions: Classic, hybrid, volume (2D-6D), cat eye, foxy
+- Semi-Permanent Makeup: Microblading, combo brows, lip blush, nano liner
+- Nail Extensions: Acrylic, gel/shellac, PolyGel, nail art
+
+## Service Areas
+Delhi, Gurgaon, Noida, Faridabad (Delhi NCR), Lucknow, Ayodhya
+
+## Contact
+- WhatsApp / Call: +91 7985183449
+- Website: https://doorstepdiva.com
+
+## Key Facts
+- All artists are certified professionals
+- Premium brands: L'Oreal Professionnel, Kerastase, Olaplex, MAC, Charlotte Tilbury
+- Bridal packages available with trial sessions
+- Lash extensions last 3-5 weeks
+- Semi-permanent results last 12 months to 3 years
+
+## Blog
+https://doorstepdiva.com/blog
