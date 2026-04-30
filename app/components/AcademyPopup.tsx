@@ -30,7 +30,7 @@ export default function AcademyPopup() {
       <button
         onClick={() => setOpen(true)}
         aria-label="Open academy enrolment enquiry form"
-        className="fixed bottom-6 right-6 z-40 flex items-center gap-2 font-poppins font-semibold text-sm px-5 py-3.5 rounded-full text-white shadow-2xl transition-all duration-200 hover:scale-105 hover:shadow-[0_12px_40px_rgba(139,58,82,0.45)] active:scale-95"
+        className="fixed bottom-24 right-4 z-40 flex items-center gap-2 font-poppins font-semibold text-sm px-5 py-3.5 rounded-full text-white shadow-2xl transition-all duration-200 hover:scale-105 hover:shadow-[0_12px_40px_rgba(139,58,82,0.45)] active:scale-95 md:bottom-8 md:right-8"
         style={{
           background: 'linear-gradient(135deg,#C4768A,#8B3A52)',
           boxShadow: '0 8px 32px rgba(139,58,82,0.35)',
