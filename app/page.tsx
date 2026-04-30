@@ -931,6 +931,228 @@ function Locations() {
   )
 }
 
+// ─── ACADEMY TEASER ───────────────────────────────────────────────────────────
+
+const ACADEMY_COURSES = [
+  {
+    slug: 'makeup',
+    title: 'Makeup',
+    duration: '1–2 months',
+    image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777463680/Makeup_course_hetn7w.png',
+    careers: ['Makeup Artist', 'Bridal Stylist'],
+    accent: '#8B3A52',
+  },
+  {
+    slug: 'hair',
+    title: 'Hair',
+    duration: '3–6 months',
+    image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777463678/Hair_course_brxz2u.png',
+    careers: ['Hair Colourist', 'Fashion Stylist'],
+    accent: '#C8974A',
+  },
+  {
+    slug: 'skin',
+    title: 'Skin',
+    duration: '3–6 months',
+    image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777463675/Skin_course_dqtf7c.png',
+    careers: ['Aesthetician', 'Beauty Therapist'],
+    accent: '#C4768A',
+  },
+  {
+    slug: 'nail-art',
+    title: 'Nail Art',
+    duration: '1–2 months',
+    image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777463671/Nail_Art_course_taldxt.png',
+    careers: ['Nail Technician', 'Nail Artist'],
+    accent: '#8B3A52',
+  },
+  {
+    slug: 'Cosmetology',
+    title: 'Cosmetology',
+    duration: '3–6 months',
+    image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777463677/Cosmetology_Course_lf7c5p.png',
+    careers: ['Salon Manager', 'Beauty Educator'],
+    accent: '#B07080',
+  },
+]
+
+const ACADEMY_STATS = [
+  { n: '5+',    label: 'Professional Courses' },
+  { n: '100%',  label: 'Hands-On Training'    },
+  { n: '1:1',   label: 'Mentorship Focus'     },
+  { n: '∞',     label: 'Career Possibilities' },
+]
+
+function AcademyTeaser() {
+  return (
+    <section
+      id="academy"
+      aria-labelledby="academy-heading"
+      style={{ background: '#3D2B2B' }}
+      className="relative overflow-hidden py-24 px-5 sm:px-8 md:px-16"
+    >
+      {/* Subtle background glow blobs */}
+      <div aria-hidden="true" className="pointer-events-none absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full opacity-[0.06]"
+        style={{ background: '#C4768A', filter: 'blur(80px)' }} />
+      <div aria-hidden="true" className="pointer-events-none absolute -bottom-40 -right-40 w-[400px] h-[400px] rounded-full opacity-[0.06]"
+        style={{ background: '#C8974A', filter: 'blur(80px)' }} />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+
+        {/* ── Top: label + headline + sub + CTAs ── */}
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-14">
+          <div className="max-w-xl">
+            {/* Eyebrow */}
+            <div className="inline-flex items-center gap-2 mb-5 px-3.5 py-1.5 rounded-full border"
+              style={{ borderColor: 'rgba(196,118,138,0.30)', background: 'rgba(196,118,138,0.08)' }}>
+              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#C4768A' }} />
+              <span className="font-poppins text-[10px] font-semibold tracking-[0.22em] uppercase" style={{ color: '#C4768A' }}>
+                DoorStep Diva Academy
+              </span>
+            </div>
+
+            {/* Headline */}
+            <h2
+              id="academy-heading"
+              className="font-playfair font-bold leading-[1.1] mb-4"
+              style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', color: '#ffffff' }}
+            >
+              Turn Your Passion<br />
+              <em style={{
+                fontStyle: 'italic',
+                background: 'linear-gradient(120deg, #C4768A 20%, #C8974A 80%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}>
+                Into a Profession.
+              </em>
+            </h2>
+
+            {/* Sub */}
+            <p className="font-poppins text-sm leading-relaxed mb-7"
+              style={{ color: 'rgba(255,255,255,0.55)', maxWidth: '420px' }}>
+              5 professional courses. Hands-on training by working artists. Industry certification on completion.
+            </p>
+
+            {/* Trust pills */}
+            <div className="flex flex-wrap gap-2 mb-8">
+              {['Class 10 Eligible', 'No Experience Needed', 'Certified on Completion', 'Taught by Pros'].map((pill) => (
+                <span key={pill}
+                  className="font-poppins text-[10px] font-medium px-3 py-1.5 rounded-full"
+                  style={{ background: 'rgba(239,204,212,0.10)', color: 'rgba(239,204,212,0.80)', border: '1px solid rgba(239,204,212,0.15)' }}>
+                  {pill}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* CTAs */}
+          <div className="flex flex-wrap gap-3 lg:flex-col lg:items-end flex-shrink-0">
+            <Link
+              href="/academy"
+              className="inline-flex items-center gap-2 font-poppins text-sm font-semibold px-6 py-3 rounded-full text-white transition-all duration-200 hover:opacity-90 hover:scale-[1.02]"
+              style={{ background: 'linear-gradient(135deg,#C4768A,#8B3A52)', boxShadow: '0 8px 24px rgba(139,58,82,0.35)' }}
+            >
+              Explore All Courses
+              <IconChevronRight />
+            </Link>
+            <Link
+              href="/academy#enquire"
+              className="inline-flex items-center gap-2 font-poppins text-sm font-semibold px-6 py-3 rounded-full transition-all duration-200 hover:bg-white/10"
+              style={{ border: '1px solid rgba(255,255,255,0.25)', color: 'rgba(255,255,255,0.80)' }}
+            >
+              Enquire Now
+            </Link>
+          </div>
+        </div>
+
+        {/* ── Course cards ── */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-14">
+          {ACADEMY_COURSES.map((course) => (
+            <Link
+              key={course.slug}
+              href={`/academy/${course.slug}`}
+              className="group relative rounded-2xl overflow-hidden block"
+              style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.25)' }}
+            >
+              {/* Image */}
+              <div className="relative h-44 sm:h-52 overflow-hidden">
+                <img
+                  src={course.image}
+                  alt={`${course.title} course at DoorStep Diva Academy`}
+                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-108"
+                  style={{ transition: 'transform 0.7s ease' }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+
+                {/* Duration badge */}
+                <span
+                  className="absolute top-3 left-3 font-poppins text-[9px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full"
+                  style={{ background: 'rgba(0,0,0,0.50)', color: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(4px)', border: '1px solid rgba(255,255,255,0.15)' }}
+                >
+                  {course.duration}
+                </span>
+
+                {/* Arrow */}
+                <div
+                  className="absolute top-3 right-3 w-7 h-7 rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: course.accent }}
+                >
+                  <IconChevronRight />
+                </div>
+
+                {/* Bottom info */}
+                <div className="absolute bottom-0 left-0 right-0 p-3.5">
+                  <h3 className="font-playfair text-base font-bold text-white mb-1.5">{course.title}</h3>
+                  <div className="flex flex-col gap-0.5">
+                    {course.careers.map((c) => (
+                      <span key={c} className="font-poppins text-[9px] text-white/60">{c}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Hover glow border */}
+              <div
+                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                style={{ boxShadow: `inset 0 0 0 1.5px ${course.accent}70` }}
+              />
+            </Link>
+          ))}
+        </div>
+
+        {/* ── Stats strip ── */}
+        <div
+          className="grid grid-cols-2 sm:grid-cols-4 gap-4 rounded-2xl p-6 sm:p-8"
+          style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+        >
+          {ACADEMY_STATS.map(({ n, label }) => (
+            <div key={label} className="text-center">
+              <p
+                className="font-playfair text-3xl font-bold mb-1"
+                style={{
+                  background: 'linear-gradient(120deg, #C4768A, #C8974A)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
+                {n}
+              </p>
+              <p className="font-poppins text-[10px] uppercase tracking-widest font-medium"
+                style={{ color: 'rgba(255,255,255,0.40)' }}>
+                {label}
+              </p>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  )
+}
+
 // ─── FAQ ──────────────────────────────────────────────────────────────────────
 
 function FAQ() {
@@ -1126,6 +1348,7 @@ export default function HomePage() {
       <About />
       <Testimonials />
       <Locations />
+      <AcademyTeaser />
       <FAQ />
       <Contact />
     </>
