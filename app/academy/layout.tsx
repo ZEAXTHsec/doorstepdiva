@@ -23,6 +23,13 @@ export const metadata: Metadata = {
   },
 }
 
+import AcademyPopup from '@/app/components/AcademyPopup'
+
 export default function AcademyLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  return (
+    <>
+      {children}
+      <AcademyPopup />
+    </>
+  )
 }

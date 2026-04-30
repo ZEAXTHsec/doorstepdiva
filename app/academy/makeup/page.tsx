@@ -18,7 +18,7 @@ const course: CourseData = {
     'Industry-standard tools and product knowledge',
     'Personal grooming and client consultation',
   ],
-  duration: { foundation: '1–2 months' },
+  duration: { foundation: '2-4 months' },
   eligibility: 'Class 10 (any stream)',
   careers: [
     { label: 'Makeup Artist' },
@@ -39,7 +39,7 @@ export const metadata = {
   keywords: ['makeup artist course', 'professional makeup course Delhi', 'HD makeup training', 'airbrush makeup course', 'Doorstep Diva Academy'],
   openGraph: {
     title: 'Make Up Course | Doorstep Diva Academy',
-    description: 'Become a professional makeup artist with our 1–2 month foundation and advanced makeup courses.',
+    description: 'Become a professional makeup artist with our 2-4 month foundation and advanced makeup courses.',
     images: ['https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777463680/Makeup_course_hetn7w.png'],
   },
 }

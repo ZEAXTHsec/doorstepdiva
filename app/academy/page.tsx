@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import AcademyEnquiryForm from '@/app/components/AcademyEnquiryForm'
 
 const COURSES = [
   {
@@ -57,8 +58,7 @@ const COURSES = [
 const STATS = [
   { value: '5+', label: 'Professional Courses' },
   { value: '100%', label: 'Hands-On Training' },
-  { value: 'Class 10', label: 'Minimum Eligibility' },
-  { value: 'Delhi NCR', label: 'Location' },
+  { value: 'Ayodhya', label: 'Location' },
 ]
 
 export default function AcademyPage() {
@@ -107,13 +107,11 @@ export default function AcademyPage() {
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
                 <a
-                  href="https://wa.me/917985183449?text=Hi%2C+I%27m+interested+in+enrolling+at+Doorstep+Diva+Academy"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#enquire"
                   className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-7 py-3.5 rounded-full border-2 transition-all duration-200 hover:bg-rose/5"
                   style={{ borderColor: '#8B3A52', color: '#8B3A52' }}
                 >
-                  Enquire on WhatsApp
+                  Enquire Now
                 </a>
               </div>
             </div>
@@ -287,13 +285,11 @@ export default function AcademyPage() {
               Talk to our counsellors and find the perfect programme for your goals and schedule.
             </p>
             <a
-              href="https://wa.me/917985183449?text=Hi%2C+I%27d+like+guidance+on+which+Doorstep+Diva+Academy+course+is+right+for+me"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#enquire"
               className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-6 py-3 rounded-full bg-white transition-all duration-200 hover:scale-[1.04]"
               style={{ color: '#8B3A52' }}
             >
-              Chat on WhatsApp
+              Enquire Now
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
@@ -401,6 +397,80 @@ export default function AcademyPage() {
         </div>
       </section>
 
+      {/* ── Enquiry Form Section ── */}
+      <section
+        id="enquire"
+        aria-labelledby="academy-form-heading"
+        className="py-20 md:py-28"
+        style={{ background: 'linear-gradient(180deg,#fff 0%,#FDF0F0 100%)' }}
+      >
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-16">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+
+            {/* Left copy */}
+            <div className="reveal fade-up">
+              <p
+                className="font-poppins text-xs font-semibold tracking-[0.22em] uppercase mb-4"
+                style={{ color: '#C4768A' }}
+              >
+                Seats Are Limited
+              </p>
+              <h2
+                id="academy-form-heading"
+                className="font-playfair text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-5"
+                style={{ color: '#3D2B2B' }}
+              >
+                Ready to Start<br />
+                <span style={{ color: '#8B3A52' }}>Your Journey?</span>
+              </h2>
+              <p className="font-poppins text-base leading-relaxed mb-6" style={{ color: '#7A5C5C' }}>
+                Fill in your details and our counsellors will reach out with course fees, batch timings, and everything you need to get started.
+              </p>
+              <ul className="flex flex-col gap-3">
+                {[
+                  'Free course consultation call',
+                  'Flexible morning & weekend batches',
+                  'Industry certification on completion',
+                  'No prior experience required',
+                ].map(point => (
+                  <li key={point} className="flex items-center gap-3 font-poppins text-sm" style={{ color: '#7A5C5C' }}>
+                    <span
+                      className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
+                      style={{ background: 'rgba(139,58,82,0.10)', color: '#8B3A52' }}
+                    >
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                    </span>
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Right — form card */}
+            <div
+              className="rounded-2xl p-7 sm:p-9 reveal fade-up"
+              style={{
+                background: 'rgba(255,255,255,0.90)',
+                border: '1px solid rgba(196,118,138,0.18)',
+                boxShadow: '0 16px 56px rgba(139,58,82,0.10)',
+                animationDelay: '0.12s',
+              }}
+            >
+              <h3 className="font-playfair text-xl font-bold mb-1" style={{ color: '#3D2B2B' }}>
+                Enquire About a Course
+              </h3>
+              <p className="font-poppins text-xs mb-5" style={{ color: '#9A7A7A' }}>
+                We&apos;ll call you back within a few hours.
+              </p>
+              <AcademyEnquiryForm />
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* ── Final CTA ── */}
       <section className="max-w-7xl mx-auto px-5 sm:px-8 md:px-16 py-20 md:py-28">
         <div
@@ -419,9 +489,7 @@ export default function AcademyPage() {
             style={{ background: 'rgba(255,255,255,0.04)' }}
           />
 
-          <p
-            className="font-poppins text-xs font-semibold tracking-[0.22em] uppercase mb-4 text-white/60"
-          >
+          <p className="font-poppins text-xs font-semibold tracking-[0.22em] uppercase mb-4 text-white/60">
             Enrolments Open
           </p>
           <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-5">
