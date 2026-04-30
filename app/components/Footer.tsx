@@ -223,12 +223,22 @@ export default function Footer() {
           >
             © {new Date().getFullYear()} DoorStep Diva. All rights reserved.
           </p>
-          <p
-            className="font-poppins text-xs"
-            style={{ color: 'rgba(239,204,212,0.35)' }}
-          >
-            Made with ❤️ in India
-          </p>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/privacy-policy"
+              className="font-poppins text-xs transition-colors hover:text-white"
+              style={{ color: 'rgba(239,204,212,0.35)' }}
+            >
+              Privacy Policy
+            </Link>
+            <span style={{ color: 'rgba(239,204,212,0.15)' }}>·</span>
+            <p
+              className="font-poppins text-xs"
+              style={{ color: 'rgba(239,204,212,0.35)' }}
+            >
+              Made with ❤️ in India
+            </p>
+          </div>
         </div>
       </div>
     </footer>
