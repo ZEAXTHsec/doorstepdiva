@@ -26,18 +26,36 @@ export default function AcademyPopup() {
 
   return (
     <>
-      {/* ── Floating "Enrol Now" trigger button ── */}
+      {/*
+        ── Floating "Enrol Now" trigger button ──
+        Mobile: sits above the mobile sticky bar (bottom-20) on the right
+        Desktop: sits above the WhatsApp bubble (bottom-24 = 6rem, WA bubble is at 1.5rem)
+                 so both are visible without overlap
+      */}
       <button
         onClick={() => setOpen(true)}
         aria-label="Open academy enrolment enquiry form"
-        className="fixed bottom-24 right-4 z-40 flex items-center gap-2 font-poppins font-semibold text-sm px-5 py-3.5 rounded-full text-white shadow-2xl transition-all duration-200 hover:scale-105 hover:shadow-[0_12px_40px_rgba(139,58,82,0.45)] active:scale-95 md:bottom-8 md:right-8"
+        className="
+          fixed z-40 flex items-center gap-2
+          font-poppins font-semibold text-sm
+          px-5 py-3 rounded-full text-white
+          transition-all duration-200
+          hover:scale-105 active:scale-95
+          bottom-20 right-4
+          md:bottom-24 md:right-6
+        "
         style={{
           background: 'linear-gradient(135deg,#C4768A,#8B3A52)',
-          boxShadow: '0 8px 32px rgba(139,58,82,0.35)',
+          boxShadow: '0 8px 32px rgba(139,58,82,0.40)',
         }}
       >
         {/* Pencil / enrol icon */}
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg
+          width="15" height="15" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor"
+          strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+          aria-hidden="true"
+        >
           <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
         </svg>
         Enrol Now

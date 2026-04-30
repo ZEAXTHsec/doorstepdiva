@@ -2,10 +2,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const QUICK_LINKS = [
-  { href: '/',         label: 'Home' },
-  { href: '/about',   label: 'Our Story' },
-  { href: '/areas',   label: 'Areas We Serve' },
-  { href: '/#contact',label: 'Book Now' },
+  { href: '/',              label: 'Home' },
+  { href: '/about',         label: 'Our Story' },
+  { href: '/areas',         label: 'Areas We Serve' },
+  { href: '/academy',       label: 'Academy' },
+  { href: '/#contact',      label: 'Book Now' },
 ]
 
 const SERVICE_LINKS = [
@@ -15,6 +16,14 @@ const SERVICE_LINKS = [
   { href: '/services/eyelash',        label: 'Eyelash & Brow' },
   { href: '/services/semi-permanent', label: 'Semi-Permanent' },
   { href: '/services/nails',          label: 'Nail Extensions' },
+]
+
+const ACADEMY_LINKS = [
+  { href: '/academy/makeup',      label: 'Makeup Course' },
+  { href: '/academy/hair',        label: 'Hair Course' },
+  { href: '/academy/skin',        label: 'Skin Course' },
+  { href: '/academy/nail-art',    label: 'Nail Art Course' },
+  { href: '/academy/Cosmetology', label: 'Cosmetology' },
 ]
 
 const AREAS = ['Delhi NCR', 'Noida', 'Gurugram', 'Lucknow', 'Ayodhya']
@@ -29,7 +38,7 @@ export default function Footer() {
       <div style={{ height: 2, background: 'linear-gradient(90deg, transparent, #C4768A 40%, #EFCCD4 60%, transparent)' }} />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-16 pt-14 pb-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
 
           {/* Col 1 — Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
@@ -59,9 +68,7 @@ export default function Footer() {
                 style={{ background: 'rgba(239,204,212,0.12)', border: '1px solid rgba(239,204,212,0.18)' }}
               >
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#EFCCD4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                  <circle cx="12" cy="12" r="4"/>
-                  <circle cx="17.5" cy="6.5" r="1" fill="#EFCCD4" stroke="none"/>
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#EFCCD4" stroke="none"/>
                 </svg>
               </a>
               <a
@@ -137,7 +144,30 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 4 — Contact */}
+          {/* Col 4 — Academy */}
+          <div>
+            <h4
+              className="font-poppins text-[10px] font-semibold tracking-widest uppercase mb-5"
+              style={{ color: '#C4768A' }}
+            >
+              Academy
+            </h4>
+            <ul className="space-y-3">
+              {ACADEMY_LINKS.map(({ href, label }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="font-poppins text-sm transition-colors hover:text-white"
+                    style={{ color: 'rgba(239,204,212,0.7)' }}
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Col 5 — Contact */}
           <div>
             <h4
               className="font-poppins text-[10px] font-semibold tracking-widest uppercase mb-5"
