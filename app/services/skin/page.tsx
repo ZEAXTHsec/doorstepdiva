@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import Link from 'next/link'
+import AddToCartButton from '@/app/components/AddToCartButton'
 
 const BREADCRUMB = [
   { href: '/', label: 'Home' },
@@ -184,11 +185,25 @@ function ServiceCard({
           <span className="font-poppins text-xs text-stone-light">{item.reviews}</span>
         </div>
         <p className="font-poppins text-sm text-stone-light leading-relaxed mb-4 flex-1">{item.desc}</p>
-        <div className="flex items-center gap-1.5 font-poppins text-xs font-semibold text-rose group-hover:gap-3 transition-all duration-200">
-          View Details
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
+        <div className="flex items-center justify-between">
+          <Link href={item.hash ? `${item.slug}#${item.hash}` : item.slug}
+            className="flex items-center gap-1.5 font-poppins text-xs font-semibold text-rose group-hover:gap-3 transition-all duration-200"
+          >
+            View Details
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </Link>
+          <AddToCartButton
+            variant="inline"
+            id={item.slug}
+            name={item.title}
+            price={parseInt(item.price.replace(/[^0-9]/g, '')) || 0}
+            duration={item.duration || ''}
+            image={item.image}
+            category="Skin"
+            href={item.slug}
+          />
         </div>
       </div>
     </Link>

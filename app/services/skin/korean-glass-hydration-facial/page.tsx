@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import Link from 'next/link'
+import AddToCartButton from '@/app/components/AddToCartButton'
 
 const BREADCRUMB = [
   { href: '/', label: 'Home' },
@@ -274,10 +275,20 @@ export default function KoreanGlassFacialPage() {
 
               {/* CTAs */}
               <div className="flex flex-wrap gap-3">
+                <AddToCartButton
+                  variant="full"
+                  id="korean-glass-hydration-facial"
+                  name="Korean Glass Hydration Facial"
+                  price={1749}
+                  duration="1 hr 20 mins"
+                  image="https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175149/Skin_service_nrbzmt.png"
+                  category="Skin · Facial"
+                  href="/services/skin/korean-glass-hydration-facial"
+                />
                 <a href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer"
-                  className="btn-press inline-flex items-center gap-3 font-poppins text-sm font-semibold px-8 py-4 bg-rose text-white hover:bg-mauve transition-colors duration-300 rounded-full shadow-lg shadow-rose/20">
+                  className="btn-press inline-flex items-center gap-3 font-poppins text-sm font-semibold px-6 py-4 bg-[#25D366] text-white hover:opacity-90 transition-opacity rounded-full shadow-md shadow-green-500/20">
                   <WAIcon size={16} />
-                  Book This Service
+                  WhatsApp
                 </a>
                 <Link href="/services/skin"
                   className="font-poppins text-sm font-medium px-6 py-4 border border-blush/40 text-stone-light hover:text-rose hover:border-rose/40 transition-colors duration-300 rounded-full">

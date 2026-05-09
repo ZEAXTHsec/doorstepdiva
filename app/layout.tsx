@@ -5,6 +5,8 @@ import './globals.css'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import ScrollRevealInit from './components/ScrollRevealInit'
+import { CartProvider } from './context/CartContext'
+import CartDrawer from './components/CartDrawer'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -46,6 +48,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${poppins.variable}`}>
       <body className="bg-petal text-stone font-poppins antialiased">
+        <CartProvider>
         {/* Scroll reveal observer — runs once, watches all .reveal elements */}
         <ScrollRevealInit />
 
@@ -57,6 +60,9 @@ export default function RootLayout({
 
         {/* Site footer */}
         <Footer />
+
+        {/* Cart drawer */}
+        <CartDrawer />
 
         {/* WhatsApp floating button */}
         <a
@@ -137,6 +143,7 @@ export default function RootLayout({
             Book Now
           </a>
         </div>
+        </CartProvider>
       </body>
     </html>
   )
