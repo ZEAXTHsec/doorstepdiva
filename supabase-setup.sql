@@ -113,5 +113,9 @@ CREATE POLICY "Public insert bookings" ON bookings FOR INSERT WITH CHECK (true);
 -- Public can read their own bookings (by phone — optional, for future lookup)
 CREATE POLICY "Public read own bookings" ON bookings FOR SELECT USING (true);
 
--- Service role bypasses RLS entirely (used by API routes with anon key)
--- The admin password check in API routes handles authorization
+-- Admin writes are authorized by password check in API routes, not by RLS
+CREATE POLICY "Public update availability_config" ON availability_config FOR UPDATE USING (true) WITH CHECK (true);
+CREATE POLICY "Public insert blocked_dates" ON blocked_dates FOR INSERT WITH CHECK (true);
+CREATE POLICY "Public delete blocked_dates" ON blocked_dates FOR DELETE USING (true);
+CREATE POLICY "Public update bookings" ON bookings FOR UPDATE USING (true) WITH CHECK (true);
+CREATE POLICY "Public update booking_settings" ON booking_settings FOR UPDATE USING (true) WITH CHECK (true);
