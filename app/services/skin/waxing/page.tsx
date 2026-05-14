@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import Link from 'next/link'
+import AddToCartButton from '@/app/components/AddToCartButton'
 
 const BREADCRUMB = [
   { href: '/', label: 'Home' },
@@ -154,6 +155,7 @@ export default function WaxingPage() {
                       <StarIcon filled={true} size={10} />
                     </div>
                     <span className="font-poppins text-xs text-stone-light">{wax.reviews}</span>
+                    <AddToCartButton variant="inline" id={wax.id} name={wax.title} price={parseInt(wax.price.replace(/[^0-9]/g, '')) || 0} duration={wax.duration} image="https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175149/Skin_service_nrbzmt.png" category="Skin" href="/book" />
                   </div>
 
                   <a href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer"

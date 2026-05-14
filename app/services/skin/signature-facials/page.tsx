@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import Link from 'next/link'
+import AddToCartButton from '@/app/components/AddToCartButton'
 
 const BREADCRUMB = [
   { href: '/', label: 'Home' },
@@ -119,10 +120,22 @@ export default function SignatureFacialsPage() {
                     </div>
                     <span className="font-poppins text-xs text-stone-light">{facial.reviews}</span>
                   </div>
-                  <a href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer"
-                    className="btn-press inline-flex items-center gap-2.5 font-poppins text-sm font-semibold px-6 py-3 bg-rose text-white hover:bg-mauve transition-colors duration-300 rounded-full">
-                    <WAIcon size={14} /> Book at {facial.price}
-                  </a>
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <a href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer"
+                      className="btn-press inline-flex items-center gap-2.5 font-poppins text-sm font-semibold px-6 py-3 bg-rose text-white hover:bg-mauve transition-colors duration-300 rounded-full">
+                      <WAIcon size={14} /> Book at {facial.price}
+                    </a>
+                    <AddToCartButton
+                      variant="inline"
+                      id={facial.title}
+                      name={facial.title}
+                      price={parseInt(facial.price.replace(/[₹,]/g, ''))}
+                      duration={facial.tagline.match(/\d+\s*mins?/)?.[0] || ''}
+                      image="https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175149/Skin_service_nrbzmt.png"
+                      category="Skin"
+                      href="/book"
+                    />
+                  </div>
                 </div>
                 <div className="flex items-center justify-center">
                   <div className="w-32 h-32 rounded-full flex items-center justify-center"
