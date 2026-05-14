@@ -1,113 +1,145 @@
 import type { Metadata } from 'next'
-import { Poppins, Playfair_Display } from 'next/font/google'
-import Link from 'next/link'
+import { Playfair_Display, Poppins } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
-
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  variable: '--font-poppins',
-})
+import Header from './components/Header'
+import Footer from './components/Footer'
+import ScrollRevealInit from './components/ScrollRevealInit'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  style: ['normal', 'italic'],
   variable: '--font-playfair',
+  display: 'swap',
+  weight: ['400', '500', '600', '700', '800'],
+})
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  variable: '--font-poppins',
+  display: 'swap',
+  weight: ['300', '400', '500', '600', '700'],
 })
 
 export const metadata: Metadata = {
-  title: 'DoorStep Diva — Beauty at Your Door',
-  description: 'Professional salon services delivered to your doorstep.',
+  title: 'DoorStep Diva — Salon-Quality Beauty At Your Door',
+  description:
+    'Six professional beauty divisions — hair, skin, makeup, lashes, semi-permanent makeup & nails — by certified artists, delivered wherever you are across Delhi NCR, Lucknow & Ayodhya.',
+  keywords:
+    'at home salon Delhi, doorstep beauty service, home beauty artist, mobile salon NCR, bridal makeup at home',
+  icons: {
+    icon: '/favicon.png',
+  },
+  openGraph: {
+    title: 'DoorStep Diva — Salon-Quality Beauty At Your Door',
+    description:
+      'Certified beauty artists bringing salon services to your home across Delhi NCR, Lucknow & Ayodhya.',
+    url: 'https://doorstepdiva.com',
+    type: 'website',
+  },
 }
 
-const navLinks = [
-  { href: '#services', label: 'Services' },
-  { href: '#about',    label: 'About'    },
-  { href: '#contact',  label: 'Book Now' },
-]
-
-function Navbar() {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <header className="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">
-      <nav className="flex items-center justify-between px-6 md:px-16 h-20 max-w-7xl mx-auto">
-        <Link href="/" className="flex flex-col leading-none">
-          <span className="font-playfair text-2xl font-semibold text-rose">DoorStep</span>
-          <span className="font-poppins text-[9px] tracking-[0.4em] uppercase text-mauve font-medium">Diva</span>
-        </Link>
-        <ul className="hidden md:flex items-center gap-10">
-          {navLinks.slice(0, 2).map(({ href, label }) => (
-            <li key={href}>
-              <Link href={href} className="font-poppins text-xs tracking-widest uppercase text-stone-light hover:text-rose transition-colors font-medium">
-                {label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <Link
-          href="#contact"
-          className="font-poppins text-xs tracking-widest uppercase px-7 py-3 bg-rose text-white hover:bg-mauve transition-colors duration-300 font-medium rounded-full"
-        >
-          Book Now
-        </Link>
-      </nav>
-    </header>
-  )
-}
+    <html lang="en" className={`${playfair.variable} ${poppins.variable}`}>
+      <body className="bg-petal text-stone font-poppins antialiased">
+        {/* Scroll reveal observer — runs once, watches all .reveal elements */}
+        <ScrollRevealInit />
 
-function Footer() {
-  return (
-    <footer className="bg-stone px-6 md:px-16 py-16">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start gap-12 pb-12 border-b border-white/10">
-          <div className="max-w-xs">
-            <p className="font-playfair text-3xl font-semibold text-blush mb-1">DoorStep Diva</p>
-            <p className="font-poppins text-[10px] tracking-[0.35em] uppercase text-mauve font-medium mb-5">Beauty at Your Door</p>
-            <p className="font-poppins text-sm text-white/50 leading-relaxed">
-              Six service divisions. One certified team. Glow on your terms.
-            </p>
-          </div>
-          <div className="flex gap-16">
-            <div>
-              <p className="font-poppins text-[10px] tracking-widest uppercase text-rose-light font-semibold mb-5">Navigate</p>
-              <div className="flex flex-col gap-3">
-                {navLinks.map(({ href, label }) => (
-                  <Link key={href} href={href} className="font-poppins text-sm text-white/50 hover:text-blush transition-colors">{label}</Link>
-                ))}
-              </div>
-            </div>
-            <div>
-              <p className="font-poppins text-[10px] tracking-widest uppercase text-rose-light font-semibold mb-5">Services</p>
-              <div className="flex flex-col gap-3">
-                {[
-                  { label: 'Hair', href: '/services/hair' },
-                  { label: 'Skin', href: '/services/skin' },
-                  { label: 'Makeup', href: '/services/makeup' },
-                  { label: 'Eyelash', href: '/services/eyelash' },
-                  { label: 'Semi-Permanent', href: '/services/semi-permanent' },
-                  { label: 'Nails', href: '/services/nails' },
-                ].map(s => (
-                  <Link key={s.href} href={s.href} className="font-poppins text-sm text-white/50 hover:text-blush transition-colors">{s.label}</Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-        <p className="font-poppins text-xs text-white/20 mt-8">
-          © {new Date().getFullYear()} DoorStep Diva. All rights reserved.
-        </p>
-      </div>
-    </footer>
-  )
-}
+        {/* Site header — fixed, always visible */}
+        <Header />
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en" className={`${poppins.variable} ${playfair.variable}`}>
-      <body className="bg-petal text-stone antialiased">
-        <Navbar />
-        <main>{children}</main>
+        {/* Page content — padded below fixed header, padded above mobile sticky bar */}
+        <main className="pt-28 pb-16 md:pb-0">{children}</main>
+
+        {/* Site footer */}
         <Footer />
+
+        {/* WhatsApp floating button */}
+        <a
+          href="https://wa.me/917985183449"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat on WhatsApp"
+          className="wa-float"
+        >
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+        </a>
+
+        {/* Meta Pixel */}
+        <Script id="meta-pixel" strategy="afterInteractive">{`
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window,document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', '1368419805120181');
+          fbq('track', 'PageView');
+        `}</Script>
+        <noscript>
+          <img height="1" width="1" style={{ display: 'none' }}
+            src="https://www.facebook.com/tr?id=1368419805120181&ev=PageView&noscript=1"
+            alt=""
+          />
+        </noscript>
+
+        {/* Razorpay checkout */}
+        <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
+
+        {/* Mobile sticky bottom bar — hidden on md and above */}
+        <div
+          className="fixed bottom-0 left-0 right-0 z-50 md:hidden flex"
+          style={{
+            background: 'white',
+            boxShadow: '0 -2px 20px rgba(139,58,82,0.12)',
+            borderTop: '1px solid rgba(196,118,138,0.15)',
+          }}
+        >
+          <a
+            href="tel:+917985183449"
+            className="flex-1 flex flex-col items-center justify-center gap-1 py-3 font-poppins text-[10px] font-semibold text-stone-light hover:text-rose transition-colors"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.9v2.02z"/>
+            </svg>
+            Call
+          </a>
+          <div style={{ width: 1, background: 'rgba(196,118,138,0.2)', margin: '8px 0' }} />
+          <a
+            href="https://wa.me/917985183449"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 flex flex-col items-center justify-center gap-1 py-3 font-poppins text-[10px] font-semibold transition-colors"
+            style={{ color: '#25D366' }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            WhatsApp
+          </a>
+          <div style={{ width: 1, background: 'rgba(196,118,138,0.2)', margin: '8px 0' }} />
+          <a
+            href="/#contact"
+            className="flex-1 flex flex-col items-center justify-center gap-1 py-3 font-poppins text-[10px] font-semibold text-white transition-opacity hover:opacity-85"
+            style={{ background: 'linear-gradient(135deg,#C4768A,#8B3A52)' }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            Book Now
+          </a>
+        </div>
       </body>
     </html>
   )
