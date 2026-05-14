@@ -3,14 +3,22 @@
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useCart } from '@/app/context/CartContext'
 
-const SERVICES_DROPDOWN = [
-  { href: '/services/hair',           label: 'Hair',            sub: 'Cuts · Color · Treatments'   },
-  { href: '/services/skin',           label: 'Skin',            sub: 'Waxing · Facials · Body Care' },
-  { href: '/services/makeup',         label: 'Makeup',          sub: 'Party · Bridal · Events'      },
-  { href: '/services/eyelash',        label: 'Eyelash',         sub: 'Classic · Hybrid · Volume'    },
-  { href: '/services/semi-permanent', label: 'Semi-Permanent',  sub: 'Microblading · Lip Blush'     },
-  { href: '/services/nails',          label: 'Nail Extensions', sub: 'Acrylic · Gel · PolyGel'      },
+const FEMALE_SERVICES = [
+  { href: '/services/skin',           label: 'Facial',             sub: 'Korean · Signature · Glow'   },
+  { href: '/services/skin/waxing',    label: 'Waxing & Threading', sub: 'Spatula · Roll-on · RICA'   },
+  { href: '/services/makeup',         label: 'Makeup',             sub: 'Party · Bridal · Events'     },
+  { href: '/services/hair',           label: 'Hair',               sub: 'Cuts · Color · Treatments'  },
+  { href: '/services/eyelash',        label: 'Eyelash',            sub: 'Classic · Hybrid · Volume'   },
+  { href: '/services/nails',          label: 'Nail Extensions',    sub: 'Acrylic · Gel · PolyGel'    },
+  { href: '/services/semi-permanent', label: 'Semi-Permanent',     sub: 'Microblading · Lip Blush'    },
+]
+
+const MALE_SERVICES = [
+  { href: '/services/hair',           label: 'Hair',               sub: 'Cuts · Color · Styling'     },
+  { href: '/services/skin',           label: 'Skin & Grooming',    sub: 'Facials · Cleanup · Care'   },
+  { href: '/services/makeup',         label: 'Grooming',           sub: 'Events · Wedding · Formal'   },
 ]
 
 export default function Header() {
@@ -39,6 +47,7 @@ export default function Header() {
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
+  const { itemCount, openCart } = useCart()
   const closeAll = () => { setMenuOpen(false); setDropOpen(false); setMobileSvcs(false) }
 
   return (
@@ -90,7 +99,7 @@ export default function Header() {
                   <polyline points="6 9 12 15 18 9"/>
                 </svg>
               </button>
-              {/* Dropdown */}
+              {/* Dropdown — Male / Female two-column */}
               <div
                 onMouseLeave={() => setDropOpen(false)}
                 style={{
@@ -100,7 +109,7 @@ export default function Header() {
                   opacity: dropOpen ? 1 : 0,
                   pointerEvents: dropOpen ? 'auto' : 'none',
                   transition: 'all .2s ease',
-                  width: '300px',
+                  width: '480px',
                   background: 'white',
                   borderRadius: '18px',
                   boxShadow: '0 20px 60px rgba(139,58,82,0.14), 0 4px 16px rgba(139,58,82,0.07)',
@@ -110,17 +119,35 @@ export default function Header() {
                 }}
               >
                 <div style={{ height: 2, background: 'linear-gradient(90deg, transparent, #C8974A 40%, #C4768A, transparent)' }} />
-                <div style={{ padding: '10px' }}>
-                  {SERVICES_DROPDOWN.map((s) => (
-                    <Link key={s.href} href={s.href} onClick={closeAll}
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-petal transition-colors duration-150 group/item"
-                    >
-                      <div>
-                        <p className="font-poppins text-[11px] font-semibold text-stone group-hover/item:text-rose transition-colors">{s.label}</p>
-                        <p className="font-poppins text-[10px] text-stone-light mt-0.5">{s.sub}</p>
-                      </div>
-                    </Link>
-                  ))}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', padding: '10px', gap: '8px' }}>
+                  {/* Female column */}
+                  <div>
+                    <p className="font-poppins text-[9px] font-bold tracking-[0.2em] uppercase px-3 py-2 mb-1" style={{ color: '#C4768A' }}>Women</p>
+                    {FEMALE_SERVICES.map((s) => (
+                      <Link key={s.href} href={s.href} onClick={closeAll}
+                        className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-petal transition-colors duration-150 group/item"
+                      >
+                        <div>
+                          <p className="font-poppins text-[11px] font-semibold text-stone group-hover/item:text-rose transition-colors">{s.label}</p>
+                          <p className="font-poppins text-[10px] text-stone-light mt-0.5">{s.sub}</p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                  {/* Male column */}
+                  <div style={{ borderLeft: '1px solid rgba(196,118,138,0.10)' }}>
+                    <p className="font-poppins text-[9px] font-bold tracking-[0.2em] uppercase px-3 py-2 mb-1" style={{ color: '#C8974A' }}>Men</p>
+                    {MALE_SERVICES.map((s) => (
+                      <Link key={s.href} href={s.href} onClick={closeAll}
+                        className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-petal transition-colors duration-150 group/item"
+                      >
+                        <div>
+                          <p className="font-poppins text-[11px] font-semibold text-stone group-hover/item:text-rose transition-colors">{s.label}</p>
+                          <p className="font-poppins text-[10px] text-stone-light mt-0.5">{s.sub}</p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -140,6 +167,25 @@ export default function Header() {
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center gap-2">
+            {/* Cart button */}
+            <button
+              onClick={openCart}
+              className="relative w-9 h-9 rounded-xl flex items-center justify-center hover:bg-rose/8 transition-colors"
+              aria-label={`Open cart, ${itemCount} items`}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="text-stone-light">
+                <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
+                <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6" />
+              </svg>
+              {itemCount > 0 && (
+                <span
+                  className="absolute -top-0.5 -right-0.5 w-5 h-5 rounded-full flex items-center justify-center font-poppins text-[10px] font-bold text-white"
+                  style={{ background: 'linear-gradient(135deg,#C4768A,#8B3A52)', boxShadow: '0 2px 6px rgba(139,58,82,0.3)' }}
+                >
+                  {itemCount > 9 ? '9+' : itemCount}
+                </span>
+              )}
+            </button>
             <a href="tel:+917985183449"
               className="hidden lg:flex items-center gap-1.5 font-poppins text-[11px] font-medium text-stone-light hover:text-rose transition-colors px-3 py-2 rounded-lg hover:bg-rose/5"
             >
@@ -165,17 +211,37 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Hamburger */}
-          <button
-            className="md:hidden w-10 h-10 flex flex-col gap-[5px] items-center justify-center rounded-xl hover:bg-rose/8 transition-colors"
-            onClick={() => setMenuOpen(o => !o)}
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={menuOpen}
-          >
+          {/* Mobile cart + hamburger */}
+          <div className="md:hidden flex items-center gap-1">
+            <button
+              onClick={openCart}
+              className="relative w-10 h-10 rounded-xl flex items-center justify-center hover:bg-rose/8 transition-colors"
+              aria-label={`Open cart, ${itemCount} items`}
+            >
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="text-stone-light">
+                <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
+                <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6" />
+              </svg>
+              {itemCount > 0 && (
+                <span
+                  className="absolute -top-0.5 -right-0.5 w-5 h-5 rounded-full flex items-center justify-center font-poppins text-[10px] font-bold text-white"
+                  style={{ background: 'linear-gradient(135deg,#C4768A,#8B3A52)', boxShadow: '0 2px 6px rgba(139,58,82,0.3)' }}
+                >
+                  {itemCount > 9 ? '9+' : itemCount}
+                </span>
+              )}
+            </button>
+            <button
+              className="w-10 h-10 flex flex-col gap-[5px] items-center justify-center rounded-xl hover:bg-rose/8 transition-colors"
+              onClick={() => setMenuOpen(o => !o)}
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={menuOpen}
+            >
             <span className={`block w-5 h-[1.5px] bg-stone rounded-full transition-all duration-300 origin-center ${menuOpen ? 'rotate-45 translate-y-[6.5px]' : ''}`} />
             <span className={`block w-5 h-[1.5px] bg-stone rounded-full transition-all duration-300 ${menuOpen ? 'opacity-0 scale-x-0' : ''}`} />
             <span className={`block w-5 h-[1.5px] bg-stone rounded-full transition-all duration-300 origin-center ${menuOpen ? '-rotate-45 -translate-y-[6.5px]' : ''}`} />
           </button>
+          </div>
         </div>
       </header>
 
@@ -224,8 +290,21 @@ export default function Header() {
             </svg>
           </button>
           <div style={{ display: mobileSvcs ? 'block' : 'none' }}>
-            <div className="pl-3 pb-2 pt-1 flex flex-col gap-1">
-              {SERVICES_DROPDOWN.map((s) => (
+            <div className="pl-2 pb-2 pt-1 flex flex-col gap-0.5">
+              <p className="font-poppins text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1.5" style={{ color: '#C4768A' }}>Women</p>
+              {FEMALE_SERVICES.map((s) => (
+                <Link key={s.href} href={s.href} onClick={closeAll}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-petal transition-colors"
+                >
+                  <div>
+                    <p className="font-poppins text-xs font-semibold text-stone">{s.label}</p>
+                    <p className="font-poppins text-[10px] text-stone-light">{s.sub}</p>
+                  </div>
+                </Link>
+              ))}
+              <div className="h-px mx-3 my-1" style={{ background: 'rgba(196,118,138,0.12)' }} />
+              <p className="font-poppins text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1.5" style={{ color: '#C8974A' }}>Men</p>
+              {MALE_SERVICES.map((s) => (
                 <Link key={s.href} href={s.href} onClick={closeAll}
                   className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-petal transition-colors"
                 >
