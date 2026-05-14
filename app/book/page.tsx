@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
+import { useCart } from '../context/CartContext'
 
 // ── Types ──────────────────────────────────────────────────
 
@@ -128,6 +129,7 @@ function WAIcon({ size = 16 }: { size?: number }) {
 // ── Main Page ──────────────────────────────────────────────
 
 export default function BookPage() {
+  const { items: cartItems, subtotal: cartSubtotal, clearCart } = useCart()
   const [settings, setSettings] = useState<BookingSettings | null>(null)
   const [form, setForm] = useState<FormData>(EMPTY_FORM)
   const [step, setStep] = useState<'form' | 'confirm' | 'success'>('form')
@@ -155,6 +157,18 @@ export default function BookPage() {
       .then(d => setSettings(d))
       .catch(() => {})
   }, [])
+
+  // ── Sync cart items into form ─────────────────────────
+  useEffect(() => {
+    if (cartItems.length > 0) {
+      const names = cartItems.map(i => `${i.name} (×${i.quantity})`)
+      setForm(prev => ({
+        ...prev,
+        service_type: names.join(', '),
+        addons: [], // addons from cart are part of service_type already
+      }))
+    }
+  }, [cartItems])
 
   // ── Fetch slots when date changes ───────────────────────
   useEffect(() => {
@@ -210,6 +224,7 @@ export default function BookPage() {
       ...form,
       appointment_date: selDate || undefined,
       appointment_time: selTime || undefined,
+      total_estimate: cartSubtotal > 0 ? cartSubtotal : undefined,
     }
 
     const res = await fetch('/api/book', {
@@ -241,6 +256,7 @@ export default function BookPage() {
     setResult(json.booking)
     setStep('success')
     setSubmitting(false)
+    clearCart()
   }
 
   // ── Razorpay payment (Mode B) ───────────────────────────
@@ -289,6 +305,7 @@ export default function BookPage() {
           if (res.ok) {
             setResult(json.booking)
             setStep('success')
+            clearCart()
           } else {
             setError(json.error || 'Failed to save booking after payment.')
           }
@@ -403,6 +420,27 @@ export default function BookPage() {
         {/* ── FORM ── */}
         <div className="bg-white rounded-3xl border border-blush/20 p-6 md:p-8 space-y-5">
 
+          {/* Cart summary */}
+          {cartItems.length > 0 && (
+            <div className="bg-petal/50 rounded-2xl p-5 border border-blush/15">
+              <p className="font-poppins text-xs font-semibold text-stone uppercase tracking-wider mb-3">Your Cart ({cartItems.length} {cartItems.length === 1 ? 'item' : 'items'})</p>
+              <div className="space-y-2">
+                {cartItems.map(item => (
+                  <div key={item.id} className="flex items-center justify-between text-sm">
+                    <span className="font-poppins text-sm text-stone">
+                      {item.name} <span className="text-stone-light">×{item.quantity}</span>
+                    </span>
+                    <span className="font-poppins text-sm font-semibold text-stone">₹{(item.price * item.quantity).toLocaleString('en-IN')}</span>
+                  </div>
+                ))}
+                <div className="border-t border-blush/20 pt-2 flex justify-between">
+                  <span className="font-poppins text-sm font-semibold text-stone">Estimated Total</span>
+                  <span className="font-playfair text-lg font-bold text-rose">₹{cartSubtotal.toLocaleString('en-IN')}</span>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Full Name */}
           <div>
             <label className="font-poppins text-xs font-semibold text-stone uppercase tracking-wider block mb-1.5">Full Name *</label>
@@ -447,25 +485,27 @@ export default function BookPage() {
             </div>
           </div>
 
-          {/* Service */}
-          <div>
-            <label className="font-poppins text-xs font-semibold text-stone uppercase tracking-wider block mb-1.5">Service Type *</label>
-            <select value={form.service_type} onChange={e => {
-              updateForm('service_type', e.target.value)
-              updateForm('addons', [])
-              setSelDate('')
-              setSelTime('')
-              setSlots([])
-            }}
-              className="w-full border border-blush/40 rounded-xl px-4 py-3 font-poppins text-sm text-stone placeholder-stone-light/50 focus:outline-none focus:border-rose/50 transition-colors bg-white">
-              <option value="">Select a service...</option>
-              {SERVICE_OPTIONS.map((o, i) =>
-                'group' in o
-                  ? <option key={i} disabled className="font-semibold text-rose bg-petal/30">{o.label}</option>
-                  : <option key={i} value={o.label}>{o.label}</option>
-              )}
-            </select>
-          </div>
+          {/* Service — dropdown only when cart is empty */}
+          {cartItems.length === 0 && (
+            <div>
+              <label className="font-poppins text-xs font-semibold text-stone uppercase tracking-wider block mb-1.5">Service Type *</label>
+              <select value={form.service_type} onChange={e => {
+                updateForm('service_type', e.target.value)
+                updateForm('addons', [])
+                setSelDate('')
+                setSelTime('')
+                setSlots([])
+              }}
+                className="w-full border border-blush/40 rounded-xl px-4 py-3 font-poppins text-sm text-stone placeholder-stone-light/50 focus:outline-none focus:border-rose/50 transition-colors bg-white">
+                <option value="">Select a service...</option>
+                {SERVICE_OPTIONS.map((o, i) =>
+                  'group' in o
+                    ? <option key={i} disabled className="font-semibold text-rose bg-petal/30">{o.label}</option>
+                    : <option key={i} value={o.label}>{o.label}</option>
+                )}
+              </select>
+            </div>
+          )}
 
           {/* Add-ons */}
           {addonsToShow.length > 0 && (
@@ -601,10 +641,10 @@ export default function BookPage() {
             </div>
           )}
 
-          {/* No service selected yet */}
-          {!form.service_type && (
+          {/* No service selected yet — only when cart empty */}
+          {!form.service_type && cartItems.length === 0 && (
             <div className="border-t border-blush/10 pt-5 text-center">
-              <p className="font-poppins text-xs text-stone-light/60">Select a service above to continue.</p>
+              <p className="font-poppins text-xs text-stone-light/60">Select a service above or add items to your cart first.</p>
             </div>
           )}
 

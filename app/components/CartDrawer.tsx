@@ -2,10 +2,12 @@
 
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useCart } from '@/app/context/CartContext'
 
 export default function CartDrawer() {
   const { items, removeItem, updateQuantity, clearCart, itemCount, subtotal, isOpen, closeCart, openCart } = useCart()
+  const router = useRouter()
   const overlayRef = useRef<HTMLDivElement>(null)
 
   // Close on Escape
@@ -179,12 +181,13 @@ export default function CartDrawer() {
                 <span className="font-playfair text-lg font-bold text-stone">₹{subtotal.toLocaleString('en-IN')}</span>
               </div>
 
-              {/* Checkout button — Razorpay integration point */}
+              {/* Checkout button — goes to booking page */}
               <button
+                onClick={() => { closeCart(); router.push('/book') }}
                 className="w-full font-poppins text-sm font-semibold py-3.5 rounded-xl text-white transition-all duration-200 hover:opacity-95 active:scale-[0.98]"
                 style={{ background: 'linear-gradient(135deg,#C4768A,#8B3A52)', boxShadow: '0 6px 20px rgba(139,58,82,0.22)' }}
               >
-                Proceed to Pay · ₹{subtotal.toLocaleString('en-IN')}
+                Proceed to Book · ₹{subtotal.toLocaleString('en-IN')}
               </button>
 
               {/* Clear cart */}
