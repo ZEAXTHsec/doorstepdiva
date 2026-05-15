@@ -225,6 +225,22 @@ export default function Footer() {
           </p>
           <div className="flex items-center gap-4">
             <Link
+              href="/returns"
+              className="font-poppins text-xs transition-colors hover:text-white"
+              style={{ color: 'rgba(239,204,212,0.35)' }}
+            >
+              Returns & Refunds
+            </Link>
+            <span style={{ color: 'rgba(239,204,212,0.15)' }}>·</span>
+            <Link
+              href="/terms"
+              className="font-poppins text-xs transition-colors hover:text-white"
+              style={{ color: 'rgba(239,204,212,0.35)' }}
+            >
+              Terms & Conditions
+            </Link>
+            <span style={{ color: 'rgba(239,204,212,0.15)' }}>·</span>
+            <Link
               href="/privacy-policy"
               className="font-poppins text-xs transition-colors hover:text-white"
               style={{ color: 'rgba(239,204,212,0.35)' }}

@@ -6,9 +6,15 @@ function isAuthorized(req: NextRequest) {
   return auth === process.env.ADMIN_PASSWORD
 }
 
-export async function GET() {
+export const dynamic = 'force-dynamic'
+
+export async function GET(_req: NextRequest) {
   const { data } = await supabase.from('booking_settings').select('*').single()
-  return NextResponse.json(data)
+  return NextResponse.json(data, {
+    headers: {
+      'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+    },
+  })
 }
 
 export async function PATCH(req: NextRequest) {

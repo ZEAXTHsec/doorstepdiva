@@ -152,10 +152,15 @@ export default function BookPage() {
 
   // ── Fetch settings ──────────────────────────────────────
   useEffect(() => {
-    fetch('/api/admin/settings')
-      .then(r => r.json())
-      .then(d => setSettings(d))
-      .catch(() => {})
+    const load = () => {
+      fetch('/api/admin/settings', { cache: 'no-store' })
+        .then(r => r.json())
+        .then(d => setSettings(d))
+        .catch(() => {})
+    }
+    load()
+    window.addEventListener('focus', load)
+    return () => window.removeEventListener('focus', load)
   }, [])
 
   // ── Sync cart items into form ─────────────────────────

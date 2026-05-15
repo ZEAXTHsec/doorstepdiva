@@ -8,7 +8,9 @@ const NAV_SECTIONS = [
   { id: 'party',       label: 'Party',        services: ['Natural Glam', 'Full Glam', 'Cocktail Glam', 'Festive Look'] },
   { id: 'engagement',  label: 'Engagement',    services: ['Engagement Look', 'Engagement Trial'] },
   { id: 'bridal',      label: 'Bridal',        services: ['Bridal Trial', 'Mehendi/Haldi', 'Sangeet', 'Wedding Day', 'Reception', 'Bridesmaid', 'Family'] },
+  { id: 'hd-bridal',   label: 'HD Bridal',     services: ['HD Natural Bridal', 'HD Full Glam Bridal', 'HD Reception'] },
   { id: 'draping',     label: 'Saree Draping', services: ['Basic Draping', 'Bridal Draping', 'Lehenga Styling'] },
+  { id: 'airbrush',    label: 'Airbrush',      services: ['Airbrush Party', 'Airbrush Bridal'] },
   { id: 'packages',    label: 'Packages',      services: ['Bridal + 2', 'Bridal + 4'] },
 ]
 
@@ -51,6 +53,17 @@ const SAREE_DRAPING: PricedItem[] = [
 const GROUP_PACKAGES: PricedItem[] = [
   { name: 'Bridal + 2 Bridesmaids', price: 12999, origPrice: 19999, time: '180 mins', desc: 'Full wedding day bridal + complementary makeup for two bridesmaids. Coordinated looks.' },
   { name: 'Bridal + 4 Bridesmaids', price: 16999, origPrice: 26999, time: '240 mins', desc: 'Full bridal + four bridesmaids. Cohesive party aesthetic with individual touches.' },
+]
+
+const HD_BRIDAL: PricedItem[] = [
+  { name: 'HD Natural Bridal', price: 25000, origPrice: 35000, time: '150 mins', desc: 'Ultra-HD camera-ready base with natural finish — lightweight coverage that looks like skin. Full bridal prep, outfit coordination, and 12+ hour wear.' },
+  { name: 'HD Full Glam Bridal', price: 32000, origPrice: 45000, time: '180 mins', desc: 'Complete HD transformation — full-coverage flawless base, editorial eye work, sculpted contour, and dramatic bridal finish. Includes hairstyling coordination.' },
+  { name: 'HD Reception Look', price: 28000, origPrice: 38000, time: '120 mins', desc: 'HD evening glam for the reception — luminous base, defined features, and red-carpet finish that photographs from every angle.' },
+]
+
+const AIRBRUSH: PricedItem[] = [
+  { name: 'Airbrush Party Makeup', price: 18000, origPrice: 25000, time: '90 mins', desc: 'Silicone-based airbrush application for a feather-light, waterproof finish. Ideal for parties, events, and occasions where you want a flawless look that lasts.' },
+  { name: 'Airbrush Bridal Makeup', price: 30000, origPrice: 42000, time: '150 mins', desc: 'Premium airbrush bridal application — ultra-fine mist for a poreless, long-wear finish. Waterproof, transfer-resistant, and built to last from ceremony to reception.' },
 ]
 
 const ADDONS: PricedItem[] = [
@@ -294,6 +307,52 @@ function MakeupContent() {
         </div>
       </section>
 
+      {/* ── HD BRIDAL MAKEUP ── */}
+      <section id="hd-bridal" className="max-w-7xl mx-auto px-6 md:px-16 pt-28">
+        <div className="text-center mb-14 reveal">
+          <p className="font-poppins label-caps text-rose mb-4">Premium Bridal</p>
+          <h2 className="font-playfair text-5xl font-bold text-stone mb-4">HD <em className="text-rose">Bridal Makeup</em></h2>
+          <p className="font-poppins text-stone-light text-base max-w-xl mx-auto">
+            Ultra high-definition bridal makeup designed for 4K photography and video. Flawless, lightweight coverage that looks like real skin — starting from ₹25,000.
+          </p>
+        </div>
+
+        <div className="overflow-x-auto rounded-2xl border border-rose/20 bg-white shadow-sm reveal max-w-6xl mx-auto">
+          <table className="w-full text-left border-collapse min-w-[650px]">
+            <thead>
+              <tr className="bg-rose/8">
+                <th className="font-poppins text-xs font-semibold text-stone px-6 py-4 uppercase tracking-wider">Service</th>
+                <th className="font-poppins text-xs font-semibold text-stone px-6 py-4 uppercase tracking-wider hidden sm:table-cell">Description</th>
+                <th className="font-poppins text-xs font-semibold text-stone px-6 py-4 uppercase tracking-wider">Time</th>
+                <th className="font-poppins text-xs font-semibold text-stone px-6 py-4 uppercase tracking-wider text-right">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {HD_BRIDAL.map((b, i) => (
+                <tr key={b.name} className={`border-t border-blush/10 hover:bg-petal/30 transition-colors ${i % 2 === 0 ? 'bg-white' : 'bg-cream/30'}`}>
+                  <td className="px-6 py-4 font-poppins text-sm font-semibold text-stone">
+                    {b.name}
+                    {i === 0 && <span className="ml-2 font-poppins text-[10px] font-semibold text-rose bg-rose/5 px-2 py-0.5 rounded-full">Starts at ₹25k</span>}
+                  </td>
+                  <td className="px-6 py-4 font-poppins text-xs text-stone-light hidden sm:table-cell">{b.desc}</td>
+                  <td className="px-6 py-4 font-poppins text-xs text-stone-light whitespace-nowrap">{b.time}</td>
+                  <td className="px-6 py-4 text-right"><PriceTag price={b.price} origPrice={b.origPrice} /><AddToCartButton variant="inline" id={b.name} name={b.name} price={b.price} duration={b.time || ''} image="https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png" category="Makeup" href="/book" /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="max-w-2xl mx-auto mt-10 reveal">
+          <div className="bg-rose/5 border border-rose/15 rounded-2xl p-5 text-center">
+            <p className="font-poppins text-xs text-stone-light leading-relaxed">
+              <span className="font-semibold text-rose">HD Bridal requires a consultation —</span> we use professional HD foundations (MAC, Kryolan, Charlotte Tilbury) and specialized lighting-aware techniques. A trial session is strongly recommended.{' '}
+              <a href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer" className="text-rose underline font-semibold">Book your consultation →</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ── SAREE DRAPING ── */}
       <section id="draping" className="max-w-7xl mx-auto px-6 md:px-16 pt-24">
         <div className="text-center mb-14 reveal">
@@ -321,6 +380,47 @@ function MakeupContent() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ── AIRBRUSH MAKEUP ── */}
+      <section id="airbrush" className="max-w-7xl mx-auto px-6 md:px-16 pt-28">
+        <div className="text-center mb-14 reveal">
+          <p className="font-poppins label-caps text-rose mb-4">Flawless Finish</p>
+          <h2 className="font-playfair text-5xl font-bold text-stone mb-4">Airbrush <em className="text-rose">Makeup</em></h2>
+          <p className="font-poppins text-stone-light text-base max-w-xl mx-auto">
+            Silicone-based airbrush application for a weightless, poreless finish. Waterproof, transfer-resistant, and built to last — bridal airbrush starts at ₹30,000.
+          </p>
+        </div>
+
+        <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {AIRBRUSH.map((a, i) => (
+            <div key={a.name} className={`reveal reveal-d${Math.min(i + 1, 2)} card-lift bg-white rounded-2xl p-8 border border-blush/20 ${i === 1 ? 'ring-1 ring-rose/20' : ''}`}>
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  {i === 1 && <span className="font-poppins text-[10px] font-semibold text-rose uppercase tracking-widest bg-rose/5 px-3 py-1 rounded-full mb-3 inline-block">Premium — ₹30,000</span>}
+                  <h3 className="font-playfair text-xl font-bold text-stone mt-2">{a.name}</h3>
+                </div>
+                <span className="font-poppins text-xs text-stone-light/70 whitespace-nowrap">{a.time}</span>
+              </div>
+              <p className="font-poppins text-sm text-stone-light leading-relaxed mb-6">{a.desc}</p>
+              <div className="flex items-center justify-between pt-4 border-t border-blush/10">
+                <PriceTag price={a.price} origPrice={a.origPrice} />
+                <AddToCartButton variant="inline" id={a.name} name={a.name} price={a.price} duration={a.time || ''} image="https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png" category="Makeup" href="/book" />
+                <span className="font-poppins text-[10px] font-semibold text-green-600 bg-green-50 px-2 py-1 rounded-full">
+                  Save ₹{a.origPrice - a.price}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="max-w-2xl mx-auto mt-10 reveal">
+          <div className="bg-cream rounded-2xl p-5 border border-blush/15 text-center">
+            <p className="font-poppins text-xs text-stone-light leading-relaxed">
+              <span className="font-semibold text-stone">What is airbrush makeup?</span> A fine mist of silicone-based foundation is sprayed onto the skin, creating an ultra-thin, even layer. It is waterproof, transfer-resistant, and lasts 12–16 hours — ideal for brides and events with heavy photography.
+            </p>
+          </div>
         </div>
       </section>
 
