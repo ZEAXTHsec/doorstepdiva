@@ -125,7 +125,12 @@ export default function AdminBookingsPage() {
       headers: getHeaders(),
       body: JSON.stringify({ id }),
     })
-    if (res.ok) fetchBookings()
+    if (res.ok) {
+      fetchBookings()
+    } else {
+      const json = await res.json().catch(() => ({ error: 'Unknown error' }))
+      alert('Delete failed: ' + (json.error || 'Something went wrong'))
+    }
     setActionLoading('')
   }
 

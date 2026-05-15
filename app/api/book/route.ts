@@ -2,6 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 import { getAvailableSlots, getSkillType, isMakeupService } from '@/lib/booking-utils'
+import { sendBookingNotification } from '@/lib/email'
 
 export const dynamic = 'force-dynamic'
 
@@ -13,7 +14,7 @@ export async function POST(req: NextRequest) {
     service_type, addons, city,
     appointment_date, appointment_time,
     razorpay_payment_id, razorpay_order_id,
-    notes,
+    total_estimate, notes,
   } = body
 
   // Validate required fields
@@ -55,6 +56,7 @@ export async function POST(req: NextRequest) {
     deposit_paid: !!razorpay_payment_id,
     razorpay_order_id: razorpay_order_id || null,
     razorpay_payment_id: razorpay_payment_id || null,
+    total_estimate: total_estimate || null,
     status: isMakeup ? 'pending' : (appointment_date ? 'confirmed' : 'pending'),
     notes: notes || null,
   }
@@ -84,6 +86,23 @@ export async function POST(req: NextRequest) {
     console.error('Booking insert error:', error)
     return NextResponse.json({ error: 'Failed to save booking' }, { status: 500 })
   }
+
+  // Fire-and-forget email notification
+  sendBookingNotification({
+    customer_name,
+    customer_phone,
+    customer_email,
+    customer_address,
+    service_type,
+    addons: addons || [],
+    city,
+    appointment_date: appointment_date || undefined,
+    appointment_time: appointment_time || undefined,
+    total_estimate: total_estimate || undefined,
+    notes: notes || undefined,
+    payment_mode: payload.payment_mode as string | undefined,
+    deposit_paid: !!razorpay_payment_id,
+  }).catch(() => {})
 
   return NextResponse.json({ success: true, booking: data })
 }

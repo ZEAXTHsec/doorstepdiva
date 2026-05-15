@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
+import { supabaseAdmin } from '@/lib/supabase-admin'
 
 function isAuthorized(req: NextRequest) {
   const auth = req.headers.get('x-admin-password')
@@ -20,7 +21,7 @@ export async function GET(_req: NextRequest) {
 export async function PATCH(req: NextRequest) {
   if (!isAuthorized(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   const body = await req.json()
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('booking_settings')
     .update({ ...body, updated_at: new Date().toISOString() })
     .eq('id', 1)

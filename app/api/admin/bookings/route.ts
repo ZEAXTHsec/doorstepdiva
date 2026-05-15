@@ -3,6 +3,7 @@
 // DELETE /api/admin/bookings — delete a booking
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
+import { supabaseAdmin } from '@/lib/supabase-admin'
 
 function isAuthorized(req: NextRequest) {
   const auth = req.headers.get('x-admin-password')
@@ -52,7 +53,7 @@ export async function PATCH(req: NextRequest) {
     if (k in updates) filtered[k] = updates[k]
   }
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('bookings')
     .update(filtered)
     .eq('id', id)
@@ -69,7 +70,7 @@ export async function DELETE(req: NextRequest) {
   const { id } = await req.json()
   if (!id) return NextResponse.json({ error: 'id required' }, { status: 400 })
 
-  const { error } = await supabase
+  const { error } = await supabaseAdmin
     .from('bookings')
     .delete()
     .eq('id', id)

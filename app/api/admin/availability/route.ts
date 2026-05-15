@@ -1,6 +1,7 @@
 // GET/PATCH /api/admin/availability — config + blocked dates
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
+import { supabaseAdmin } from '@/lib/supabase-admin'
 
 function isAuthorized(req: NextRequest) {
   const auth = req.headers.get('x-admin-password')
@@ -33,7 +34,7 @@ export async function PATCH(req: NextRequest) {
 
   if (action === 'update_config') {
     const { artist_id, updates } = body
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('availability_config')
       .update(updates)
       .eq('artist_id', artist_id)
@@ -45,7 +46,7 @@ export async function PATCH(req: NextRequest) {
 
   if (action === 'block_date') {
     const { date, artist_id, reason } = body
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('blocked_dates')
       .insert({ date, artist_id: artist_id || null, reason: reason || null })
       .select()
@@ -56,7 +57,7 @@ export async function PATCH(req: NextRequest) {
 
   if (action === 'unblock_date') {
     const { id } = body
-    const { error } = await supabase
+    const { error } = await supabaseAdmin
       .from('blocked_dates')
       .delete()
       .eq('id', id)
@@ -66,7 +67,7 @@ export async function PATCH(req: NextRequest) {
 
   if (action === 'toggle_pause') {
     const { artist_id, paused, message } = body
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('availability_config')
       .update({ bookings_paused: paused, pause_message: message || '' })
       .eq('artist_id', artist_id)
