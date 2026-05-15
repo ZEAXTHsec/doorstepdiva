@@ -286,7 +286,7 @@ export default function BookPage() {
     clearCart()
   }
 
-  // ── Razorpay payment (Mode B) ───────────────────────────
+  // ── Razorpay payment (non-makeup) ──────────────────────
   async function initiatePayment() {
     const v = validateForm()
     if (v) { setError(v); return }
@@ -324,6 +324,8 @@ export default function BookPage() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               ...form,
+              appointment_date: selDate || undefined,
+              appointment_time: selTime || undefined,
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
             }),
@@ -687,9 +689,9 @@ export default function BookPage() {
                     </div>
                   )}
                   {selTime && (
-                    <button onClick={handleSubmit} disabled={submitting}
+                    <button onClick={initiatePayment} disabled={submitting}
                       className="btn-press w-full mt-4 font-poppins text-sm font-semibold px-8 py-4 bg-rose text-white hover:bg-mauve transition-colors rounded-full disabled:opacity-50">
-                      {submitting ? 'Confirming...' : 'Confirm Booking'}
+                      {submitting ? 'Processing...' : `Pay ₹${settings?.deposit_amount || 500} Deposit to Confirm`}
                     </button>
                   )}
                 </div>
