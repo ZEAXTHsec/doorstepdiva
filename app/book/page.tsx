@@ -296,11 +296,12 @@ export default function BookPage() {
     setError('')
 
     try {
-      // 1. Create order
+      // 1. Create order (use cart subtotal if available, otherwise fall back to deposit)
+      const payAmount = cartSubtotal > 0 ? cartSubtotal : settings.deposit_amount
       const orderRes = await fetch('/api/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: settings.deposit_amount }),
+        body: JSON.stringify({ amount: payAmount }),
       })
       const order = await orderRes.json()
       if (!orderRes.ok) throw new Error(order.error || 'Order creation failed')
@@ -691,7 +692,7 @@ export default function BookPage() {
                   {selTime && (
                     <button onClick={initiatePayment} disabled={submitting}
                       className="btn-press w-full mt-4 font-poppins text-sm font-semibold px-8 py-4 bg-rose text-white hover:bg-mauve transition-colors rounded-full disabled:opacity-50">
-                      {submitting ? 'Processing...' : `Pay ₹${settings?.deposit_amount || 500} Deposit to Confirm`}
+                      {submitting ? 'Processing...' : `Pay ₹${cartSubtotal > 0 ? cartSubtotal : settings?.deposit_amount || 500} to Confirm`}
                     </button>
                   )}
                 </div>
@@ -709,7 +710,7 @@ export default function BookPage() {
                 </p>
                 <button onClick={initiatePayment} disabled={submitting}
                   className="btn-press inline-flex items-center gap-2 font-poppins text-sm font-semibold px-8 py-4 bg-rose text-white hover:bg-mauve transition-colors rounded-full disabled:opacity-50">
-                  {submitting ? 'Processing...' : `Pay ₹${settings.deposit_amount} Deposit`}
+                  {submitting ? 'Processing...' : `Pay ₹${cartSubtotal > 0 ? cartSubtotal : settings.deposit_amount} Deposit`}
                 </button>
               </div>
             </div>

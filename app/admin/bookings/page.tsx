@@ -117,6 +117,18 @@ export default function AdminBookingsPage() {
     setEditing(null)
   }
 
+  async function doDelete(id: string) {
+    if (!confirm('Permanently delete this booking? This cannot be undone.')) return
+    setActionLoading(id)
+    const res = await fetch('/api/admin/bookings', {
+      method: 'DELETE',
+      headers: getHeaders(),
+      body: JSON.stringify({ id }),
+    })
+    if (res.ok) fetchBookings()
+    setActionLoading('')
+  }
+
   async function submitManual(e: React.FormEvent) {
     e.preventDefault()
     setActionLoading('__new__')
@@ -305,6 +317,8 @@ export default function AdminBookingsPage() {
                               <button onClick={() => doAction(b.id, { status: 'completed' })} disabled={actionLoading === b.id}
                                 className="font-poppins text-[10px] font-semibold px-2 py-1 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200 transition-colors">Complete</button>
                             )}
+                            <button onClick={() => doDelete(b.id)} disabled={actionLoading === b.id}
+                              className="font-poppins text-[10px] font-semibold px-2 py-1 bg-stone-100 text-stone-500 rounded-md hover:bg-red-100 hover:text-red-700 transition-colors">🗑</button>
                           </div>
                         </td>
                       </tr>
