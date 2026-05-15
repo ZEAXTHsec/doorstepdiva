@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 import { getAvailableSlots, getSkillType } from '@/lib/booking-utils'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET(req: NextRequest) {
   const date    = req.nextUrl.searchParams.get('date')
   const service = req.nextUrl.searchParams.get('service')
@@ -25,8 +27,12 @@ export async function GET(req: NextRequest) {
     .eq('active', true)
     .single()
 
-  if (!artist) return NextResponse.json({ slots: [] })
+  if (!artist) return NextResponse.json({ slots: [] }, {
+    headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate' },
+  })
 
   const slots = await getAvailableSlots(date, artist.id)
-  return NextResponse.json({ slots, artist_id: artist.id })
+  return NextResponse.json({ slots, artist_id: artist.id }, {
+    headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate' },
+  })
 }

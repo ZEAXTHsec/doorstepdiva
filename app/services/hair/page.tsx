@@ -7,6 +7,7 @@ import AddToCartButton from '@/app/components/AddToCartButton'
 const NAV_SECTIONS = [
   { id: 'cuts',        label: 'Haircuts',     services: ['Short Cut', 'Medium Cut', 'Long Cut', 'Feather Cut', 'Step Cut', 'U/V Shape', 'Bob Cut', 'Layer Cut', 'Split Ends'] },
   { id: 'styling',     label: 'Styling',      services: ['Blow Dry', 'Tong Curl', 'Flat Iron', 'Updo / Event Styling'] },
+  { id: 'wash',        label: 'Wash & Dry',   services: ['Hair Wash'] },
   { id: 'color',       label: 'Color',        services: ['Global Color', 'Root Touch-Up', 'Highlights', 'Balayage', 'Ombre', 'Fashion Color', 'Glossing', 'Henna'] },
   { id: 'treatments',  label: 'Treatments',   services: ['Hair Spa', 'Keratin', 'Smoothening', 'Rebonding', 'Bond Repair', 'Scalp Treatment'] },
   { id: 'packages',    label: 'Packages',     services: ['Root Touchup & Wax', 'Keratin Spa Package', 'Global Package'] },
@@ -40,6 +41,10 @@ const STYLING: PricedItem[] = [
   { name: 'Tong Curl', price: 599, origPrice: 999, time: '35 mins', desc: 'Defined curls and waves using ceramic barrel tongs' },
   { name: 'Flat Iron', price: 499, origPrice: 899, time: '30 mins', desc: 'Silky, smooth straight styling with heat protectant' },
   { name: 'Updo / Event Styling', price: 1199, origPrice: 1999, time: '60 mins', desc: 'Occasion updos — braids, buns, pinned sets, bridal trials' },
+]
+
+const WASH_DRY: PricedItem[] = [
+  { name: 'Hair Wash', price: 250, origPrice: 399, time: '20 mins', desc: 'Professional shampoo wash with conditioning rinse and gentle towel dry. Ideal before styling or as a quick refresh.' },
 ]
 
 const HAIR_COLOR: PricedItem[] = [
@@ -321,6 +326,38 @@ export default function HairPage() {
               </div>
               <div className="mt-3">
                 <AddToCartButton variant="inline" id={s.name} name={s.name} price={s.price} duration={s.time} image="https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png" category="Hair" href="/book" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── WASH & DRY ── */}
+      <section id="wash" className="max-w-7xl mx-auto px-6 md:px-16 pt-24">
+        <div className="text-center mb-14 reveal">
+          <p className="font-poppins label-caps text-rose mb-4">Quick Refresh</p>
+          <h2 className="font-playfair text-5xl font-bold text-stone mb-4">Wash <em className="text-rose">& Dry</em></h2>
+          <p className="font-poppins text-stone-light text-base max-w-xl mx-auto">
+            A quick professional wash when you need it — no styling, just clean, fresh hair.
+          </p>
+        </div>
+
+        <div className="max-w-md mx-auto">
+          {WASH_DRY.map((w, i) => (
+            <div key={w.name} className="reveal card-lift bg-white rounded-2xl p-6 border border-blush/20 text-center">
+              <span className="font-playfair text-3xl font-bold text-rose/15">
+                {i === 0 ? '💧' : '✦'}
+              </span>
+              <h3 className="font-poppins text-sm font-semibold text-stone mt-3 mb-2">{w.name}</h3>
+              <p className="font-poppins text-xs text-stone-light leading-relaxed mb-4">{w.desc}</p>
+              <div className="pt-4 border-t border-blush/10">
+                <div className="flex items-center justify-between">
+                  <span className="font-poppins text-[11px] text-stone-light/70">{w.time}</span>
+                  <PriceTag price={w.price} origPrice={w.origPrice} />
+                </div>
+                <div className="mt-3">
+                  <AddToCartButton variant="inline" id={w.name} name={w.name} price={w.price} duration={w.time} image="https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png" category="Hair" href="/book" />
+                </div>
               </div>
             </div>
           ))}
