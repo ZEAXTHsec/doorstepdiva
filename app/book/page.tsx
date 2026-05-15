@@ -20,6 +20,7 @@ type FormData = {
   city: 'lucknow' | 'ayodhya'
   service_type: string
   addons: string[]
+  notes: string
 }
 
 const EMPTY_FORM: FormData = {
@@ -30,6 +31,7 @@ const EMPTY_FORM: FormData = {
   city: 'lucknow',
   service_type: '',
   addons: [],
+  notes: '',
 }
 
 // ── Service + Add-On Data ──────────────────────────────────
@@ -150,6 +152,10 @@ export default function BookPage() {
     return { year: now.getFullYear(), month: now.getMonth() }
   })
 
+  // Artist availability for calendar greying
+  const [workingDays, setWorkingDays] = useState<number[]>([])
+  const [blockedDates, setBlockedDates] = useState<string[]>([])
+
   // ── Fetch settings ──────────────────────────────────────
   useEffect(() => {
     const load = () => {
@@ -162,6 +168,22 @@ export default function BookPage() {
     window.addEventListener('focus', load)
     return () => window.removeEventListener('focus', load)
   }, [])
+
+  // ── Fetch artist config when service changes ──────────
+  useEffect(() => {
+    if (!form.service_type || isMakeupService(form.service_type)) {
+      setWorkingDays([])
+      setBlockedDates([])
+      return
+    }
+    fetch(`/api/artist-config?service=${encodeURIComponent(form.service_type)}`)
+      .then(r => r.json())
+      .then(d => {
+        setWorkingDays(d.working_days || [])
+        setBlockedDates(d.blocked_dates || [])
+      })
+      .catch(() => {})
+  }, [form.service_type])
 
   // ── Sync cart items into form ─────────────────────────
   useEffect(() => {
@@ -337,6 +359,25 @@ export default function BookPage() {
   function isPastOrToday(day: number) {
     const d = `${calMonth.year}-${String(calMonth.month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
     return d <= todayStr
+  }
+
+  function isDayDisabled(day: number): boolean {
+    const dateStr = `${calMonth.year}-${String(calMonth.month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+
+    // Past or today
+    if (dateStr <= todayStr) return true
+
+    // No artist config loaded yet — allow all future dates
+    if (workingDays.length === 0 && blockedDates.length === 0) return false
+
+    // Not a working day
+    const dayOfWeek = new Date(dateStr + 'T12:00:00').getDay()
+    if (!workingDays.includes(dayOfWeek)) return true
+
+    // Blocked date
+    if (blockedDates.includes(dateStr)) return true
+
+    return false
   }
 
   function prevMonth() {
@@ -534,17 +575,43 @@ export default function BookPage() {
 
           {/* ── MODE BRANCH ── */}
 
-          {/* Makeup exclusion */}
+          {/* Makeup lead form */}
           {form.service_type && isMakeupService(form.service_type) && (
-            <div className="bg-rose/5 border-2 border-rose/20 rounded-2xl p-6 text-center">
-              <p className="font-poppins text-sm font-semibold text-rose mb-2">Makeup is booked directly with us</p>
-              <p className="font-poppins text-xs text-stone-light mb-5">Every look is custom-quoted based on your event, location, and look reference.</p>
-              <a href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Hi, I'd like to book makeup for ${form.service_type}.`)}`}
-                target="_blank" rel="noopener noreferrer"
-                className="btn-press inline-flex items-center gap-2 font-poppins text-sm font-semibold px-6 py-3 bg-[#25D366] text-white rounded-full hover:bg-[#1da851] transition-colors">
-                <WAIcon size={14} />
-                Message us on WhatsApp →
-              </a>
+            <div className="border-t border-blush/10 pt-5">
+              <p className="font-poppins text-xs font-semibold text-stone uppercase tracking-wider mb-3">Submit Lead — We'll Contact You</p>
+              <p className="font-poppins text-xs text-stone-light mb-4">Every makeup look is custom-quoted. Fill this form and we'll reach out to confirm your booking.</p>
+
+              <div className="space-y-4">
+                <div>
+                  <label className="font-poppins text-[10px] font-semibold text-stone-light uppercase block mb-1.5">Preferred Event Date</label>
+                  <input type="date" value={selDate} onChange={e => setSelDate(e.target.value)}
+                    min={todayStr}
+                    className="w-full border border-blush/40 rounded-xl px-4 py-3 font-poppins text-sm text-stone focus:outline-none focus:border-rose/50 transition-colors" />
+                </div>
+                <div>
+                  <label className="font-poppins text-[10px] font-semibold text-stone-light uppercase block mb-1.5">Event Type / Notes</label>
+                  <textarea value={form.notes}
+                    onChange={e => updateForm('notes', e.target.value)}
+                    rows={2}
+                    placeholder="e.g., Wedding Day, Sangeet, Reception, Party — any preferences or reference images you'd like us to know"
+                    className="w-full border border-blush/40 rounded-xl px-4 py-3 font-poppins text-sm text-stone placeholder-stone-light/50 focus:outline-none focus:border-rose/50 transition-colors resize-none" />
+                </div>
+              </div>
+
+              <button onClick={handleSubmit} disabled={submitting}
+                className="btn-press w-full mt-5 font-poppins text-sm font-semibold px-8 py-4 bg-rose text-white hover:bg-mauve transition-colors rounded-full disabled:opacity-50">
+                {submitting ? 'Submitting...' : 'Submit Lead'}
+              </button>
+
+              <div className="mt-4 text-center">
+                <p className="font-poppins text-[11px] text-stone-light/60 mb-2">or, message us directly</p>
+                <a href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Hi, I'd like to book makeup for ${form.service_type}.`)}`}
+                  target="_blank" rel="noopener noreferrer"
+                  className="btn-press inline-flex items-center gap-2 font-poppins text-xs font-semibold px-5 py-2.5 bg-[#25D366] text-white rounded-full hover:bg-[#1da851] transition-colors">
+                  <WAIcon size={12} />
+                  WhatsApp →
+                </a>
+              </div>
             </div>
           )}
 
@@ -572,15 +639,15 @@ export default function BookPage() {
                   {Array.from({ length: daysInMonth }).map((_, i) => {
                     const day = i + 1
                     const dateStr = `${calMonth.year}-${String(calMonth.month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
-                    const isPast = isPastOrToday(day)
+                    const disabled = isDayDisabled(day)
                     const isSel = dateStr === selDate
                     return (
                       <button
                         key={day}
-                        disabled={isPast}
+                        disabled={disabled}
                         onClick={() => { setSelDate(dateStr); setSelTime('') }}
                         className={`font-poppins text-xs h-9 rounded-lg transition-all ${
-                          isPast ? 'text-stone-light/30 cursor-not-allowed' :
+                          disabled ? 'text-stone-light/25 cursor-not-allowed bg-stone-light/5' :
                           isSel ? 'bg-rose text-white font-bold shadow-sm' :
                           'hover:bg-rose/10 text-stone font-medium'
                         }`}

@@ -27,12 +27,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'City must be lucknow or ayodhya' }, { status: 400 })
   }
 
-  // Makeup services should never be booked through this API — they go to WhatsApp
-  if (isMakeupService(service_type)) {
-    return NextResponse.json({
-      error: 'Makeup services are booked via WhatsApp only. Please contact us directly.',
-    }, { status: 400 })
-  }
+  // Makeup services are accepted as leads (no slot validation, always pending)
+  const isMakeup = isMakeupService(service_type)
 
   // Get artist
   const skillType = getSkillType(service_type)
@@ -55,16 +51,16 @@ export async function POST(req: NextRequest) {
     artist_id: artist?.id || null,
     appointment_date: appointment_date || null,
     appointment_time: appointment_time || null,
-    payment_mode: appointment_date ? 'pay_on_service' : 'deposit_online',
+    payment_mode: isMakeup ? null : (appointment_date ? 'pay_on_service' : 'deposit_online'),
     deposit_paid: !!razorpay_payment_id,
     razorpay_order_id: razorpay_order_id || null,
     razorpay_payment_id: razorpay_payment_id || null,
-    status: appointment_date ? 'confirmed' : 'pending',
+    status: isMakeup ? 'pending' : (appointment_date ? 'confirmed' : 'pending'),
     notes: notes || null,
   }
 
-  // Mode A: calendar booking — validate slot is still free
-  if (appointment_date && appointment_time) {
+  // Slot validation — skip for makeup leads
+  if (!isMakeup && appointment_date && appointment_time) {
     if (!artist) {
       return NextResponse.json({ error: 'No artist available for this service.' }, { status: 400 })
     }
