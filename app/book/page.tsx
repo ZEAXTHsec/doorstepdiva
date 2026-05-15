@@ -36,53 +36,61 @@ const EMPTY_FORM: FormData = {
 
 // ── Service + Add-On Data ──────────────────────────────────
 
-const SERVICE_OPTIONS = [
+interface ServiceOption { label: string; group?: true; minPrice?: number }
+
+const SERVICE_OPTIONS: ServiceOption[] = [
   // Hair & Skin (Artist A)
   { label: '— Hair & Skin —', group: true },
-  { label: 'Hair: Haircut (Short / Medium / Long)' },
-  { label: 'Hair: Blow Dry & Styling' },
-  { label: 'Hair: Hair Color — Root Touch-Up' },
-  { label: 'Hair: Hair Color — Global (Small / Medium / Large)' },
-  { label: 'Hair: Hair Highlights / Balayage' },
-  { label: 'Hair: Keratin Treatment' },
-  { label: 'Hair: Hair Smoothening / Rebonding' },
-  { label: 'Hair: Hair Spa' },
-  { label: 'Hair: Hair Fall / Dandruff Treatment' },
-  { label: 'Skin: Sugar / Chocolate Wax' },
-  { label: 'Skin: Rica Wax' },
-  { label: 'Skin: Brazilian Wax' },
-  { label: 'Skin: Roll-On Wax' },
-  { label: 'Skin: Full Body Wax' },
-  { label: 'Skin: Facial' },
-  { label: 'Skin: Cleanup' },
-  { label: 'Skin: De-Tan Treatment' },
-  { label: 'Skin: Bleach' },
-  { label: 'Skin: Manicure' },
-  { label: 'Skin: Pedicure' },
-  { label: 'Skin: Manicure + Pedicure Combo' },
-  { label: 'Skin: Body Polishing' },
-  { label: 'Skin: Body Massage' },
-  { label: 'Skin: Chemical Peel' },
-  { label: 'Skin: Threading' },
+  { label: 'Hair: Haircut (Short / Medium / Long)', minPrice: 349 },
+  { label: 'Hair: Blow Dry & Styling', minPrice: 449 },
+  { label: 'Hair: Hair Wash', minPrice: 250 },
+  { label: 'Hair: Hair Color — Root Touch-Up', minPrice: 699 },
+  { label: 'Hair: Hair Color — Global (Small / Medium / Large)', minPrice: 1200 },
+  { label: 'Hair: Hair Highlights / Balayage', minPrice: 1799 },
+  { label: 'Hair: Keratin Treatment', minPrice: 2599 },
+  { label: 'Hair: Hair Smoothening / Rebonding', minPrice: 2499 },
+  { label: 'Hair: Hair Spa', minPrice: 649 },
+  { label: 'Hair: Hair Fall / Dandruff Treatment', minPrice: 899 },
+  { label: 'Skin: Sugar / Chocolate Wax', minPrice: 199 },
+  { label: 'Skin: Rica Wax', minPrice: 499 },
+  { label: 'Skin: Brazilian Wax', minPrice: 499 },
+  { label: 'Skin: Roll-On Wax', minPrice: 249 },
+  { label: 'Skin: Full Body Wax', minPrice: 799 },
+  { label: 'Skin: Facial', minPrice: 899 },
+  { label: 'Skin: Cleanup', minPrice: 399 },
+  { label: 'Skin: De-Tan Treatment', minPrice: 499 },
+  { label: 'Skin: Bleach', minPrice: 299 },
+  { label: 'Skin: Manicure', minPrice: 399 },
+  { label: 'Skin: Pedicure', minPrice: 399 },
+  { label: 'Skin: Manicure + Pedicure Combo', minPrice: 699 },
+  { label: 'Skin: Body Polishing', minPrice: 799 },
+  { label: 'Skin: Body Massage', minPrice: 699 },
+  { label: 'Skin: Chemical Peel', minPrice: 799 },
+  { label: 'Skin: Threading', minPrice: 49 },
   // Makeup & Nails (Artist B)
   { label: '— Makeup & Nails —', group: true },
-  { label: 'Nails: Acrylic Extensions' },
-  { label: 'Nails: Gel / Shellac' },
-  { label: 'Nails: PolyGel Extensions' },
-  { label: 'Nails: Nail Infill / Maintenance' },
-  { label: 'Nails: Nail Removal' },
-  { label: 'Nails: Nail Art' },
-  { label: 'Eyelash: Classic Extensions' },
-  { label: 'Eyelash: Hybrid Extensions' },
-  { label: 'Eyelash: Volume Extensions' },
-  { label: 'Eyelash: Lash Fill' },
-  { label: 'Eyelash: Lash Lift & Tint' },
-  { label: 'Eyelash: Brow Lamination' },
-  { label: 'Semi-Permanent: Microblading' },
-  { label: 'Semi-Permanent: Combo Brows' },
-  { label: 'Semi-Permanent: Lip Blush' },
-  { label: 'Semi-Permanent: Nano Liner' },
+  { label: 'Nails: Acrylic Extensions', minPrice: 299 },
+  { label: 'Nails: Gel / Shellac', minPrice: 249 },
+  { label: 'Nails: PolyGel Extensions', minPrice: 349 },
+  { label: 'Nails: Nail Infill / Maintenance', minPrice: 599 },
+  { label: 'Nails: Nail Removal', minPrice: 249 },
+  { label: 'Nails: Nail Art', minPrice: 99 },
+  { label: 'Eyelash: Classic Extensions', minPrice: 799 },
+  { label: 'Eyelash: Hybrid Extensions', minPrice: 999 },
+  { label: 'Eyelash: Volume Extensions', minPrice: 1199 },
+  { label: 'Eyelash: Lash Fill', minPrice: 799 },
+  { label: 'Eyelash: Lash Lift & Tint', minPrice: 399 },
+  { label: 'Eyelash: Brow Lamination', minPrice: 799 },
+  { label: 'Semi-Permanent: Microblading', minPrice: 7999 },
+  { label: 'Semi-Permanent: Combo Brows', minPrice: 9999 },
+  { label: 'Semi-Permanent: Lip Blush', minPrice: 7999 },
+  { label: 'Semi-Permanent: Nano Liner', minPrice: 4999 },
 ]
+
+function getServiceMinPrice(label: string): number {
+  const opt = SERVICE_OPTIONS.find(o => o.label === label)
+  return opt?.minPrice || 0
+}
 
 const SKIN_HAIR_ADDONS = [
   { label: 'Eyebrow Threading (₹30)', value: 'Eyebrow Threading' },
@@ -155,6 +163,9 @@ export default function BookPage() {
   // Artist availability for calendar greying
   const [workingDays, setWorkingDays] = useState<number[]>([])
   const [blockedDates, setBlockedDates] = useState<string[]>([])
+
+  // Price of the currently selected dropdown service (when cart is empty)
+  const [selectedServicePrice, setSelectedServicePrice] = useState(0)
 
   // ── Fetch settings ──────────────────────────────────────
   useEffect(() => {
@@ -239,6 +250,13 @@ export default function BookPage() {
     return null
   }
 
+  // The effective price: cart takes priority, then dropdown selection, then deposit fallback
+  function getPayAmount(): number {
+    if (cartSubtotal > 0) return cartSubtotal
+    if (selectedServicePrice > 0) return selectedServicePrice
+    return settings?.deposit_amount || 500
+  }
+
   // ── Submit booking ──────────────────────────────────────
   async function handleSubmit() {
     const v = validateForm()
@@ -251,7 +269,7 @@ export default function BookPage() {
       ...form,
       appointment_date: selDate || undefined,
       appointment_time: selTime || undefined,
-      total_estimate: cartSubtotal > 0 ? cartSubtotal : undefined,
+      total_estimate: getPayAmount(),
     }
 
     const res = await fetch('/api/book', {
@@ -296,8 +314,7 @@ export default function BookPage() {
     setError('')
 
     try {
-      // 1. Create order (use cart subtotal if available, otherwise fall back to deposit)
-      const payAmount = cartSubtotal > 0 ? cartSubtotal : settings.deposit_amount
+      const payAmount = getPayAmount()
       const orderRes = await fetch('/api/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -327,6 +344,7 @@ export default function BookPage() {
               ...form,
               appointment_date: selDate || undefined,
               appointment_time: selTime || undefined,
+              total_estimate: payAmount,
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
             }),
@@ -539,8 +557,10 @@ export default function BookPage() {
             <div>
               <label className="font-poppins text-xs font-semibold text-stone uppercase tracking-wider block mb-1.5">Service Type *</label>
               <select value={form.service_type} onChange={e => {
-                updateForm('service_type', e.target.value)
+                const label = e.target.value
+                updateForm('service_type', label)
                 updateForm('addons', [])
+                setSelectedServicePrice(getServiceMinPrice(label))
                 setSelDate('')
                 setSelTime('')
                 setSlots([])
@@ -548,9 +568,9 @@ export default function BookPage() {
                 className="w-full border border-blush/40 rounded-xl px-4 py-3 font-poppins text-sm text-stone placeholder-stone-light/50 focus:outline-none focus:border-rose/50 transition-colors bg-white">
                 <option value="">Select a service...</option>
                 {SERVICE_OPTIONS.map((o, i) =>
-                  'group' in o
+                  o.group
                     ? <option key={i} disabled className="font-semibold text-rose bg-petal/30">{o.label}</option>
-                    : <option key={i} value={o.label}>{o.label}</option>
+                    : <option key={i} value={o.label}>{o.label}{o.minPrice ? ` — from ₹${o.minPrice.toLocaleString('en-IN')}` : ''}</option>
                 )}
               </select>
             </div>
@@ -692,7 +712,7 @@ export default function BookPage() {
                   {selTime && (
                     <button onClick={initiatePayment} disabled={submitting}
                       className="btn-press w-full mt-4 font-poppins text-sm font-semibold px-8 py-4 bg-rose text-white hover:bg-mauve transition-colors rounded-full disabled:opacity-50">
-                      {submitting ? 'Processing...' : `Pay ₹${cartSubtotal > 0 ? cartSubtotal : settings?.deposit_amount || 500} to Confirm`}
+                      {submitting ? 'Processing...' : `Pay ₹${getPayAmount().toLocaleString('en-IN')} to Confirm`}
                     </button>
                   )}
                 </div>
@@ -710,7 +730,7 @@ export default function BookPage() {
                 </p>
                 <button onClick={initiatePayment} disabled={submitting}
                   className="btn-press inline-flex items-center gap-2 font-poppins text-sm font-semibold px-8 py-4 bg-rose text-white hover:bg-mauve transition-colors rounded-full disabled:opacity-50">
-                  {submitting ? 'Processing...' : `Pay ₹${cartSubtotal > 0 ? cartSubtotal : settings.deposit_amount} Deposit`}
+                  {submitting ? 'Processing...' : `Pay ₹${getPayAmount().toLocaleString('en-IN')} Deposit`}
                 </button>
               </div>
             </div>
