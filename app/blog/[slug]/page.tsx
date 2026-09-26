@@ -7,17 +7,30 @@ const SUPABASE_ANON_KEY =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieG14ZGR1ZmV6anpudWNqaXh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczNDkzNjQsImV4cCI6MjA5MjkyNTM2NH0.nLtWrniahM9dUaz0gBZT-WgxfoiMbF7YIuggXhU4KH4'
 const SITE = 'https://mydoorstepdiva.com'
 
+import { CURATED_POSTS } from '@/app/_data/curated-posts'
+
 export const revalidate = 60
 
+export async function generateStaticParams() {
+  return CURATED_POSTS.map(p => ({ slug: p.slug }))
+}
+
 async function getPost(slug: string) {
-  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-  const { data } = await supabase
-    .from('posts')
-    .select('*')
-    .eq('slug', slug)
-    .eq('status', 'published')
-    .single()
-  return data
+  const curated = CURATED_POSTS.find(p => p.slug === slug)
+  if (curated) return curated
+
+  try {
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    const { data } = await supabase
+      .from('posts')
+      .select('*')
+      .eq('slug', slug)
+      .eq('status', 'published')
+      .maybeSingle()
+    return data
+  } catch {
+    return null
+  }
 }
 
 export async function generateMetadata(

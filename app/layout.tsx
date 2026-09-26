@@ -23,11 +23,15 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://mydoorstepdiva.com'),
   title: 'DoorStep Diva — Salon-Quality Beauty At Your Door',
   description:
     'Six professional beauty divisions — hair, skin, makeup, lashes, semi-permanent makeup & nails — by certified artists, delivered wherever you are across Delhi NCR, Lucknow & Ayodhya.',
   keywords:
-    'at home salon Delhi, doorstep beauty service, home beauty artist, mobile salon NCR, bridal makeup at home',
+    'at home salon Delhi, doorstep beauty service, home beauty artist, mobile salon NCR, bridal makeup at home, salon at home Lucknow',
+  alternates: {
+    canonical: 'https://mydoorstepdiva.com',
+  },
   icons: {
     icon: '/favicon.png',
   },
@@ -35,9 +39,87 @@ export const metadata: Metadata = {
     title: 'DoorStep Diva — Salon-Quality Beauty At Your Door',
     description:
       'Certified beauty artists bringing salon services to your home across Delhi NCR, Lucknow & Ayodhya.',
-    url: 'https://doorstepdiva.com',
+    url: 'https://mydoorstepdiva.com',
+    siteName: 'DoorStep Diva',
     type: 'website',
   },
+}
+
+const SCHEMA_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'BeautySalon',
+      '@id': 'https://mydoorstepdiva.com/#organization',
+      name: 'DoorStep Diva',
+      url: 'https://mydoorstepdiva.com',
+      logo: 'https://mydoorstepdiva.com/favicon.png',
+      description: 'Premium certified at-home salon and bridal beauty services delivered across Delhi NCR, Lucknow, and Ayodhya. Specialized in hair, skin, bridal makeup, nail extensions, and semi-permanent makeup.',
+      telephone: '+917985183449',
+      priceRange: '₹₹',
+      currenciesAccepted: 'INR',
+      paymentAccepted: 'Cash, UPI, Credit Card, Debit Card, Net Banking',
+      areaServed: [
+        { '@type': 'City', name: 'Delhi' },
+        { '@type': 'City', name: 'New Delhi' },
+        { '@type': 'City', name: 'Noida' },
+        { '@type': 'City', name: 'Gurgaon' },
+        { '@type': 'City', name: 'Ghaziabad' },
+        { '@type': 'City', name: 'Faridabad' },
+        { '@type': 'City', name: 'Lucknow' },
+        { '@type': 'City', name: 'Ayodhya' },
+      ],
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'At-Home Beauty Services',
+        itemListElement: [
+          { '@type': 'OfferCatalog', name: 'Hair Services & Keratin Treatments' },
+          { '@type': 'OfferCatalog', name: 'Facials, Waxing & Skin Care' },
+          { '@type': 'OfferCatalog', name: 'HD & Airbrush Bridal Makeup' },
+          { '@type': 'OfferCatalog', name: 'Nail Extensions & Art' },
+          { '@type': 'OfferCatalog', name: 'Lash Extensions & Microblading' },
+        ],
+      },
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://mydoorstepdiva.com/#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'How do I book at-home salon services with DoorStep Diva in Delhi NCR or Lucknow?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'You can select your desired beauty service on mydoorstepdiva.com/book and choose your city (Delhi NCR, Lucknow, or Ayodhya). No advance deposit is needed. A beauty coordinator will call or WhatsApp you within 15 minutes to confirm your certified female artist and preferred arrival time.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'What hygiene and safety measures do DoorStep Diva artists follow?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Every DoorStep Diva artist carries a 100% sealed, single-use disposable kit (disposable towels, gowns, bedsheets, spatulas) unsealed right in front of the customer. Metallic tools are hospital-grade sterilized, and all cosmetics are premium branded mono-doses.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Which areas in Delhi NCR and Lucknow are covered?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'In Delhi NCR, we cover South Delhi, Central Delhi, West Delhi, Noida, Greater Noida, and Gurgaon. In Lucknow, we cover Gomti Nagar, Hazratganj, Aliganj, Indira Nagar, Mahanagar, Ashiyana, and surrounding localities.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Can I pay after the service is completed?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes, zero advance payment is required for standard salon services. You inspect your service and pay securely via UPI (Google Pay, PhonePe, Paytm) or cash only once you are completely satisfied.',
+          },
+        },
+      ],
+    },
+  ],
 }
 
 export default function RootLayout({
@@ -47,6 +129,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${playfair.variable} ${poppins.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA_JSON_LD) }}
+        />
+      </head>
       <body className="bg-petal text-stone font-poppins antialiased">
         <CartProvider>
         {/* Scroll reveal observer — runs once, watches all .reveal elements */}

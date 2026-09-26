@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
+import { CURATED_POSTS } from '@/app/_data/curated-posts'
 
 const SUPABASE_URL = 'https://pbxmxddufezjznucjixv.supabase.co'
 const SUPABASE_ANON_KEY =
@@ -8,16 +9,24 @@ const SITE = 'https://mydoorstepdiva.com'
 export const revalidate = 3600 // regenerate every hour
 
 const STATIC_PAGES = [
-  { url: '/',                        priority: '1.0', changefreq: 'weekly'  },
-  { url: '/about',                   priority: '0.8', changefreq: 'monthly' },
-  { url: '/areas',                   priority: '0.8', changefreq: 'monthly' },
-  { url: '/blog',                    priority: '0.9', changefreq: 'daily'   },
-  { url: '/services/hair',           priority: '0.9', changefreq: 'monthly' },
-  { url: '/services/skin',           priority: '0.9', changefreq: 'monthly' },
-  { url: '/services/makeup',         priority: '0.9', changefreq: 'monthly' },
-  { url: '/services/nails',          priority: '0.9', changefreq: 'monthly' },
-  { url: '/services/eyelash',        priority: '0.9', changefreq: 'monthly' },
-  { url: '/services/semi-permanent', priority: '0.9', changefreq: 'monthly' },
+  { url: '/',                                        priority: '1.0', changefreq: 'weekly'  },
+  { url: '/karwa-chauth',                            priority: '1.0', changefreq: 'daily'   },
+  { url: '/book',                                    priority: '1.0', changefreq: 'weekly'  },
+  { url: '/about',                                   priority: '0.8', changefreq: 'monthly' },
+  { url: '/areas',                                   priority: '0.9', changefreq: 'weekly'  },
+  { url: '/blog',                                    priority: '0.9', changefreq: 'daily'   },
+  { url: '/services/hair',                           priority: '0.9', changefreq: 'monthly' },
+  { url: '/services/skin',                           priority: '0.9', changefreq: 'monthly' },
+  { url: '/services/makeup',                         priority: '0.9', changefreq: 'monthly' },
+  { url: '/services/nails',                          priority: '0.9', changefreq: 'monthly' },
+  { url: '/services/eyelash',                        priority: '0.9', changefreq: 'monthly' },
+  { url: '/services/semi-permanent',                 priority: '0.9', changefreq: 'monthly' },
+  { url: '/services/skin/korean-glass-hydration-facial', priority: '0.8', changefreq: 'monthly' },
+  { url: '/services/skin/waxing',                    priority: '0.8', changefreq: 'monthly' },
+  { url: '/academy',                                 priority: '0.8', changefreq: 'monthly' },
+  { url: '/privacy-policy',                          priority: '0.3', changefreq: 'yearly'  },
+  { url: '/terms',                                   priority: '0.3', changefreq: 'yearly'  },
+  { url: '/returns',                                 priority: '0.3', changefreq: 'yearly'  },
 ]
 
 export async function GET() {
@@ -39,12 +48,17 @@ export async function GET() {
     <priority>${p.priority}</priority>
   </url>`).join('')
 
-  const blogUrls = (posts || []).map(p => `
+  const allPosts = [
+    ...(posts || []),
+    ...CURATED_POSTS.filter(cp => !(posts || []).some(p => p.slug === cp.slug)),
+  ]
+
+  const blogUrls = allPosts.map(p => `
   <url>
     <loc>${SITE}/blog/${p.slug}</loc>
     <lastmod>${new Date(p.updated_at || p.published_at || Date.now()).toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>`).join('')
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>

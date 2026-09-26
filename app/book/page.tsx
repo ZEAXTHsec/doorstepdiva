@@ -1,25 +1,22 @@
 'use client'
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useCart } from '../context/CartContext'
 
 // ── Types ──────────────────────────────────────────────────
 
-type BookingSettings = {
-  id: 1
-  calendar_enabled: boolean
-  deposit_amount: number
-  updated_at?: string
-}
+type CityOption = 'delhi-ncr' | 'lucknow' | 'ayodhya'
 
 type FormData = {
   customer_name: string
   customer_phone: string
   customer_email: string
   customer_address: string
-  city: 'lucknow' | 'ayodhya'
+  city: CityOption
   service_type: string
   addons: string[]
+  preferred_timing: string
+  specific_date: string
   notes: string
 }
 
@@ -28,9 +25,11 @@ const EMPTY_FORM: FormData = {
   customer_phone: '',
   customer_email: '',
   customer_address: '',
-  city: 'lucknow',
+  city: 'delhi-ncr',
   service_type: '',
   addons: [],
+  preferred_timing: 'Tomorrow — Morning (9:00 AM – 12:00 PM)',
+  specific_date: '',
   notes: '',
 }
 
@@ -39,52 +38,43 @@ const EMPTY_FORM: FormData = {
 interface ServiceOption { label: string; group?: true; minPrice?: number }
 
 const SERVICE_OPTIONS: ServiceOption[] = [
-  // Hair & Skin (Artist A)
-  { label: '— Hair & Skin —', group: true },
-  { label: 'Hair: Haircut (Short / Medium / Long)', minPrice: 349 },
+  // Hair & Skin
+  { label: '— Hair & Skin Services —', group: true },
+  { label: 'Hair: Haircut & Blowdry (Short / Medium / Long)', minPrice: 349 },
   { label: 'Hair: Blow Dry & Styling', minPrice: 449 },
-  { label: 'Hair: Hair Wash', minPrice: 250 },
   { label: 'Hair: Hair Color — Root Touch-Up', minPrice: 699 },
-  { label: 'Hair: Hair Color — Global (Small / Medium / Large)', minPrice: 1200 },
-  { label: 'Hair: Hair Highlights / Balayage', minPrice: 1799 },
+  { label: 'Hair: Hair Color — Global', minPrice: 1200 },
+  { label: 'Hair: Highlights / Balayage', minPrice: 1799 },
   { label: 'Hair: Keratin Treatment', minPrice: 2599 },
-  { label: 'Hair: Hair Smoothening / Rebonding', minPrice: 2499 },
-  { label: 'Hair: Hair Spa', minPrice: 649 },
-  { label: 'Hair: Hair Fall / Dandruff Treatment', minPrice: 899 },
+  { label: 'Hair: Smoothening / Rebonding', minPrice: 2499 },
+  { label: 'Hair: Luxury Hair Spa', minPrice: 649 },
+  { label: 'Hair: Hair Fall / Anti-Dandruff Treatment', minPrice: 899 },
   { label: 'Skin: Sugar / Chocolate Wax', minPrice: 199 },
-  { label: 'Skin: Rica Wax', minPrice: 499 },
-  { label: 'Skin: Brazilian Wax', minPrice: 499 },
-  { label: 'Skin: Roll-On Wax', minPrice: 249 },
-  { label: 'Skin: Full Body Wax', minPrice: 799 },
-  { label: 'Skin: Facial', minPrice: 899 },
-  { label: 'Skin: Cleanup', minPrice: 399 },
-  { label: 'Skin: De-Tan Treatment', minPrice: 499 },
-  { label: 'Skin: Bleach', minPrice: 299 },
-  { label: 'Skin: Manicure', minPrice: 399 },
-  { label: 'Skin: Pedicure', minPrice: 399 },
-  { label: 'Skin: Manicure + Pedicure Combo', minPrice: 699 },
-  { label: 'Skin: Body Polishing', minPrice: 799 },
-  { label: 'Skin: Body Massage', minPrice: 699 },
-  { label: 'Skin: Chemical Peel', minPrice: 799 },
-  { label: 'Skin: Threading', minPrice: 49 },
-  // Makeup & Nails (Artist B)
-  { label: '— Makeup & Nails —', group: true },
-  { label: 'Nails: Acrylic Extensions', minPrice: 299 },
-  { label: 'Nails: Gel / Shellac', minPrice: 249 },
+  { label: 'Skin: Rica Waxing (Gentle / Sensitive Skin)', minPrice: 499 },
+  { label: 'Skin: Brazilian Bikini Wax', minPrice: 499 },
+  { label: 'Skin: Full Body Rica Wax', minPrice: 799 },
+  { label: 'Skin: Signature Glow Facial', minPrice: 899 },
+  { label: 'Skin: Korean Glass Skin Hydration Facial', minPrice: 1499 },
+  { label: 'Skin: Deep Pore Cleanup', minPrice: 399 },
+  { label: 'Skin: Herbal De-Tan Treatment', minPrice: 499 },
+  { label: 'Skin: Deluxe Manicure + Pedicure Combo', minPrice: 699 },
+  { label: 'Skin: Full Body Polishing', minPrice: 799 },
+  { label: 'Skin: Relaxing Body Massage', minPrice: 699 },
+  { label: 'Skin: Eyebrow & Face Threading', minPrice: 49 },
+  // Makeup & Nails
+  { label: '— Makeup, Bridal & Nails —', group: true },
+  { label: 'Bridal: HD Bridal Makeup & Saree Draping', minPrice: 4999 },
+  { label: 'Bridal: Airbrush Bridal Package', minPrice: 8999 },
+  { label: 'Party / Engagement / Sangeet Makeup', minPrice: 1999 },
+  { label: 'Nails: Acrylic Nail Extensions', minPrice: 299 },
+  { label: 'Nails: Gel / Shellac Polish', minPrice: 249 },
   { label: 'Nails: PolyGel Extensions', minPrice: 349 },
-  { label: 'Nails: Nail Infill / Maintenance', minPrice: 599 },
-  { label: 'Nails: Nail Removal', minPrice: 249 },
-  { label: 'Nails: Nail Art', minPrice: 99 },
-  { label: 'Eyelash: Classic Extensions', minPrice: 799 },
-  { label: 'Eyelash: Hybrid Extensions', minPrice: 999 },
-  { label: 'Eyelash: Volume Extensions', minPrice: 1199 },
-  { label: 'Eyelash: Lash Fill', minPrice: 799 },
+  { label: 'Nails: Nail Art & French Tips', minPrice: 99 },
+  { label: 'Eyelash: Classic / Hybrid Lash Extensions', minPrice: 799 },
   { label: 'Eyelash: Lash Lift & Tint', minPrice: 399 },
-  { label: 'Eyelash: Brow Lamination', minPrice: 799 },
-  { label: 'Semi-Permanent: Microblading', minPrice: 7999 },
-  { label: 'Semi-Permanent: Combo Brows', minPrice: 9999 },
+  { label: 'Brows: Brow Lamination', minPrice: 799 },
+  { label: 'Semi-Permanent: Microblading / Ombre Brows', minPrice: 7999 },
   { label: 'Semi-Permanent: Lip Blush', minPrice: 7999 },
-  { label: 'Semi-Permanent: Nano Liner', minPrice: 4999 },
 ]
 
 function getServiceMinPrice(label: string): number {
@@ -92,143 +82,45 @@ function getServiceMinPrice(label: string): number {
   return opt?.minPrice || 0
 }
 
-const SKIN_HAIR_ADDONS = [
-  { label: 'Eyebrow Threading (₹30)', value: 'Eyebrow Threading' },
-  { label: 'Upper Lip Threading (₹30)', value: 'Upper Lip Threading' },
-  { label: 'Full Face Threading (₹139)', value: 'Full Face Threading' },
-  { label: 'Head Massage (₹299)', value: 'Head Massage' },
-  { label: 'Scalp Ampoule — add-on to Hair Spa (₹120)', value: 'Scalp Ampoule' },
-  { label: 'Face Mask (₹199)', value: 'Face Mask' },
+const COMMON_ADDONS = [
+  { label: 'Eyebrow Threading (+₹30)', value: 'Eyebrow Threading' },
+  { label: 'Upper Lip Threading (+₹30)', value: 'Upper Lip Threading' },
+  { label: 'Full Face Threading (+₹139)', value: 'Full Face Threading' },
+  { label: 'Quick De-tan Pack (+₹199)', value: 'Quick De-tan' },
+  { label: 'Scalp Massage & Serum Ampoule (+₹299)', value: 'Scalp Ampoule' },
+  { label: 'Gel French Tip Add-on (+₹149)', value: 'French Tip' },
+  { label: 'Nail Art / Chrome Glaze (+₹99)', value: 'Chrome Glaze' },
 ]
 
-const MAKEUP_NAILS_ADDONS = [
-  { label: 'Nail Paint Application (₹100)', value: 'Nail Paint Application' },
-  { label: 'Chrome / Mirror Powder (₹199)', value: 'Chrome Powder' },
-  { label: 'French Tip (₹149)', value: 'French Tip' },
-  { label: 'Gemstones / 3D (₹99/ nail)', value: 'Gemstones 3D' },
+const TIMING_OPTIONS = [
+  'Today — Urgent / ASAP Dispatch',
+  'Tomorrow — Morning (9:00 AM – 12:00 PM)',
+  'Tomorrow — Afternoon (12:00 PM – 4:00 PM)',
+  'Tomorrow — Evening (4:00 PM – 8:00 PM)',
+  'Specific Upcoming Date',
 ]
-
-// ── Helpers ─────────────────────────────────────────────────
 
 const WA_NUMBER = '917985183449'
 
-function isHairSkinService(s: string) {
-  const lower = s.toLowerCase()
-  return lower.includes('hair') || lower.includes('skin') || lower.includes('wax') ||
-    lower.includes('facial') || lower.includes('cleanup') || lower.includes('de-tan') ||
-    lower.includes('bleach') || lower.includes('manicure') || lower.includes('pedicure') ||
-    lower.includes('polishing') || lower.includes('massage') || lower.includes('peel') ||
-    lower.includes('threading')
-}
-
-function isMakeupService(s: string) {
-  const makeup = ['makeup', 'bridal', 'engagement', 'sangeet', 'reception', 'mehendi', 'mehndi', 'haldi', 'saree']
-  return makeup.some(k => s.toLowerCase().includes(k))
-}
-
-// ── Sub-components ─────────────────────────────────────────
-
-function WAIcon({ size = 16 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
-  )
-}
-
-// ── Main Page ──────────────────────────────────────────────
-
 export default function BookPage() {
   const { items: cartItems, subtotal: cartSubtotal, clearCart } = useCart()
-  const [settings, setSettings] = useState<BookingSettings | null>(null)
   const [form, setForm] = useState<FormData>(EMPTY_FORM)
-  const [step, setStep] = useState<'form' | 'confirm' | 'success'>('form')
-  const [result, setResult] = useState<Record<string, unknown> | null>(null)
-
-  // Calendar state
-  const [selDate, setSelDate] = useState('')
-  const [selTime, setSelTime] = useState('')
-  const [slots, setSlots] = useState<string[]>([])
-  const [loadingSlots, setLoadingSlots] = useState(false)
-  const [slotError, setSlotError] = useState('')
+  const [step, setStep] = useState<'form' | 'success'>('form')
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
-
-  // Calendar month view
-  const [calMonth, setCalMonth] = useState(() => {
-    const now = new Date()
-    return { year: now.getFullYear(), month: now.getMonth() }
-  })
-
-  // Artist availability for calendar greying
-  const [workingDays, setWorkingDays] = useState<number[]>([])
-  const [blockedDates, setBlockedDates] = useState<string[]>([])
-
-  // Price of the currently selected dropdown service (when cart is empty)
   const [selectedServicePrice, setSelectedServicePrice] = useState(0)
 
-  // ── Fetch settings ──────────────────────────────────────
-  useEffect(() => {
-    const load = () => {
-      fetch('/api/admin/settings', { cache: 'no-store' })
-        .then(r => r.json())
-        .then(d => setSettings(d))
-        .catch(() => {})
-    }
-    load()
-    window.addEventListener('focus', load)
-    return () => window.removeEventListener('focus', load)
-  }, [])
-
-  // ── Fetch artist config when service changes ──────────
-  useEffect(() => {
-    if (!form.service_type || isMakeupService(form.service_type)) {
-      setWorkingDays([])
-      setBlockedDates([])
-      return
-    }
-    fetch(`/api/artist-config?service=${encodeURIComponent(form.service_type)}`)
-      .then(r => r.json())
-      .then(d => {
-        setWorkingDays(d.working_days || [])
-        setBlockedDates(d.blocked_dates || [])
-      })
-      .catch(() => {})
-  }, [form.service_type])
-
-  // ── Sync cart items into form ─────────────────────────
+  // Sync cart items into form if user added any
   useEffect(() => {
     if (cartItems.length > 0) {
       const names = cartItems.map(i => `${i.name} (×${i.quantity})`)
       setForm(prev => ({
         ...prev,
         service_type: names.join(', '),
-        addons: [], // addons from cart are part of service_type already
       }))
     }
   }, [cartItems])
 
-  // ── Fetch slots when date changes ───────────────────────
-  useEffect(() => {
-    if (!selDate || !form.service_type || !settings?.calendar_enabled) return
-    if (isMakeupService(form.service_type)) return
-
-    setLoadingSlots(true)
-    setSlotError('')
-
-    fetch(`/api/slots?date=${selDate}&service=${encodeURIComponent(form.service_type)}`)
-      .then(async r => {
-        const j = await r.json()
-        if (!r.ok) throw new Error(j.error || 'Failed to load slots')
-        setSlots(j.slots || [])
-        setSelTime('')
-        if (j.slots?.length === 0) setSlotError('No slots available on this date.')
-      })
-      .catch(e => setSlotError(e.message))
-      .finally(() => setLoadingSlots(false))
-  }, [selDate, form.service_type, settings?.calendar_enabled])
-
-  // ── Form helpers ────────────────────────────────────────
   function updateForm(k: keyof FormData, v: string | string[]) {
     setForm(prev => ({ ...prev, [k]: v }))
   }
@@ -242,515 +134,493 @@ export default function BookPage() {
 
   function validateForm(): string | null {
     if (!form.customer_name.trim()) return 'Please enter your full name.'
-    if (!/^\d{10}$/.test(form.customer_phone.replace(/\D/g, ''))) return 'Please enter a valid 10-digit phone number.'
-    if (!form.customer_email.includes('@')) return 'Please enter a valid email address.'
-    if (!form.customer_address.trim()) return 'Please enter your full address so the artist knows where to come.'
-    if (!form.service_type) return 'Please select a service.'
-    if (!['lucknow', 'ayodhya'].includes(form.city)) return 'Please select a city.'
+    const cleanPhone = form.customer_phone.replace(/\D/g, '')
+    if (cleanPhone.length !== 10) return 'Please enter a valid 10-digit mobile number so we can call or WhatsApp you.'
+    if (!form.customer_address.trim()) return 'Please enter your home address & locality so our artist can arrive on time.'
+    if (!form.service_type) return 'Please select at least one beauty service.'
     return null
   }
 
-  // The effective price: cart takes priority, then dropdown selection, then deposit fallback
-  function getPayAmount(): number {
-    if (cartSubtotal > 0) return cartSubtotal
-    if (selectedServicePrice > 0) return selectedServicePrice
-    return settings?.deposit_amount || 500
-  }
+  const effectiveEstimate = cartSubtotal > 0 ? cartSubtotal : (selectedServicePrice > 0 ? selectedServicePrice : null)
 
-  // ── Submit booking ──────────────────────────────────────
-  async function handleSubmit() {
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
     const v = validateForm()
-    if (v) { setError(v); return }
-
-    setSubmitting(true)
-    setError('')
-
-    const body: Record<string, unknown> = {
-      ...form,
-      appointment_date: selDate || undefined,
-      appointment_time: selTime || undefined,
-      total_estimate: getPayAmount(),
-    }
-
-    const res = await fetch('/api/book', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    })
-
-    const json = await res.json()
-
-    if (!res.ok) {
-      if (res.status === 409) {
-        setError('This slot was just taken. Please pick another time.')
-        // Refresh slots
-        if (selDate) {
-          setLoadingSlots(true)
-          const sr = await fetch(`/api/slots?date=${selDate}&service=${encodeURIComponent(form.service_type)}`)
-          const sj = await sr.json()
-          setSlots(sj.slots || [])
-          setLoadingSlots(false)
-        }
-      } else {
-        setError(json.error || 'Something went wrong.')
-      }
-      setSubmitting(false)
+    if (v) {
+      setError(v)
+      window.scrollTo({ top: 300, behavior: 'smooth' })
       return
     }
 
-    setResult(json.booking)
-    setStep('success')
-    setSubmitting(false)
-    clearCart()
-  }
-
-  // ── Razorpay payment (non-makeup) ──────────────────────
-  async function initiatePayment() {
-    const v = validateForm()
-    if (v) { setError(v); return }
-    if (!settings) return
-
     setSubmitting(true)
     setError('')
 
+    const timingSummary = form.preferred_timing === 'Specific Upcoming Date' && form.specific_date
+      ? `Date: ${form.specific_date}`
+      : form.preferred_timing
+
+    const body = {
+      customer_name: form.customer_name.trim(),
+      customer_phone: form.customer_phone.trim(),
+      customer_email: form.customer_email.trim() || `${form.customer_phone.replace(/\D/g, '')}@doorstepdiva.lead`,
+      customer_address: form.customer_address.trim(),
+      city: form.city,
+      service_type: form.service_type,
+      addons: form.addons,
+      preferred_timing: timingSummary,
+      appointment_date: form.specific_date || null,
+      total_estimate: effectiveEstimate,
+      notes: form.notes.trim() || undefined,
+    }
+
     try {
-      const payAmount = getPayAmount()
-      const orderRes = await fetch('/api/create-order', {
+      const res = await fetch('/api/book', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: payAmount }),
+        body: JSON.stringify(body),
       })
-      const order = await orderRes.json()
-      if (!orderRes.ok) throw new Error(order.error || 'Order creation failed')
 
-      // 2. Open Razorpay checkout
-      const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: order.amount,
-        currency: 'INR',
-        name: 'DoorStep Diva',
-        description: form.service_type,
-        order_id: order.id,
-        prefill: {
-          name: form.customer_name,
-          email: form.customer_email,
-          contact: form.customer_phone,
-        },
-        handler: async function (response: { razorpay_order_id: string; razorpay_payment_id: string }) {
-          const res = await fetch('/api/book', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              ...form,
-              appointment_date: selDate || undefined,
-              appointment_time: selTime || undefined,
-              total_estimate: payAmount,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-            }),
-          })
-          const json = await res.json()
-          if (res.ok) {
-            setResult(json.booking)
-            setStep('success')
-            clearCart()
-          } else {
-            setError(json.error || 'Failed to save booking after payment.')
-          }
-          setSubmitting(false)
-        },
-        modal: {
-          ondismiss: () => { setSubmitting(false) },
-        },
+      const json = await res.json()
+      if (!res.ok) {
+        throw new Error(json.error || 'Failed to submit booking')
       }
-      const rzp = new (window as unknown as { Razorpay: new (o: typeof options) => { open(): void } }).Razorpay(options)
-      rzp.open()
-    } catch (e: unknown) {
-      setError((e as Error).message || 'Payment failed')
+
+      setStep('success')
+      clearCart()
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Unable to submit booking. Please reach us directly on WhatsApp.')
+    } finally {
       setSubmitting(false)
     }
   }
 
-  // ── Calendar helpers ────────────────────────────────────
-  const daysInMonth = new Date(calMonth.year, calMonth.month + 1, 0).getDate()
-  const firstDay = new Date(calMonth.year, calMonth.month, 1).getDay()
-  const today = new Date()
-  const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`
+  const cityNameDisplay = form.city === 'delhi-ncr' ? 'Delhi NCR' : form.city === 'lucknow' ? 'Lucknow' : 'Ayodhya'
 
-  function isPastOrToday(day: number) {
-    const d = `${calMonth.year}-${String(calMonth.month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
-    return d <= todayStr
-  }
+  const waSuccessMsg = encodeURIComponent(
+    `Hi DoorStep Diva! I just requested a booking for ${form.service_type} in ${cityNameDisplay}. Name: ${form.customer_name}, Phone: ${form.customer_phone}. Preferred Time: ${form.preferred_timing === 'Specific Upcoming Date' ? form.specific_date : form.preferred_timing}. Please confirm my artist!`
+  )
 
-  function isDayDisabled(day: number): boolean {
-    const dateStr = `${calMonth.year}-${String(calMonth.month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
-
-    // Past or today
-    if (dateStr <= todayStr) return true
-
-    // No artist config loaded yet — allow all future dates
-    if (workingDays.length === 0 && blockedDates.length === 0) return false
-
-    // Not a working day
-    const dayOfWeek = new Date(dateStr + 'T12:00:00').getDay()
-    if (!workingDays.includes(dayOfWeek)) return true
-
-    // Blocked date
-    if (blockedDates.includes(dateStr)) return true
-
-    return false
-  }
-
-  function prevMonth() {
-    setCalMonth(prev => prev.month === 0 ? { year: prev.year - 1, month: 11 } : { year: prev.year, month: prev.month - 1 })
-  }
-
-  function nextMonth() {
-    setCalMonth(prev => prev.month === 11 ? { year: prev.year + 1, month: 0 } : { year: prev.year, month: prev.month + 1 })
-  }
-
-  const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-  // Days abbreviations starting from Sunday
-  const DAY_HEADERS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-
-  const addonsToShow = form.service_type && isHairSkinService(form.service_type)
-    ? SKIN_HAIR_ADDONS
-    : form.service_type && !isHairSkinService(form.service_type)
-    ? MAKEUP_NAILS_ADDONS
-    : []
-
-  // ── Render ──────────────────────────────────────────────
-
-  // SUCCESS SCREEN
-  if (step === 'success' && result) {
-    const hasSlot = !!(selDate && selTime)
-    const waMsg = `Hi, I just booked ${form.service_type}${hasSlot ? ` for ${selDate} at ${selTime}` : ''} in ${form.city === 'lucknow' ? 'Lucknow' : 'Ayodhya'}. My name is ${form.customer_name}.`
-    return (
-      <div className="min-h-screen bg-petal flex items-center justify-center px-6 py-24">
-        <div className="max-w-lg w-full bg-white rounded-3xl p-10 border border-blush/20 text-center shadow-lg">
-          <div className="w-16 h-16 rounded-full bg-green-100 text-green-600 flex items-center justify-center mx-auto mb-6 text-3xl">✓</div>
-          <h2 className="font-playfair text-3xl font-bold text-stone mb-2">Booking Received!</h2>
-          <div className="font-poppins text-sm text-stone-light leading-relaxed space-y-2 mb-8 text-left bg-petal/50 rounded-2xl p-5">
-            <p><strong>Name:</strong> {form.customer_name}</p>
-            <p><strong>Service:</strong> {form.service_type}</p>
-            <p><strong>City:</strong> {form.city === 'lucknow' ? 'Lucknow' : 'Ayodhya'}</p>
-            {hasSlot && <p><strong>Date & Time:</strong> {selDate} at {(() => {
-              const [h, m] = selTime.split(':').map(Number)
-              const period = h >= 12 ? 'PM' : 'AM'
-              const hour = h > 12 ? h - 12 : h === 0 ? 12 : h
-              return `${hour}:${m.toString().padStart(2, '0')} ${period}`
-            })()}</p>}
-            {!hasSlot && settings && (
-              <p>A ₹{settings.deposit_amount} deposit has been collected. We&apos;ll call you to confirm your slot.</p>
-            )}
-            {form.addons.length > 0 && <p><strong>Add-ons:</strong> {form.addons.join(', ')}</p>}
-          </div>
-          <p className="font-poppins text-xs text-stone-light mb-8">We&apos;ll send a WhatsApp confirmation shortly.</p>
-          <a
-            href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waMsg)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-press inline-flex items-center gap-2 font-poppins text-sm font-semibold px-8 py-4 bg-[#25D366] text-white hover:bg-[#1da851] transition-colors rounded-full"
-          >
-            <WAIcon size={16} />
-            Message us on WhatsApp →
-          </a>
-        </div>
-      </div>
-    )
-  }
-
-  // BOOKING FORM
   return (
-    <div className="min-h-screen bg-petal">
-      <div style={{ maxWidth: 640, margin: '0 auto', padding: '48px 24px 80px' }}>
-        {/* Header */}
-        <div className="text-center mb-10">
-          <div className="inline-block text-xs font-semibold tracking-[0.15em] uppercase text-rose bg-rose/5 px-4 py-2 rounded-full mb-4">
-            Book Your Session
-          </div>
-          <h1 className="font-playfair text-4xl md:text-5xl font-bold text-stone mb-3">
-            Reserve Your <em className="text-rose">Appointment</em>
-          </h1>
-          <p className="font-poppins text-sm text-stone-light">
-            Fill in your details below. {settings?.calendar_enabled ? 'Pick a date and time from the live calendar.' : 'Pay a deposit to secure your spot — we\'ll call to confirm the time.'}
-          </p>
+    <div className="min-h-screen bg-[#FDF8F9] py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto">
+        
+        {/* Breadcrumb / Status Banner */}
+        <div className="mb-6 flex items-center justify-between">
+          <Link href="/" className="inline-flex items-center text-xs font-semibold text-[#8B3A52] hover:underline">
+            ← Back to Home
+          </Link>
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-[#8B3A52]/10 text-[#8B3A52]">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            Booking Desk Online • Express Dispatch
+          </span>
         </div>
 
-        {/* Error banner */}
-        {error && (
-          <div className="bg-red-50 border border-red-200 rounded-xl px-5 py-3 mb-6">
-            <p className="font-poppins text-sm text-red-700">{error}</p>
-          </div>
-        )}
+        {step === 'success' ? (
+          /* ── SUCCESS SCREEN ── */
+          <div className="bg-white rounded-3xl p-8 sm:p-10 shadow-xl border border-[#F0D5DD] text-center">
+            <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
+              ✓
+            </div>
+            
+            <h1 className="font-playfair text-3xl sm:text-4xl text-stone-900 font-bold mb-3">
+              Booking Request Received!
+            </h1>
+            <p className="text-stone-600 text-sm sm:text-base max-w-lg mx-auto mb-8">
+              Thank you, <strong>{form.customer_name}</strong>. Our beauty coordinator has received your request and will call or message you on <strong>{form.customer_phone}</strong> within 15 minutes to confirm your certified artist and exact arrival time.
+            </p>
 
-        {/* ── FORM ── */}
-        <div className="bg-white rounded-3xl border border-blush/20 p-6 md:p-8 space-y-5">
-
-          {/* Cart summary */}
-          {cartItems.length > 0 && (
-            <div className="bg-petal/50 rounded-2xl p-5 border border-blush/15">
-              <p className="font-poppins text-xs font-semibold text-stone uppercase tracking-wider mb-3">Your Cart ({cartItems.length} {cartItems.length === 1 ? 'item' : 'items'})</p>
-              <div className="space-y-2">
-                {cartItems.map(item => (
-                  <div key={item.id} className="flex items-center justify-between text-sm">
-                    <span className="font-poppins text-sm text-stone">
-                      {item.name} <span className="text-stone-light">×{item.quantity}</span>
-                    </span>
-                    <span className="font-poppins text-sm font-semibold text-stone">₹{(item.price * item.quantity).toLocaleString('en-IN')}</span>
+            {/* Quick summary box */}
+            <div className="bg-[#FAF3F5] rounded-2xl p-6 text-left mb-8 border border-[#EACCD6]/50">
+              <h2 className="text-xs font-bold text-[#8B3A52] uppercase tracking-wider mb-4">
+                Booking Summary
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                <div>
+                  <span className="text-stone-500 block text-xs">Service Selected:</span>
+                  <span className="font-semibold text-stone-900">{form.service_type}</span>
+                </div>
+                <div>
+                  <span className="text-stone-500 block text-xs">City / Region:</span>
+                  <span className="font-semibold text-stone-900">{cityNameDisplay}</span>
+                </div>
+                <div>
+                  <span className="text-stone-500 block text-xs">Preferred Timing:</span>
+                  <span className="font-semibold text-stone-900">
+                    {form.preferred_timing === 'Specific Upcoming Date' ? form.specific_date : form.preferred_timing}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-stone-500 block text-xs">Payment Method:</span>
+                  <span className="font-semibold text-emerald-700">Pay after service (UPI / Cash)</span>
+                </div>
+                {form.addons.length > 0 && (
+                  <div className="sm:col-span-2">
+                    <span className="text-stone-500 block text-xs">Add-ons:</span>
+                    <span className="font-medium text-stone-800">{form.addons.join(', ')}</span>
                   </div>
-                ))}
-                <div className="border-t border-blush/20 pt-2 flex justify-between">
-                  <span className="font-poppins text-sm font-semibold text-stone">Estimated Total</span>
-                  <span className="font-playfair text-lg font-bold text-rose">₹{cartSubtotal.toLocaleString('en-IN')}</span>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Full Name */}
-          <div>
-            <label className="font-poppins text-xs font-semibold text-stone uppercase tracking-wider block mb-1.5">Full Name *</label>
-            <input type="text" value={form.customer_name} onChange={e => updateForm('customer_name', e.target.value)}
-              className="w-full border border-blush/40 rounded-xl px-4 py-3 font-poppins text-sm text-stone placeholder-stone-light/50 focus:outline-none focus:border-rose/50 transition-colors" placeholder="Your full name" />
-          </div>
-
-          {/* Phone + Email */}
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label className="font-poppins text-xs font-semibold text-stone uppercase tracking-wider block mb-1.5">Phone Number *</label>
-              <input type="tel" value={form.customer_phone} onChange={e => updateForm('customer_phone', e.target.value)}
-                className="w-full border border-blush/40 rounded-xl px-4 py-3 font-poppins text-sm text-stone placeholder-stone-light/50 focus:outline-none focus:border-rose/50 transition-colors" placeholder="10-digit number" />
-            </div>
-            <div>
-              <label className="font-poppins text-xs font-semibold text-stone uppercase tracking-wider block mb-1.5">Email Address *</label>
-              <input type="email" value={form.customer_email} onChange={e => updateForm('customer_email', e.target.value)}
-                className="w-full border border-blush/40 rounded-xl px-4 py-3 font-poppins text-sm text-stone placeholder-stone-light/50 focus:outline-none focus:border-rose/50 transition-colors" placeholder="you@example.com" />
-            </div>
-          </div>
-
-          {/* Address */}
-          <div>
-            <label className="font-poppins text-xs font-semibold text-stone uppercase tracking-wider block mb-1.5">Full Address / Area *</label>
-            <textarea value={form.customer_address} onChange={e => updateForm('customer_address', e.target.value)}
-              rows={2} className="w-full border border-blush/40 rounded-xl px-4 py-3 font-poppins text-sm text-stone placeholder-stone-light/50 focus:outline-none focus:border-rose/50 transition-colors resize-none" placeholder="Your complete address"/>
-          </div>
-
-          {/* City */}
-          <div>
-            <label className="font-poppins text-xs font-semibold text-stone uppercase tracking-wider block mb-2">City *</label>
-            <div className="flex gap-4">
-              {[{ value: 'lucknow', label: 'Lucknow' }, { value: 'ayodhya', label: 'Ayodhya' }].map(c => (
-                <label key={c.value} className={`flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border-2 cursor-pointer font-poppins text-sm font-semibold transition-all ${
-                  form.city === c.value ? 'border-rose bg-rose/5 text-rose' : 'border-blush/30 text-stone-light hover:border-rose/30'
-                }`}>
-                  <input type="radio" name="city" value={c.value} checked={form.city === c.value}
-                    onChange={e => updateForm('city', e.target.value)} className="sr-only" />
-                  {c.label}
-                </label>
-              ))}
-            </div>
-          </div>
-
-          {/* Service — dropdown only when cart is empty */}
-          {cartItems.length === 0 && (
-            <div>
-              <label className="font-poppins text-xs font-semibold text-stone uppercase tracking-wider block mb-1.5">Service Type *</label>
-              <select value={form.service_type} onChange={e => {
-                const label = e.target.value
-                updateForm('service_type', label)
-                updateForm('addons', [])
-                setSelectedServicePrice(getServiceMinPrice(label))
-                setSelDate('')
-                setSelTime('')
-                setSlots([])
-              }}
-                className="w-full border border-blush/40 rounded-xl px-4 py-3 font-poppins text-sm text-stone placeholder-stone-light/50 focus:outline-none focus:border-rose/50 transition-colors bg-white">
-                <option value="">Select a service...</option>
-                {SERVICE_OPTIONS.map((o, i) =>
-                  o.group
-                    ? <option key={i} disabled className="font-semibold text-rose bg-petal/30">{o.label}</option>
-                    : <option key={i} value={o.label}>{o.label}{o.minPrice ? ` — from ₹${o.minPrice.toLocaleString('en-IN')}` : ''}</option>
                 )}
-              </select>
-            </div>
-          )}
-
-          {/* Add-ons */}
-          {addonsToShow.length > 0 && (
-            <div>
-              <label className="font-poppins text-xs font-semibold text-stone uppercase tracking-wider block mb-2">Add-Ons (Optional)</label>
-              <div className="grid sm:grid-cols-2 gap-2">
-                {addonsToShow.map(a => (
-                  <label key={a.value} className={`flex items-center gap-2 p-2.5 rounded-xl border cursor-pointer transition-all text-xs font-poppins ${
-                    form.addons.includes(a.value) ? 'border-rose/50 bg-rose/5 text-rose font-medium' : 'border-blush/20 text-stone-light hover:border-rose/20'
-                  }`}>
-                    <input type="checkbox" checked={form.addons.includes(a.value)} onChange={() => toggleAddon(a.value)} className="sr-only" />
-                    <span className={`w-4 h-4 rounded border flex items-center justify-center flex-shrink-0 ${form.addons.includes(a.value) ? 'bg-rose border-rose text-white' : 'border-blush/40'}`}>
-                      {form.addons.includes(a.value) && '✓'}
-                    </span>
-                    {a.label}
-                  </label>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* ── MODE BRANCH ── */}
-
-          {/* Makeup lead form */}
-          {form.service_type && isMakeupService(form.service_type) && (
-            <div className="border-t border-blush/10 pt-5">
-              <p className="font-poppins text-xs font-semibold text-stone uppercase tracking-wider mb-3">Submit Lead — We'll Contact You</p>
-              <p className="font-poppins text-xs text-stone-light mb-4">Every makeup look is custom-quoted. Fill this form and we'll reach out to confirm your booking.</p>
-
-              <div className="space-y-4">
-                <div>
-                  <label className="font-poppins text-[10px] font-semibold text-stone-light uppercase block mb-1.5">Preferred Event Date</label>
-                  <input type="date" value={selDate} onChange={e => setSelDate(e.target.value)}
-                    min={todayStr}
-                    className="w-full border border-blush/40 rounded-xl px-4 py-3 font-poppins text-sm text-stone focus:outline-none focus:border-rose/50 transition-colors" />
-                </div>
-                <div>
-                  <label className="font-poppins text-[10px] font-semibold text-stone-light uppercase block mb-1.5">Event Type / Notes</label>
-                  <textarea value={form.notes}
-                    onChange={e => updateForm('notes', e.target.value)}
-                    rows={2}
-                    placeholder="e.g., Wedding Day, Sangeet, Reception, Party — any preferences or reference images you'd like us to know"
-                    className="w-full border border-blush/40 rounded-xl px-4 py-3 font-poppins text-sm text-stone placeholder-stone-light/50 focus:outline-none focus:border-rose/50 transition-colors resize-none" />
+                <div className="sm:col-span-2">
+                  <span className="text-stone-500 block text-xs">Service Address:</span>
+                  <span className="text-stone-800">{form.customer_address}</span>
                 </div>
               </div>
+            </div>
 
-              <button onClick={handleSubmit} disabled={submitting}
-                className="btn-press w-full mt-5 font-poppins text-sm font-semibold px-8 py-4 bg-rose text-white hover:bg-mauve transition-colors rounded-full disabled:opacity-50">
-                {submitting ? 'Submitting...' : 'Submit Lead'}
-              </button>
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+              <a
+                href={`https://wa.me/${WA_NUMBER}?text=${waSuccessMsg}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#25D366] text-white font-semibold text-sm shadow-md hover:bg-[#1EBE5D] transition-all hover:scale-[1.02]"
+              >
+                <span>Instant Confirm on WhatsApp</span>
+              </a>
+              <a
+                href={`tel:+${WA_NUMBER}`}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-stone-900 text-white font-semibold text-sm hover:bg-stone-800 transition-all"
+              >
+                <span>Call Coordinator (+91 7985183449)</span>
+              </a>
+            </div>
 
-              <div className="mt-4 text-center">
-                <p className="font-poppins text-[11px] text-stone-light/60 mb-2">or, message us directly</p>
-                <a href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Hi, I'd like to book makeup for ${form.service_type}.`)}`}
-                  target="_blank" rel="noopener noreferrer"
-                  className="btn-press inline-flex items-center gap-2 font-poppins text-xs font-semibold px-5 py-2.5 bg-[#25D366] text-white rounded-full hover:bg-[#1da851] transition-colors">
-                  <WAIcon size={12} />
-                  WhatsApp →
-                </a>
+            {/* Trust timeline */}
+            <div className="border-t border-stone-100 pt-8 max-w-md mx-auto text-left">
+              <h3 className="text-xs font-bold text-stone-500 uppercase tracking-wider mb-4 text-center">
+                What Happens Next
+              </h3>
+              <ul className="space-y-3 text-xs sm:text-sm text-stone-600">
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-[#8B3A52]/10 text-[#8B3A52] flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">1</span>
+                  <span><strong>Coordinator Call:</strong> We confirm your exact address & artist dispatch timing.</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-[#8B3A52]/10 text-[#8B3A52] flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">2</span>
+                  <span><strong>Sanitized Single-Use Kit:</strong> Your certified female artist arrives with a sealed kit opened in your presence.</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-[#8B3A52]/10 text-[#8B3A52] flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">3</span>
+                  <span><strong>Zero Risk Payment:</strong> Relax, enjoy your salon experience, and pay only after completion.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="mt-8">
+              <Link href="/" className="text-xs text-[#8B3A52] font-semibold hover:underline">
+                Return to Home
+              </Link>
+            </div>
+          </div>
+        ) : (
+          /* ── BOOKING FORM ── */
+          <div className="bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-[#F0D5DD]">
+            
+            {/* Header */}
+            <div className="mb-8 text-center">
+              <h1 className="font-playfair text-3xl sm:text-4xl text-stone-900 font-bold mb-2">
+                Book At-Home Salon Service
+              </h1>
+              <p className="text-stone-600 text-sm max-w-lg mx-auto">
+                Certified artists delivered to your doorstep across <strong>Delhi NCR, Lucknow & Ayodhya</strong>. Zero advance required — pay after your service.
+              </p>
+            </div>
+
+            {/* Trust Pill Bar */}
+            <div className="mb-8 grid grid-cols-3 gap-2 sm:gap-4 bg-[#FDF2F5] p-3 sm:p-4 rounded-2xl border border-[#F3DBE2] text-center">
+              <div>
+                <span className="block text-base sm:text-lg">🛡️</span>
+                <span className="text-[11px] sm:text-xs font-semibold text-stone-800">100% Sealed Kits</span>
+              </div>
+              <div>
+                <span className="block text-base sm:text-lg">👩‍🎨</span>
+                <span className="text-[11px] sm:text-xs font-semibold text-stone-800">Verified Artists</span>
+              </div>
+              <div>
+                <span className="block text-base sm:text-lg">💳</span>
+                <span className="text-[11px] sm:text-xs font-semibold text-stone-800">Pay After Service</span>
               </div>
             </div>
-          )}
 
-          {/* Mode A: Calendar (non-makeup, calendar enabled) */}
-          {settings?.calendar_enabled && form.service_type && !isMakeupService(form.service_type) && (
-            <div className="border-t border-blush/10 pt-5">
-              <p className="font-poppins text-xs font-semibold text-stone uppercase tracking-wider mb-3">Select Date & Time</p>
+            {error && (
+              <div className="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs sm:text-sm font-medium flex items-center gap-2">
+                <span>⚠️</span>
+                <span>{error}</span>
+              </div>
+            )}
 
-              {/* Calendar */}
-              <div className="bg-petal/50 rounded-2xl p-4 border border-blush/15">
-                <div className="flex items-center justify-between mb-4">
-                  <button onClick={prevMonth} className="w-8 h-8 rounded-full hover:bg-rose/10 flex items-center justify-center text-rose font-bold text-sm">‹</button>
-                  <span className="font-poppins text-sm font-semibold text-stone">{MONTHS[calMonth.month]} {calMonth.year}</span>
-                  <button onClick={nextMonth} className="w-8 h-8 rounded-full hover:bg-rose/10 flex items-center justify-center text-rose font-bold text-sm">›</button>
-                </div>
-
-                <div className="grid grid-cols-7 gap-1 text-center mb-1">
-                  {DAY_HEADERS.map(d => (
-                    <span key={d} className="font-poppins text-[10px] font-semibold text-stone-light/70 py-1">{d}</span>
-                  ))}
-                </div>
-
-                <div className="grid grid-cols-7 gap-1">
-                  {Array.from({ length: firstDay }).map((_, i) => <div key={`e${i}`} />)}
-                  {Array.from({ length: daysInMonth }).map((_, i) => {
-                    const day = i + 1
-                    const dateStr = `${calMonth.year}-${String(calMonth.month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
-                    const disabled = isDayDisabled(day)
-                    const isSel = dateStr === selDate
+            <form onSubmit={handleSubmit} className="space-y-8">
+              
+              {/* 1. SELECT CITY */}
+              <div>
+                <label className="block text-xs font-bold text-stone-800 uppercase tracking-wider mb-2">
+                  1. Choose Your City / Region *
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {[
+                    { value: 'delhi-ncr', title: 'Delhi NCR', subtitle: 'South Delhi, Noida, Gurgaon, Ghaziabad' },
+                    { value: 'lucknow', title: 'Lucknow', subtitle: 'Gomti Nagar, Hazratganj, Aliganj, etc.' },
+                    { value: 'ayodhya', title: 'Ayodhya', subtitle: 'Ayodhya & Surrounding Townships' },
+                  ].map(c => {
+                    const isSelected = form.city === c.value
                     return (
                       <button
-                        key={day}
-                        disabled={disabled}
-                        onClick={() => { setSelDate(dateStr); setSelTime('') }}
-                        className={`font-poppins text-xs h-9 rounded-lg transition-all ${
-                          disabled ? 'text-stone-light/25 cursor-not-allowed bg-stone-light/5' :
-                          isSel ? 'bg-rose text-white font-bold shadow-sm' :
-                          'hover:bg-rose/10 text-stone font-medium'
+                        type="button"
+                        key={c.value}
+                        onClick={() => updateForm('city', c.value)}
+                        className={`text-left p-4 rounded-2xl border transition-all ${
+                          isSelected
+                            ? 'border-[#8B3A52] bg-[#FDF2F5] ring-2 ring-[#8B3A52]/20'
+                            : 'border-stone-200 hover:border-stone-300 bg-white'
                         }`}
-                      >{day}</button>
+                      >
+                        <div className="flex items-center justify-between mb-1">
+                          <span className={`font-semibold text-sm ${isSelected ? 'text-[#8B3A52]' : 'text-stone-900'}`}>
+                            {c.title}
+                          </span>
+                          <span className={`w-4 h-4 rounded-full border flex items-center justify-center ${isSelected ? 'border-[#8B3A52] bg-[#8B3A52]' : 'border-stone-300'}`}>
+                            {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-stone-500 leading-tight">
+                          {c.subtitle}
+                        </p>
+                      </button>
                     )
                   })}
                 </div>
               </div>
 
-              {/* Slots */}
-              {selDate && (
-                <div className="mt-4">
-                  <p className="font-poppins text-[11px] text-stone-light mb-2">{new Date(selDate + 'T12:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
-                  {loadingSlots && <p className="font-poppins text-xs text-stone-light">Loading slots...</p>}
-                  {!loadingSlots && slotError && (
-                    <div className="text-center py-4">
-                      <p className="font-poppins text-xs text-stone-light mb-2">{slotError}</p>
-                      <a href={`https://wa.me/${WA_NUMBER}`} target="_blank" rel="noopener noreferrer" className="font-poppins text-xs text-rose underline">WhatsApp us</a>
-                    </div>
-                  )}
-                  {!loadingSlots && slots.length > 0 && (
-                    <div className="flex flex-wrap gap-2">
-                      {slots.map(t => {
-                        const [h, m] = t.split(':').map(Number)
-                        const period = h >= 12 ? 'PM' : 'AM'
-                        const hour = h > 12 ? h - 12 : h === 0 ? 12 : h
-                        const label = `${hour}:${m.toString().padStart(2, '0')} ${period}`
-                        return (
-                          <button key={t}
-                            onClick={() => setSelTime(t)}
-                            className={`font-poppins text-xs font-semibold px-4 py-2.5 rounded-xl border transition-all ${
-                              selTime === t ? 'bg-rose text-white border-rose' : 'bg-white border-blush/30 text-stone hover:border-rose/40'
-                            }`}
-                          >{label}</button>
-                        )
-                      })}
-                    </div>
-                  )}
-                  {selTime && (
-                    <button onClick={initiatePayment} disabled={submitting}
-                      className="btn-press w-full mt-4 font-poppins text-sm font-semibold px-8 py-4 bg-rose text-white hover:bg-mauve transition-colors rounded-full disabled:opacity-50">
-                      {submitting ? 'Processing...' : `Pay ₹${getPayAmount().toLocaleString('en-IN')} to Confirm`}
-                    </button>
+              {/* 2. SELECT SERVICE */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="block text-xs font-bold text-stone-800 uppercase tracking-wider">
+                    2. Select Service(s) *
+                  </label>
+                  {cartItems.length > 0 && (
+                    <span className="text-xs text-[#8B3A52] font-semibold">
+                      {cartItems.length} items from cart loaded
+                    </span>
                   )}
                 </div>
-              )}
-            </div>
-          )}
 
-          {/* Mode B: Deposit payment (calendar disabled, non-makeup) */}
-          {settings && !settings.calendar_enabled && form.service_type && !isMakeupService(form.service_type) && (
-            <div className="border-t border-blush/10 pt-5">
-              <div className="bg-stone/5 border border-stone/15 rounded-2xl p-5 text-center">
-                <p className="font-poppins text-sm font-semibold text-stone mb-2">Calendar Currently Full</p>
-                <p className="font-poppins text-xs text-stone-light mb-5">
-                  To secure your appointment, please pay a ₹{settings.deposit_amount} deposit. We&apos;ll call you within a few hours to confirm your date and time.
-                </p>
-                <button onClick={initiatePayment} disabled={submitting}
-                  className="btn-press inline-flex items-center gap-2 font-poppins text-sm font-semibold px-8 py-4 bg-rose text-white hover:bg-mauve transition-colors rounded-full disabled:opacity-50">
-                  {submitting ? 'Processing...' : `Pay ₹${getPayAmount().toLocaleString('en-IN')} Deposit`}
-                </button>
+                {cartItems.length > 0 ? (
+                  <div className="p-4 rounded-2xl bg-[#FDF2F5] border border-[#F3DBE2]">
+                    <div className="text-xs font-semibold text-stone-700 mb-2">Selected Cart Services:</div>
+                    <ul className="text-sm font-medium text-stone-900 space-y-1">
+                      {cartItems.map(item => (
+                        <li key={item.id} className="flex justify-between items-center">
+                          <span>• {item.name} <span className="text-stone-500 text-xs">(×{item.quantity})</span></span>
+                          <span className="font-semibold text-[#8B3A52]">₹{item.price * item.quantity}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="border-t border-[#F3DBE2] mt-3 pt-2 flex justify-between items-center text-xs font-bold text-stone-800">
+                      <span>Total Cart Estimate:</span>
+                      <span className="text-sm text-[#8B3A52]">₹{cartSubtotal}</span>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <select
+                      value={form.service_type}
+                      onChange={e => {
+                        const val = e.target.value
+                        updateForm('service_type', val)
+                        setSelectedServicePrice(getServiceMinPrice(val))
+                      }}
+                      className="w-full px-4 py-3.5 rounded-2xl border border-stone-200 bg-white text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#8B3A52]/20 focus:border-[#8B3A52]"
+                      required
+                    >
+                      <option value="">-- Choose a beauty service --</option>
+                      {SERVICE_OPTIONS.map((opt, i) =>
+                        opt.group ? (
+                          <option key={i} disabled className="font-bold text-stone-500 bg-stone-100">
+                            {opt.label}
+                          </option>
+                        ) : (
+                          <option key={i} value={opt.label}>
+                            {opt.label} {opt.minPrice ? `(from ₹${opt.minPrice})` : ''}
+                          </option>
+                        )
+                      )}
+                    </select>
+                  </div>
+                )}
+
+                {/* Popular Add-ons */}
+                <div className="mt-4">
+                  <span className="block text-[11px] font-semibold text-stone-500 uppercase tracking-wider mb-2">
+                    Optional Quick Add-ons:
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {COMMON_ADDONS.map(addon => {
+                      const checked = form.addons.includes(addon.value)
+                      return (
+                        <button
+                          type="button"
+                          key={addon.value}
+                          onClick={() => toggleAddon(addon.value)}
+                          className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
+                            checked
+                              ? 'bg-[#8B3A52] text-white border-[#8B3A52]'
+                              : 'bg-stone-50 text-stone-700 border-stone-200 hover:border-stone-300'
+                          }`}
+                        >
+                          {checked ? '✓ ' : '+ '} {addon.label}
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
               </div>
-            </div>
-          )}
 
-          {/* No service selected yet — only when cart empty */}
-          {!form.service_type && cartItems.length === 0 && (
-            <div className="border-t border-blush/10 pt-5 text-center">
-              <p className="font-poppins text-xs text-stone-light/60">Select a service above or add items to your cart first.</p>
-            </div>
-          )}
+              {/* 3. TIMING PREFERENCE */}
+              <div>
+                <label className="block text-xs font-bold text-stone-800 uppercase tracking-wider mb-2">
+                  3. Preferred Timing / Arrival Window *
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {TIMING_OPTIONS.map(timeOption => {
+                    const isSelected = form.preferred_timing === timeOption
+                    return (
+                      <button
+                        type="button"
+                        key={timeOption}
+                        onClick={() => updateForm('preferred_timing', timeOption)}
+                        className={`text-left px-4 py-3 rounded-2xl border text-xs sm:text-sm font-medium transition-all ${
+                          isSelected
+                            ? 'border-[#8B3A52] bg-[#FDF2F5] text-[#8B3A52] font-semibold'
+                            : 'border-stone-200 text-stone-700 bg-white hover:border-stone-300'
+                        }`}
+                      >
+                        {isSelected ? '● ' : '○ '} {timeOption}
+                      </button>
+                    )
+                  })}
+                </div>
 
-        </div>
+                {form.preferred_timing === 'Specific Upcoming Date' && (
+                  <div className="mt-3">
+                    <label className="block text-xs font-semibold text-stone-600 mb-1">
+                      Choose Your Date:
+                    </label>
+                    <input
+                      type="date"
+                      min={new Date().toISOString().split('T')[0]}
+                      value={form.specific_date}
+                      onChange={e => updateForm('specific_date', e.target.value)}
+                      className="px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#8B3A52]/20 focus:border-[#8B3A52]"
+                      required
+                    />
+                  </div>
+                )}
+              </div>
 
-        {/* Back link */}
-        <div className="text-center mt-8">
-          <Link href="/" className="font-poppins text-xs text-stone-light hover:text-rose transition-colors">
-            ← Back to Home
-          </Link>
-        </div>
+              {/* 4. CONTACT & ADDRESS */}
+              <div>
+                <label className="block text-xs font-bold text-stone-800 uppercase tracking-wider mb-3">
+                  4. Your Contact & Doorstep Address *
+                </label>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <label className="block text-xs text-stone-600 font-medium mb-1">Full Name *</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Priya Sharma"
+                      value={form.customer_name}
+                      onChange={e => updateForm('customer_name', e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#8B3A52]/20 focus:border-[#8B3A52]"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-stone-600 font-medium mb-1">10-Digit Mobile Number *</label>
+                    <input
+                      type="tel"
+                      placeholder="e.g. 9876543210"
+                      value={form.customer_phone}
+                      onChange={e => updateForm('customer_phone', e.target.value)}
+                      maxLength={10}
+                      className="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#8B3A52]/20 focus:border-[#8B3A52]"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <label className="block text-xs text-stone-600 font-medium mb-1">Email Address (Optional)</label>
+                  <input
+                    type="email"
+                    placeholder="e.g. priya@gmail.com"
+                    value={form.customer_email}
+                    onChange={e => updateForm('customer_email', e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#8B3A52]/20 focus:border-[#8B3A52]"
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label className="block text-xs text-stone-600 font-medium mb-1">Complete Address & Landmark *</label>
+                  <textarea
+                    rows={3}
+                    placeholder="House/Flat number, Building name, Street, Landmark, Area name"
+                    value={form.customer_address}
+                    onChange={e => updateForm('customer_address', e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#8B3A52]/20 focus:border-[#8B3A52]"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs text-stone-600 font-medium mb-1">Special Instructions / Requests (Optional)</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Sensitive skin, bridal trial needed, prefer afternoon call"
+                    value={form.notes}
+                    onChange={e => updateForm('notes', e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#8B3A52]/20 focus:border-[#8B3A52]"
+                  />
+                </div>
+              </div>
+
+              {/* Reassurance Banner */}
+              <div className="bg-[#FAF3F5] rounded-2xl p-4 border border-[#EACCD6]/50 flex items-start gap-3">
+                <span className="text-xl">✨</span>
+                <div className="text-xs text-stone-700 leading-relaxed">
+                  <strong>Zero Advance Fee:</strong> You do not need to make any payment online right now. Our coordinator will call/WhatsApp you within 15 minutes to confirm artist arrival. You can pay securely via UPI or cash after your service.
+                </div>
+              </div>
+
+              {/* Submit CTA */}
+              <div>
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full py-4 px-8 rounded-full bg-[#8B3A52] text-white font-semibold text-base shadow-lg hover:bg-[#732F42] transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 flex items-center justify-center gap-2"
+                >
+                  {submitting ? (
+                    <>
+                      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <span>Submitting Request...</span>
+                    </>
+                  ) : (
+                    <span>Confirm At-Home Booking Request (Pay After Service) →</span>
+                  )}
+                </button>
+                <p className="text-center text-xs text-stone-500 mt-3">
+                  Need immediate help? Call us directly at{' '}
+                  <a href={`tel:+${WA_NUMBER}`} className="font-semibold text-[#8B3A52] underline">
+                    +91 7985183449
+                  </a>
+                </p>
+              </div>
+
+            </form>
+
+          </div>
+        )}
+
       </div>
     </div>
   )

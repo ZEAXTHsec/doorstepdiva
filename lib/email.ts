@@ -1,6 +1,9 @@
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+function getResendClient() {
+  if (!process.env.RESEND_API_KEY) return null
+  return new Resend(process.env.RESEND_API_KEY)
+}
 
 const ADMIN_EMAIL = 'doorstepdiva.lucknow@gmail.com'
 
@@ -38,9 +41,9 @@ function bookingEmailHtml(data: BookingEmailData): string {
         <tr><td style="padding:8px 12px;background:#fdf2f5;font-weight:bold">Phone</td><td style="padding:8px 12px">${data.customer_phone}</td></tr>
         <tr><td style="padding:8px 12px;background:#fdf2f5;font-weight:bold">Email</td><td style="padding:8px 12px">${data.customer_email}</td></tr>
         <tr><td style="padding:8px 12px;background:#fdf2f5;font-weight:bold">Address</td><td style="padding:8px 12px">${data.customer_address}</td></tr>
-        <tr><td style="padding:8px 12px;background:#fdf2f5;font-weight:bold">City</td><td style="padding:8px 12px">${data.city === 'lucknow' ? 'Lucknow' : 'Ayodhya'}</td></tr>
+        <tr><td style="padding:8px 12px;background:#fdf2f5;font-weight:bold">City</td><td style="padding:8px 12px">${data.city === 'lucknow' ? 'Lucknow' : data.city === 'delhi-ncr' ? 'Delhi NCR' : 'Ayodhya'}</td></tr>
         <tr><td style="padding:8px 12px;background:#fdf2f5;font-weight:bold">Service</td><td style="padding:8px 12px">${data.service_type}</td></tr>
-        <tr><td style="padding:8px 12px;background:#fdf2f5;font-weight:bold">Date & Time</td><td style="padding:8px 12px">${hasSlot ? `${data.appointment_date} at ${formatTime(data.appointment_time!)}` : 'Slot to be confirmed'}</td></tr>
+        <tr><td style="padding:8px 12px;background:#fdf2f5;font-weight:bold">Date & Time</td><td style="padding:8px 12px">${hasSlot ? `${data.appointment_date} at ${formatTime(data.appointment_time!)}` : 'Callback requested (No slot fixed)'}</td></tr>
         ${data.addons && data.addons.length > 0 ? `<tr><td style="padding:8px 12px;background:#fdf2f5;font-weight:bold">Add-ons</td><td style="padding:8px 12px">${data.addons.join(', ')}</td></tr>` : ''}
         ${data.total_estimate ? `<tr><td style="padding:8px 12px;background:#fdf2f5;font-weight:bold">Estimate</td><td style="padding:8px 12px">₹${data.total_estimate.toLocaleString('en-IN')}</td></tr>` : ''}
         ${data.payment_mode ? `<tr><td style="padding:8px 12px;background:#fdf2f5;font-weight:bold">Payment</td><td style="padding:8px 12px">${data.payment_mode} ${data.deposit_paid ? '(Paid)' : ''}</td></tr>` : ''}
@@ -52,16 +55,17 @@ function bookingEmailHtml(data: BookingEmailData): string {
 }
 
 export async function sendBookingNotification(data: BookingEmailData) {
-  if (!process.env.RESEND_API_KEY) {
+  const client = getResendClient()
+  if (!client) {
     console.warn('RESEND_API_KEY not configured — skipping email')
     return
   }
 
   try {
-    await resend.emails.send({
+    await client.emails.send({
       from: 'DoorStep Diva <bookings@mydoorstepdiva.com>',
       to: ADMIN_EMAIL,
-      subject: `New Booking: ${data.customer_name} — ${data.service_type}`,
+      subject: `New Booking: ${data.customer_name} (${data.city.toUpperCase()}) — ${data.service_type}`,
       html: bookingEmailHtml(data),
     })
   } catch (err) {

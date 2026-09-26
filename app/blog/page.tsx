@@ -22,17 +22,28 @@ export const metadata: Metadata = {
   },
 }
 
+import { CURATED_POSTS } from '@/app/_data/curated-posts'
+
 function wordCount(s: string) { return s?.trim().split(/\s+/).filter(Boolean).length || 0 }
 function readTime(s: string) { return Math.max(1, Math.round(wordCount(s) / 200)) }
 
 async function getPosts() {
-  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-  const { data } = await supabase
-    .from('posts')
-    .select('id, title, slug, excerpt, featured_image, image_alt, category, tags, published_at, content, focus_keyword')
-    .eq('status', 'published')
-    .order('published_at', { ascending: false })
-  return data || []
+  try {
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    const { data } = await supabase
+      .from('posts')
+      .select('id, title, slug, excerpt, featured_image, image_alt, category, tags, published_at, content, focus_keyword')
+      .eq('status', 'published')
+      .order('published_at', { ascending: false })
+
+    const dbPosts = data || []
+    // Combine db posts with curated posts, avoiding duplicate slugs
+    const existingSlugs = new Set(dbPosts.map(p => p.slug))
+    const nonDuplicateCurated = CURATED_POSTS.filter(p => !existingSlugs.has(p.slug))
+    return [...dbPosts, ...nonDuplicateCurated]
+  } catch {
+    return CURATED_POSTS
+  }
 }
 
 export default async function BlogPage() {
@@ -86,14 +97,14 @@ export default async function BlogPage() {
         {/* Featured post (first) */}
         {posts.length > 0 && (
           <Link href={`/blog/${posts[0].slug}`} style={{ textDecoration: 'none', display: 'block', marginBottom: 56 }}>
-            <div style={{
-              borderRadius: 20, overflow: 'hidden',
-              border: '1px solid rgba(196,118,138,0.15)',
-              display: 'grid', gridTemplateColumns: '1fr 1fr',
-              background: 'white', transition: 'box-shadow 0.2s',
-            }}
-              onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 8px 40px rgba(139,58,82,0.12)')}
-              onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}
+            <div
+              className="hover:shadow-xl transition-shadow duration-200"
+              style={{
+                borderRadius: 20, overflow: 'hidden',
+                border: '1px solid rgba(196,118,138,0.15)',
+                display: 'grid', gridTemplateColumns: '1fr 1fr',
+                background: 'white',
+              }}
             >
               {posts[0].featured_image ? (
                 <div style={{ position: 'relative', minHeight: 320 }}>
@@ -159,19 +170,12 @@ export default async function BlogPage() {
           }}>
             {posts.slice(1).map(post => (
               <Link key={post.id} href={`/blog/${post.slug}`} style={{ textDecoration: 'none' }}>
-                <article style={{
-                  background: 'white', borderRadius: 16, overflow: 'hidden',
-                  border: '1px solid rgba(196,118,138,0.12)',
-                  transition: 'box-shadow 0.2s, transform 0.2s',
-                  height: '100%', display: 'flex', flexDirection: 'column',
-                }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.boxShadow = '0 8px 32px rgba(139,58,82,0.1)'
-                    e.currentTarget.style.transform = 'translateY(-2px)'
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.boxShadow = 'none'
-                    e.currentTarget.style.transform = 'none'
+                <article
+                  className="hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200"
+                  style={{
+                    background: 'white', borderRadius: 16, overflow: 'hidden',
+                    border: '1px solid rgba(196,118,138,0.12)',
+                    height: '100%', display: 'flex', flexDirection: 'column',
                   }}
                 >
                   {/* Image */}

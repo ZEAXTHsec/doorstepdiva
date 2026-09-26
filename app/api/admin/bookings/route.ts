@@ -5,6 +5,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 import { supabaseAdmin } from '@/lib/supabase-admin'
 
+export const dynamic = 'force-dynamic'
+
 function isAuthorized(req: NextRequest) {
   const auth = req.headers.get('x-admin-password')
   return auth === process.env.ADMIN_PASSWORD
