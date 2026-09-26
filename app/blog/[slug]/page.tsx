@@ -16,7 +16,8 @@ export async function generateStaticParams() {
 }
 
 async function getPost(slug: string) {
-  const curated = CURATED_POSTS.find(p => p.slug === slug)
+  const normalized = slug.toLowerCase().trim()
+  const curated = CURATED_POSTS.find(p => p.slug === normalized || p.slug.startsWith(normalized) || normalized.startsWith(p.slug))
   if (curated) return curated
 
   try {
