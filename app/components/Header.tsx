@@ -153,18 +153,13 @@ export default function Header() {
             </div>
 
             {[
-              { href: '/karwa-chauth', label: 'Karwa Chauth 🌙', highlight: true },
               { href: '/academy',  label: 'Academy'   },
               { href: '/about',    label: 'Our Story' },
               { href: '/blog',     label: 'Blog'      },
               { href: '/#contact', label: 'Contact'   },
-            ].map(({ href, label, highlight }) => (
+            ].map(({ href, label }) => (
               <Link key={href} href={href} onClick={closeAll}
-                className={`font-poppins text-[11px] font-semibold tracking-widest uppercase px-3 py-2 rounded-lg transition-all duration-200 ${
-                  highlight
-                    ? 'bg-[#8B3A52]/10 text-[#8B3A52] hover:bg-[#8B3A52] hover:text-white font-bold border border-[#8B3A52]/20'
-                    : 'text-stone-light hover:text-rose hover:bg-rose/5'
-                }`}
+                className="font-poppins text-[11px] font-semibold tracking-widest uppercase px-3 py-2 rounded-lg text-stone-light hover:text-rose hover:bg-rose/5 transition-all duration-200"
               >
                 {label}
               </Link>
@@ -322,14 +317,6 @@ export default function Header() {
               ))}
             </div>
           </div>
-
-          <Link href="/karwa-chauth" onClick={closeAll}
-            className="flex items-center gap-3 px-3 py-3 rounded-xl font-poppins text-sm font-bold text-[#8B3A52] bg-[#8B3A52]/10 border border-[#8B3A52]/20 mb-1"
-          >
-            <span className="text-base">🌙</span>
-            <span>Karwa Chauth Offers</span>
-            <span className="ml-auto text-[10px] uppercase font-bold bg-[#8B3A52] text-white px-2 py-0.5 rounded-full">New</span>
-          </Link>
 
           {[
             { href: '/academy',  label: 'Academy'   },

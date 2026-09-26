@@ -32,7 +32,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'When are the Karwa Chauth package prices being revealed?',
-    a: 'Our special festival package rates are being unveiled exclusively to registered early-bird clients first! You can lock in priority artist dispatch and unlock the lowest VIP festive pricing right now with zero advance deposit by submitting the pre-booking form or chatting with our coordinator on WhatsApp.',
+    a: 'Our special festival package rates are being unveiled exclusively to registered early-bird clients first. You can lock in priority artist dispatch and unlock the lowest VIP festive pricing right now with zero advance deposit by submitting the pre-booking form or chatting with our coordinator on WhatsApp.',
   },
   {
     q: 'Should I book my beauty services on Karwa Chauth day or the day prior?',
@@ -80,7 +80,86 @@ const KARWA_SCHEMA = {
 }
 
 const WA_PRIMARY = '919129577514'
-const WA_ALT = '9129577514'
+
+// ── Refined Professional SVG Icons ────────────────────────────
+
+function SparkleSvg({ className = 'w-3.5 h-3.5 text-[#8B3A52]' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
+    </svg>
+  )
+}
+
+function MoonSvg({ className = 'w-3.5 h-3.5' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+    </svg>
+  )
+}
+
+function ShieldCheckSvg() {
+  return (
+    <svg className="w-5 h-5 text-[#8B3A52] mx-auto mb-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <path d="M9 12l2 2 4-4" />
+    </svg>
+  )
+}
+
+function UserCheckSvg() {
+  return (
+    <svg className="w-5 h-5 text-[#8B3A52] mx-auto mb-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <polyline points="16 11 18 13 22 9" />
+    </svg>
+  )
+}
+
+function CreditCardSvg() {
+  return (
+    <svg className="w-5 h-5 text-[#8B3A52] mx-auto mb-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="5" width="20" height="14" rx="2" />
+      <line x1="2" y1="10" x2="22" y2="10" />
+    </svg>
+  )
+}
+
+function CheckSvg() {
+  return (
+    <svg className="w-4 h-4 text-[#8B3A52] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  )
+}
+
+function LockSvg() {
+  return (
+    <svg className="w-3 h-3 inline mr-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+    </svg>
+  )
+}
+
+function TableCheckSvg() {
+  return (
+    <svg className="w-4 h-4 text-emerald-700 shrink-0 inline mr-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  )
+}
+
+function TableCrossSvg() {
+  return (
+    <svg className="w-4 h-4 text-rose-600 shrink-0 inline mr-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+  )
+}
 
 export default function KarwaChauthPage() {
   const waPrebookText = encodeURIComponent(
@@ -97,8 +176,9 @@ export default function KarwaChauthPage() {
       <div className="bg-[#FCF7F8] min-h-screen">
         
         {/* Festive Top Urgency Ribbon */}
-        <div className="bg-gradient-to-r from-[#701E34] via-[#8B3A52] to-[#701E34] text-white py-2.5 px-4 text-center text-xs sm:text-sm font-medium tracking-wide shadow-sm">
-          <span>🌙 Karwa Chauth Special • Limited At-Home Slots in <strong>Delhi NCR & Lucknow</strong> • Pre-Book Now to Lock Early-Bird VIP Access</span>
+        <div className="bg-gradient-to-r from-[#701E34] via-[#8B3A52] to-[#701E34] text-white py-2.5 px-4 text-center text-xs sm:text-sm font-medium tracking-wide shadow-sm flex items-center justify-center gap-2">
+          <MoonSvg className="w-4 h-4 text-[#F3DBE2]" />
+          <span>Karwa Chauth Festival • Limited At-Home Slots in <strong>Delhi NCR & Lucknow</strong> • Pre-Book Now for Priority Early-Bird Access</span>
         </div>
 
         {/* ── HERO SECTION ── */}
@@ -109,7 +189,8 @@ export default function KarwaChauthPage() {
               {/* Left Column: Headline & Value Prop */}
               <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#8B3A52]/10 border border-[#8B3A52]/20 text-[#8B3A52] text-xs font-bold uppercase tracking-wider">
-                  <span>✨</span> Solah Shringar At Your Doorstep
+                  <SparkleSvg />
+                  <span>Solah Shringar At Your Doorstep</span>
                 </div>
 
                 <h1 className="font-playfair text-3xl sm:text-5xl lg:text-6xl text-stone-900 font-bold leading-tight">
@@ -124,18 +205,18 @@ export default function KarwaChauthPage() {
 
                 {/* Trust Badges Bar */}
                 <div className="grid grid-cols-3 gap-3 pt-2 max-w-lg mx-auto lg:mx-0">
-                  <div className="p-3 rounded-2xl bg-white border border-[#F0D5DD] text-center shadow-sm">
-                    <span className="block text-xl mb-1">🛡️</span>
+                  <div className="p-3.5 rounded-2xl bg-white border border-[#F0D5DD] text-center shadow-sm">
+                    <ShieldCheckSvg />
                     <span className="text-xs font-semibold text-stone-800 block">100% Sealed</span>
                     <span className="text-[10px] text-stone-500">Opened in front of you</span>
                   </div>
-                  <div className="p-3 rounded-2xl bg-white border border-[#F0D5DD] text-center shadow-sm">
-                    <span className="block text-xl mb-1">👩‍🎨</span>
+                  <div className="p-3.5 rounded-2xl bg-white border border-[#F0D5DD] text-center shadow-sm">
+                    <UserCheckSvg />
                     <span className="text-xs font-semibold text-stone-800 block">Verified Experts</span>
                     <span className="text-[10px] text-stone-500">Trained female artists</span>
                   </div>
-                  <div className="p-3 rounded-2xl bg-white border border-[#F0D5DD] text-center shadow-sm">
-                    <span className="block text-xl mb-1">💳</span>
+                  <div className="p-3.5 rounded-2xl bg-white border border-[#F0D5DD] text-center shadow-sm">
+                    <CreditCardSvg />
                     <span className="text-xs font-semibold text-stone-800 block">Pay After</span>
                     <span className="text-[10px] text-stone-500">Zero advance needed</span>
                   </div>
@@ -160,7 +241,7 @@ export default function KarwaChauthPage() {
                 </div>
 
                 <p className="text-xs text-stone-500 italic">
-                  ⚡ Only 25 slots available per sector/locality to maintain premium luxury standards.
+                  Note: Only 25 slots available per sector/locality to maintain premium luxury standards.
                 </p>
               </div>
 
@@ -177,10 +258,10 @@ export default function KarwaChauthPage() {
                   />
                   <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-6 text-white text-center">
                     <span className="text-xs uppercase tracking-widest text-[#F2C2CF] font-bold block mb-1">
-                      Festive Season 2026
+                      Festive Season
                     </span>
                     <p className="font-playfair text-xl sm:text-2xl font-bold">
-                      Glow for the Moonrise 🌙
+                      Glow for the Moonrise
                     </p>
                     <p className="text-xs text-white/80 mt-1">
                       Complete Festive Shringaar at Home • Delhi NCR & Lucknow
@@ -200,7 +281,7 @@ export default function KarwaChauthPage() {
           </div>
         </section>
 
-        {/* ── THE 3 SIGNATURE FESTIVE COMBOS (Prices Revealed on WhatsApp / Pre-Book) ── */}
+        {/* ── THE 3 SIGNATURE FESTIVE COMBOS ── */}
         <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-y border-[#F3DFE5]">
           <div className="max-w-6xl mx-auto">
             
@@ -234,19 +315,19 @@ export default function KarwaChauthPage() {
 
                   <ul className="space-y-3 text-sm text-stone-700 mb-8">
                     <li className="flex items-center gap-2.5">
-                      <span className="text-[#8B3A52] text-base">🌿</span>
+                      <CheckSvg />
                       <span>Herbal De-Tan & Deep Pore Cleanup</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <span className="text-[#8B3A52] text-base">🌿</span>
+                      <CheckSvg />
                       <span>Full Arms + Half Legs Waxing</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <span className="text-[#8B3A52] text-base">🌿</span>
+                      <CheckSvg />
                       <span>Eyebrow + Upper Lip Micro-Threading</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <span className="text-[#8B3A52] text-base">🌿</span>
+                      <CheckSvg />
                       <span>Instant Glow Vitamin-C Face Mask</span>
                     </li>
                   </ul>
@@ -255,8 +336,8 @@ export default function KarwaChauthPage() {
                 <div className="border-t border-[#EACCD6] pt-6 text-center">
                   <div className="mb-4">
                     <span className="text-xs text-stone-500 uppercase tracking-wider block">Festive Package Price</span>
-                    <span className="inline-block px-4 py-1.5 rounded-full bg-stone-900 text-white font-extrabold text-sm mt-1">
-                      🔒 Revealing Soon
+                    <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-stone-900 text-white font-extrabold text-sm mt-1">
+                      <LockSvg /> Revealing Soon
                     </span>
                     <span className="text-[11px] text-[#8B3A52] font-semibold block mt-1">
                       Pre-book to lock 40% Festive Discount
@@ -273,8 +354,9 @@ export default function KarwaChauthPage() {
 
               {/* COMBO 2 (FEATURED / POPULAR) */}
               <div className="bg-white rounded-3xl p-6 sm:p-8 border-2 border-[#8B3A52] shadow-xl flex flex-col justify-between relative group transform md:-translate-y-2">
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#8B3A52] text-white text-[10px] font-extrabold uppercase tracking-widest px-4 py-1 rounded-full shadow-md">
-                  ★ Most Popular For Karwa Chauth
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#8B3A52] text-white text-[10px] font-extrabold uppercase tracking-widest px-4 py-1 rounded-full shadow-md flex items-center gap-1.5">
+                  <SparkleSvg className="w-3 h-3 text-white" />
+                  <span>Most Popular For Karwa Chauth</span>
                 </div>
 
                 <div>
@@ -290,23 +372,23 @@ export default function KarwaChauthPage() {
 
                   <ul className="space-y-3 text-sm text-stone-700 mb-8">
                     <li className="flex items-center gap-2.5">
-                      <span className="text-[#8B3A52] text-base">✨</span>
+                      <CheckSvg />
                       <span><strong>Korean Glass Glow / O3+ Bridal Facial</strong></span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <span className="text-[#8B3A52] text-base">✨</span>
+                      <CheckSvg />
                       <span>Rica Sensitive Waxing (Full Arms + Legs)</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <span className="text-[#8B3A52] text-base">✨</span>
+                      <CheckSvg />
                       <span>Rose Petal Deluxe Manicure + Pedicure</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <span className="text-[#8B3A52] text-base">✨</span>
+                      <CheckSvg />
                       <span>L’Oréal Nourishing Hair Spa with Scalp Massage</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <span className="text-[#8B3A52] text-base">✨</span>
+                      <CheckSvg />
                       <span>Eyebrow + Forehead + Upper Lip Threading</span>
                     </li>
                   </ul>
@@ -315,8 +397,8 @@ export default function KarwaChauthPage() {
                 <div className="border-t border-stone-100 pt-6 text-center">
                   <div className="mb-4">
                     <span className="text-xs text-stone-500 uppercase tracking-wider block">Festive Package Price</span>
-                    <span className="inline-block px-4 py-1.5 rounded-full bg-[#8B3A52] text-white font-extrabold text-sm mt-1">
-                      🔒 Revealing Soon
+                    <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#8B3A52] text-white font-extrabold text-sm mt-1">
+                      <LockSvg /> Revealing Soon
                     </span>
                     <span className="text-[11px] text-[#8B3A52] font-semibold block mt-1">
                       Pre-book to lock 40% Festive Discount
@@ -346,28 +428,28 @@ export default function KarwaChauthPage() {
 
                   <ul className="space-y-3 text-sm text-stone-700 mb-8">
                     <li className="flex items-center gap-2.5">
-                      <span className="text-[#8B3A52] text-base">👑</span>
+                      <CheckSvg />
                       <span>Gold / Diamond Radiance Luxury Facial</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <span className="text-[#8B3A52] text-base">👑</span>
+                      <CheckSvg />
                       <span>Full Body Rica Waxing</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <span className="text-[#8B3A52] text-base">👑</span>
+                      <CheckSvg />
                       <span>Crystal Spa Manicure + Pedicure with Gel Polish</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <span className="text-[#8B3A52] text-base">👑</span>
+                      <CheckSvg />
                       <span>Hair Spa + Professional Blow Dry Styling</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <span className="text-[#8B3A52] text-base">👑</span>
+                      <CheckSvg />
                       <span>Face, Neck & Back Herbal De-Tan Bleach</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <span className="text-[#8B3A52] text-base">👑</span>
-                      <span>Saree Draping & Hair Do Add-on Assistance</span>
+                      <CheckSvg />
+                      <span>Saree Draping & Hair Styling Assistance</span>
                     </li>
                   </ul>
                 </div>
@@ -375,8 +457,8 @@ export default function KarwaChauthPage() {
                 <div className="border-t border-[#EACCD6] pt-6 text-center">
                   <div className="mb-4">
                     <span className="text-xs text-stone-500 uppercase tracking-wider block">Festive Package Price</span>
-                    <span className="inline-block px-4 py-1.5 rounded-full bg-stone-900 text-white font-extrabold text-sm mt-1">
-                      🔒 Revealing Soon
+                    <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-stone-900 text-white font-extrabold text-sm mt-1">
+                      <LockSvg /> Revealing Soon
                     </span>
                     <span className="text-[11px] text-[#8B3A52] font-semibold block mt-1">
                       Pre-book to lock 40% Festive Discount
@@ -421,7 +503,7 @@ export default function KarwaChauthPage() {
           <div className="text-center max-w-xl mx-auto mb-12">
             <span className="text-xs font-bold text-[#8B3A52] uppercase tracking-widest block mb-2">The At-Home Difference</span>
             <h2 className="font-playfair text-3xl font-bold text-stone-900">
-              Why Fasting Women Love DoorStep Diva
+              Why Fasting Women Choose DoorStep Diva
             </h2>
           </div>
 
@@ -437,23 +519,23 @@ export default function KarwaChauthPage() {
               <tbody className="divide-y divide-stone-100 text-xs sm:text-sm">
                 <tr>
                   <td className="py-4 px-6 font-medium text-stone-900">Fasting Comfort</td>
-                  <td className="py-4 px-6 text-emerald-700 font-semibold">✓ 100% relaxed in your AC bedroom; zero exertion</td>
-                  <td className="py-4 px-6 text-rose-600">✕ Exhausting travel in heat & traffic while fasting</td>
+                  <td className="py-4 px-6 text-emerald-700 font-semibold"><TableCheckSvg /> 100% relaxed in your AC bedroom; zero exertion</td>
+                  <td className="py-4 px-6 text-rose-600"><TableCrossSvg /> Exhausting travel in heat & traffic while fasting</td>
                 </tr>
                 <tr>
                   <td className="py-4 px-6 font-medium text-stone-900">Waiting Time</td>
-                  <td className="py-4 px-6 text-emerald-700 font-semibold">✓ Zero wait. Artist arrives at your booked time</td>
-                  <td className="py-4 px-6 text-rose-600">✕ 2 to 3 hour crowded waiting room queues</td>
+                  <td className="py-4 px-6 text-emerald-700 font-semibold"><TableCheckSvg /> Zero wait. Artist arrives at your booked time</td>
+                  <td className="py-4 px-6 text-rose-600"><TableCrossSvg /> 2 to 3 hour crowded waiting room queues</td>
                 </tr>
                 <tr>
                   <td className="py-4 px-6 font-medium text-stone-900">Hygiene & Safety</td>
-                  <td className="py-4 px-6 text-emerald-700 font-semibold">✓ Fresh sealed single-use kit unsealed before you</td>
-                  <td className="py-4 px-6 text-stone-600">⚠ Shared towels, multi-dip wax pots in rush hour</td>
+                  <td className="py-4 px-6 text-emerald-700 font-semibold"><TableCheckSvg /> Fresh sealed single-use kit unsealed before you</td>
+                  <td className="py-4 px-6 text-stone-600"><TableCrossSvg /> Shared towels, multi-dip wax pots in rush hour</td>
                 </tr>
                 <tr>
                   <td className="py-4 px-6 font-medium text-stone-900">Payment Peace of Mind</td>
-                  <td className="py-4 px-6 text-emerald-700 font-semibold">✓ Pay via UPI/Cash only AFTER service</td>
-                  <td className="py-4 px-6 text-stone-600">⚠ Fixed non-refundable advance parlor tokens</td>
+                  <td className="py-4 px-6 text-emerald-700 font-semibold"><TableCheckSvg /> Pay via UPI/Cash only AFTER service</td>
+                  <td className="py-4 px-6 text-stone-600"><TableCrossSvg /> Fixed non-refundable advance parlor tokens</td>
                 </tr>
               </tbody>
             </table>
@@ -520,7 +602,7 @@ export default function KarwaChauthPage() {
               </div>
 
               <div className="bg-[#FAF3F5] rounded-2xl p-4 border border-[#EACCD6]/50 text-xs text-stone-700 flex items-start gap-2.5">
-                <span className="text-base">✨</span>
+                <SparkleSvg className="w-4 h-4 text-[#8B3A52] shrink-0 mt-0.5" />
                 <span>
                   <strong>Early Bird Guarantee:</strong> Submitting takes you directly to the booking confirmation desk. You do not pay anything online today. Our coordinator will call you within 15 minutes to confirm your artist and give you first access to the 40% discount voucher!
                 </span>
@@ -542,7 +624,7 @@ export default function KarwaChauthPage() {
                 rel="noopener noreferrer"
                 className="text-xs font-semibold text-[#8B3A52] underline"
               >
-                Click to message on WhatsApp (+91 9129577514 / +91 9129577514)
+                Click to message on WhatsApp (+91 9129577514)
               </a>
             </div>
 
