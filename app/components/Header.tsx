@@ -187,14 +187,6 @@ export default function Header() {
                 </span>
               )}
             </button>
-            <a href="tel:+919129577514"
-              className="hidden lg:flex items-center gap-1.5 font-poppins text-[11px] font-medium text-stone-light hover:text-rose transition-colors px-3 py-2 rounded-lg hover:bg-rose/5"
-            >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.9v2.02z"/>
-              </svg>
-              +91 91295 77514
-            </a>
             <a href="https://wa.me/919129577514" target="_blank" rel="noopener noreferrer"
               className="btn-press inline-flex items-center gap-1.5 font-poppins text-[11px] font-semibold px-4 py-2 text-white rounded-full hover:opacity-90 transition-opacity"
               style={{ background: '#25D366', boxShadow: '0 4px 14px rgba(37,211,102,0.25)' }}
@@ -338,13 +330,6 @@ export default function Header() {
               {label}
             </Link>
           ))}
-          <div className="h-px my-2" style={{ background: 'rgba(196,118,138,0.15)' }} />
-          <a href="tel:+919129577514" className="flex items-center gap-2.5 px-3 py-3 rounded-xl font-poppins text-sm text-stone-light hover:text-rose hover:bg-rose/5 transition-colors">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.9v2.02z"/>
-            </svg>
-            +91 91295 77514
-          </a>
         </div>
 
         {/* Drawer footer */}
