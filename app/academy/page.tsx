@@ -500,7 +500,7 @@ export default function AcademyPage() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a
-              href="https://wa.me/917985183449?text=Hi%2C+I%27d+like+to+enrol+at+Doorstep+Diva+Academy"
+              href="https://wa.me/919129577514?text=Hi%2C+I%27d+like+to+enrol+at+Doorstep+Diva+Academy"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-8 py-4 rounded-full bg-white transition-all duration-200 hover:scale-[1.04] hover:shadow-xl"
@@ -510,7 +510,7 @@ export default function AcademyPage() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
             <a
-              href="tel:+917985183449"
+              href="tel:+919129577514"
               className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-8 py-4 rounded-full border-2 border-white/40 text-white transition-all duration-200 hover:bg-white/10"
             >
               Call Us

@@ -421,7 +421,7 @@ function Hero() {
                 <IconChevronRight />
               </a>
               <a
-                href="https://wa.me/917985183449"
+                href="https://wa.me/919129577514"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-press inline-flex items-center gap-2 font-poppins text-sm font-semibold px-6 py-3 bg-[#25D366] text-white hover:opacity-90 transition-opacity rounded-full"
@@ -774,7 +774,7 @@ function HowItWorks() {
         </div>
 
         <div className="text-center mt-12">
-          <a href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer"
+          <a href="https://wa.me/919129577514" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-2 font-poppins text-sm font-semibold px-6 py-3 bg-[#25D366] text-white hover:opacity-90 transition-opacity rounded-full shadow-lg shadow-black/20">
             <IconWhatsApp size={15} />
             Book Your First Session
@@ -922,7 +922,7 @@ function Locations() {
         </div>
         <p className="text-center font-poppins text-xs text-stone-light mt-7">
           Not sure if we cover your area?{' '}
-          <a href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer" className="text-rose hover:underline font-medium">
+          <a href="https://wa.me/919129577514" target="_blank" rel="noopener noreferrer" className="text-rose hover:underline font-medium">
             Message us on WhatsApp →
           </a>
         </p>
@@ -1167,7 +1167,7 @@ function FAQ() {
           <p className="font-poppins text-stone-light text-sm leading-relaxed mb-7">
             Everything you need to know before your first booking. Still have questions? We&apos;re one message away.
           </p>
-          <a href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer"
+          <a href="https://wa.me/919129577514" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-2 font-poppins text-xs font-semibold px-5 py-2.5 bg-[#25D366] text-white hover:opacity-90 transition-opacity rounded-full">
             <IconWhatsApp size={13} />
             Ask on WhatsApp
@@ -1248,7 +1248,7 @@ function Contact() {
           <p className="font-poppins text-white/50 text-sm leading-relaxed mb-7">
             Fill in the form and we&apos;ll confirm your booking within a few hours. Or message us directly on WhatsApp for an instant response.
           </p>
-          <a href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer"
+          <a href="https://wa.me/919129577514" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-2.5 font-poppins text-sm font-medium px-6 py-3 bg-[#25D366] text-white hover:opacity-90 transition-opacity rounded-full">
             <IconWhatsApp size={16} />
             Message on WhatsApp

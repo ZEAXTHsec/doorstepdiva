@@ -139,7 +139,7 @@ To formalize transparency, DoorStep Diva operates under a non-negotiable five-ti
 ## Conclusion & Next Steps
 True luxury in beauty is not marble salon floors—it is uncompromising microbiological safety, clinical efficacy, and the convenience of personalized care in your own home.
 
-To book your sanitized at-home session in Delhi NCR, Lucknow, or Ayodhya with certified female artists, visit [DoorStep Diva Online Booking](https://mydoorstepdiva.com/book) or consult our beauty coordinator directly on WhatsApp at **+91 7985183449**.
+To book your sanitized at-home session in Delhi NCR, Lucknow, or Ayodhya with certified female artists, visit [DoorStep Diva Online Booking](https://mydoorstepdiva.com/book) or consult our beauty coordinator directly on WhatsApp at **+91 9129577514**.
 `,
   },
   {
@@ -253,7 +253,7 @@ One of the greatest sources of wedding-day stress is the traditional parlor visi
 Speak directly with our senior bridal coordinators to structure your custom pre-wedding timeline and wedding-day artist assignments across **Delhi NCR, Lucknow, and Ayodhya**.
 
 - **Book Online**: [DoorStep Diva Bridal Services](https://mydoorstepdiva.com/book)
-- **Direct Bridal Desk Phone / WhatsApp**: **+91 7985183449**
+- **Direct Bridal Desk Phone / WhatsApp**: **+91 9129577514**
 `,
   },
 ]

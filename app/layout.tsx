@@ -55,7 +55,7 @@ const SCHEMA_JSON_LD = {
       url: 'https://mydoorstepdiva.com',
       logo: 'https://mydoorstepdiva.com/favicon.png',
       description: 'Premium certified at-home salon and bridal beauty services delivered across Delhi NCR, Lucknow, and Ayodhya. Specialized in hair, skin, bridal makeup, nail extensions, and semi-permanent makeup.',
-      telephone: '+917985183449',
+      telephone: '+919129577514',
       priceRange: '₹₹',
       currenciesAccepted: 'INR',
       paymentAccepted: 'Cash, UPI, Credit Card, Debit Card, Net Banking',
@@ -154,7 +154,7 @@ export default function RootLayout({
 
         {/* WhatsApp floating button */}
         <a
-          href="https://wa.me/917985183449"
+          href="https://wa.me/919129577514"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat on WhatsApp"
@@ -198,7 +198,7 @@ export default function RootLayout({
           }}
         >
           <a
-            href="tel:+917985183449"
+            href="tel:+919129577514"
             className="flex-1 flex flex-col items-center justify-center gap-1 py-3 font-poppins text-[10px] font-semibold text-stone-light hover:text-rose transition-colors"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -208,7 +208,7 @@ export default function RootLayout({
           </a>
           <div style={{ width: 1, background: 'rgba(196,118,138,0.2)', margin: '8px 0' }} />
           <a
-            href="https://wa.me/917985183449"
+            href="https://wa.me/919129577514"
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 flex flex-col items-center justify-center gap-1 py-3 font-poppins text-[10px] font-semibold transition-colors"

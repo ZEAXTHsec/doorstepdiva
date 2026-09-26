@@ -216,7 +216,7 @@ export default async function BlogPost(
             Delhi NCR · Lucknow · Ayodhya — Certified beauty artists at your doorstep.
           </p>
           <a
-            href="https://wa.me/917985183449"
+            href="https://wa.me/919129577514"
             target="_blank" rel="noopener noreferrer"
             style={{
               display: 'inline-block', padding: '13px 30px', borderRadius: 10,

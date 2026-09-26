@@ -104,7 +104,7 @@ export default function HowItWorks() {
         {/* CTA */}
         <div className="text-center mt-14">
           <a
-            href="https://wa.me/917985183449"
+            href="https://wa.me/919129577514"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2.5 font-poppins text-sm font-semibold px-7 py-3.5 text-white rounded-full transition-all duration-300 hover:opacity-90 hover:-translate-y-0.5"

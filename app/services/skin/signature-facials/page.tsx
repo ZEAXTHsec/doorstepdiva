@@ -121,7 +121,7 @@ export default function SignatureFacialsPage() {
                     <span className="font-poppins text-xs text-stone-light">{facial.reviews}</span>
                   </div>
                   <div className="flex items-center gap-3 flex-wrap">
-                    <a href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer"
+                    <a href="https://wa.me/919129577514" target="_blank" rel="noopener noreferrer"
                       className="btn-press inline-flex items-center gap-2.5 font-poppins text-sm font-semibold px-6 py-3 bg-rose text-white hover:bg-mauve transition-colors duration-300 rounded-full">
                       <WAIcon size={14} /> Book at {facial.price}
                     </a>
@@ -161,7 +161,7 @@ export default function SignatureFacialsPage() {
             Not sure which one? Message us and we&apos;ll recommend the perfect facial for your skin type and goals.
           </p>
           <div className="flex flex-wrap gap-4 justify-center relative z-10">
-            <a href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer"
+            <a href="https://wa.me/919129577514" target="_blank" rel="noopener noreferrer"
               className="btn-press inline-flex items-center gap-3 font-poppins text-sm font-semibold px-8 py-4 bg-rose text-white hover:bg-mauve transition-colors duration-300 rounded-full shadow-lg shadow-rose/20">
               <WAIcon size={16} /> Book Now on WhatsApp
             </a>

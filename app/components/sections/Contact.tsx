@@ -158,7 +158,7 @@ export default function Contact() {
           <p className="font-poppins text-white/50 text-sm leading-relaxed mb-7">
             Fill in the form and we&apos;ll confirm your booking within a few hours. Or message us directly on WhatsApp for an instant response.
           </p>
-          <a href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer"
+          <a href="https://wa.me/919129577514" target="_blank" rel="noopener noreferrer"
             className="btn-press inline-flex items-center gap-2.5 font-poppins text-sm font-semibold px-6 py-3 text-white rounded-full hover:opacity-90 transition-opacity"
             style={{ background: '#25D366', boxShadow: '0 6px 20px rgba(37,211,102,0.25)' }}
           >

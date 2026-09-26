@@ -107,7 +107,7 @@ export default function AreasPage() {
                 <span key={c} className="bg-white border border-blush/40 font-poppins text-xs text-stone-light px-4 py-2 rounded-full font-medium">{c}</span>
               ))}
             </div>
-            <a href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer"
+            <a href="https://wa.me/919129577514" target="_blank" rel="noopener noreferrer"
               className="btn-press inline-flex items-center gap-3 font-poppins text-sm font-semibold px-8 py-4 bg-rose text-white hover:bg-mauve transition-colors duration-300 rounded-full shadow-lg shadow-rose/20">
               <WAIcon size={16} />
               Check Your Area on WhatsApp
@@ -207,7 +207,7 @@ export default function AreasPage() {
             </div>
 
             <div className="relative z-10 flex flex-col gap-4">
-              <a href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer"
+              <a href="https://wa.me/919129577514" target="_blank" rel="noopener noreferrer"
                 className="btn-press inline-flex items-center justify-center gap-3 font-poppins text-sm font-semibold px-8 py-4 bg-[#25D366] text-white hover:opacity-90 transition-opacity rounded-full">
                 <WAIcon size={16} />
                 Ask if We Cover You

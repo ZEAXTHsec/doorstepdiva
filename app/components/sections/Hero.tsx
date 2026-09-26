@@ -146,7 +146,7 @@ export default function Hero() {
               Book a Session <IconChevronRight />
             </Link>
             <a
-              href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer"
+              href="https://wa.me/919129577514" target="_blank" rel="noopener noreferrer"
               className="btn-press inline-flex items-center gap-2 font-poppins text-sm font-semibold px-7 py-3.5 text-white rounded-full hover:opacity-90 transition-opacity"
               style={{ background: '#25D366', boxShadow: '0 6px 20px rgba(37,211,102,0.30)' }}
             >

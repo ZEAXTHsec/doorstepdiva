@@ -36,7 +36,7 @@ export default function FAQ() {
             Everything you need to know before your first booking. Still have questions? We&apos;re one message away.
           </p>
           <a
-            href="https://wa.me/917985183449"
+            href="https://wa.me/919129577514"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 font-poppins text-xs font-semibold px-5 py-2.5 text-white hover:opacity-90 transition-opacity rounded-full"

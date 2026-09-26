@@ -203,7 +203,7 @@ function NailsContent() {
                   <span key={t} className="bg-white border border-blush/40 font-poppins text-xs text-stone-light px-4 py-2 rounded-full font-medium">{t}</span>
                 ))}
               </div>
-              <a href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer"
+              <a href="https://wa.me/919129577514" target="_blank" rel="noopener noreferrer"
                 className="btn-press inline-flex items-center gap-3 font-poppins text-sm font-semibold px-8 py-4 bg-rose text-white hover:bg-mauve transition-colors duration-300 rounded-full shadow-lg shadow-rose/20">
                 <WAIcon size={16} />
                 Book Nail Session
@@ -447,7 +447,7 @@ function NailsContent() {
           <h2 className="font-playfair text-5xl font-bold text-white mb-6 relative z-10">Book Your Nail <em className="text-blush">Session Today</em></h2>
           <p className="font-poppins text-white/50 text-base max-w-lg mx-auto mb-10 relative z-10">Expert nail technicians with professional prep, primer, and seal for maximum bond strength and natural nail safety — at your door.</p>
           <div className="flex flex-wrap gap-4 justify-center relative z-10">
-            <a href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer"
+            <a href="https://wa.me/919129577514" target="_blank" rel="noopener noreferrer"
               className="btn-press font-poppins text-sm font-semibold px-8 py-4 bg-rose text-white hover:bg-mauve transition-colors duration-300 rounded-full">
               <span className="inline-flex items-center gap-2"><WAIcon size={15} />Book Now on WhatsApp</span>
             </a>

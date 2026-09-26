@@ -53,7 +53,7 @@ const KARWA_SCHEMA = {
       name: 'DoorStep Diva — Karwa Chauth At-Home Salon & Shringaar',
       url: 'https://mydoorstepdiva.com/karwa-chauth',
       image: 'https://mydoorstepdiva.com/images/karwa-chauth.jpg',
-      telephone: '+917985183449',
+      telephone: '+919129577514',
       priceRange: '₹₹',
       currenciesAccepted: 'INR',
       areaServed: [
@@ -79,7 +79,7 @@ const KARWA_SCHEMA = {
   ],
 }
 
-const WA_PRIMARY = '917985183449'
+const WA_PRIMARY = '919129577514'
 const WA_ALT = '9129577514'
 
 export default function KarwaChauthPage() {
@@ -409,7 +409,7 @@ export default function KarwaChauthPage() {
                 rel="noopener noreferrer"
                 className="px-6 py-2.5 rounded-full bg-[#25D366] text-white text-xs font-bold hover:bg-[#1EBE5D] transition-all shrink-0 flex items-center gap-2"
               >
-                <span>WhatsApp Coordinator (+91 7985183449)</span>
+                <span>WhatsApp Coordinator (+91 9129577514)</span>
               </a>
             </div>
 
@@ -542,7 +542,7 @@ export default function KarwaChauthPage() {
                 rel="noopener noreferrer"
                 className="text-xs font-semibold text-[#8B3A52] underline"
               >
-                Click to message on WhatsApp (+91 7985183449 / +91 9129577514)
+                Click to message on WhatsApp (+91 9129577514 / +91 9129577514)
               </a>
             </div>
 

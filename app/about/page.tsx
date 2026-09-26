@@ -115,7 +115,7 @@ export default function AboutPage() {
           </p>
           <div className="flex flex-wrap gap-3">
             <a
-              href="https://wa.me/917985183449"
+              href="https://wa.me/919129577514"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2.5 font-poppins text-sm font-semibold px-6 py-3 text-white rounded-full hover:opacity-90 transition-opacity"
@@ -347,7 +347,7 @@ export default function AboutPage() {
             Message us on WhatsApp and we will confirm your booking within a few hours.
           </p>
           <a
-            href="https://wa.me/917985183449"
+            href="https://wa.me/919129577514"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2.5 font-poppins text-sm font-semibold px-8 py-3.5 text-white rounded-full hover:opacity-90 transition-opacity relative z-10"

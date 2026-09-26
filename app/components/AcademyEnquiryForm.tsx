@@ -124,7 +124,7 @@ export default function AcademyEnquiryForm({ onClose, compact = false }: Props) 
       {status === 'error' && (
         <p className="font-poppins text-xs text-center" style={{ color: '#8B3A52' }}>
           Something went wrong. Please try{' '}
-          <a href="https://wa.me/917985183449" className="underline">WhatsApp</a> instead.
+          <a href="https://wa.me/919129577514" className="underline">WhatsApp</a> instead.
         </p>
       )}
 

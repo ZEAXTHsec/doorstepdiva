@@ -100,7 +100,7 @@ const TIMING_OPTIONS = [
   'Specific Upcoming Date',
 ]
 
-const WA_NUMBER = '917985183449'
+const WA_NUMBER = '919129577514'
 
 export default function BookPage() {
   const { items: cartItems, subtotal: cartSubtotal, clearCart } = useCart()
@@ -281,7 +281,7 @@ export default function BookPage() {
                 href={`tel:+${WA_NUMBER}`}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-stone-900 text-white font-semibold text-sm hover:bg-stone-800 transition-all"
               >
-                <span>Call Coordinator (+91 7985183449)</span>
+                <span>Call Coordinator (+91 9129577514)</span>
               </a>
             </div>
 
@@ -611,7 +611,7 @@ export default function BookPage() {
                 <p className="text-center text-xs text-stone-500 mt-3">
                   Need immediate help? Call us directly at{' '}
                   <a href={`tel:+${WA_NUMBER}`} className="font-semibold text-[#8B3A52] underline">
-                    +91 7985183449
+                    +91 9129577514
                   </a>
                 </p>
               </div>

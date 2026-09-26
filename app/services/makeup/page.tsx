@@ -169,7 +169,7 @@ function MakeupContent() {
                   <span key={t} className="bg-white border border-blush/40 font-poppins text-xs text-stone-light px-4 py-2 rounded-full font-medium">{t}</span>
                 ))}
               </div>
-              <a href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer"
+              <a href="https://wa.me/919129577514" target="_blank" rel="noopener noreferrer"
                 className="btn-press inline-flex items-center gap-3 font-poppins text-sm font-semibold px-8 py-4 bg-rose text-white hover:bg-mauve transition-colors duration-300 rounded-full shadow-lg shadow-rose/20">
                 <WAIcon size={16} />
                 Book Makeup Artist
@@ -264,7 +264,7 @@ function MakeupContent() {
           <div className="bg-rose/5 border border-rose/15 rounded-2xl p-5 text-center">
             <p className="font-poppins text-xs text-stone-light leading-relaxed">
               <span className="font-semibold text-rose">Bridal & engagement bookings are WhatsApp-only —</span> we require a brief consultation call to understand your outfit, event timeline, skin type, and preferences before confirming. This ensures we bring the right products and arrive fully prepared.{' '}
-              <a href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer" className="text-rose underline font-semibold">Message us now →</a>
+              <a href="https://wa.me/919129577514" target="_blank" rel="noopener noreferrer" className="text-rose underline font-semibold">Message us now →</a>
             </p>
           </div>
         </div>
@@ -347,7 +347,7 @@ function MakeupContent() {
           <div className="bg-rose/5 border border-rose/15 rounded-2xl p-5 text-center">
             <p className="font-poppins text-xs text-stone-light leading-relaxed">
               <span className="font-semibold text-rose">HD Bridal requires a consultation —</span> we use professional HD foundations (MAC, Kryolan, Charlotte Tilbury) and specialized lighting-aware techniques. A trial session is strongly recommended.{' '}
-              <a href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer" className="text-rose underline font-semibold">Book your consultation →</a>
+              <a href="https://wa.me/919129577514" target="_blank" rel="noopener noreferrer" className="text-rose underline font-semibold">Book your consultation →</a>
             </p>
           </div>
         </div>
@@ -520,7 +520,7 @@ function MakeupContent() {
           <h2 className="font-playfair text-5xl font-bold text-white mb-6 relative z-10">Book Your Makeup <em className="text-blush">Artist Today</em></h2>
           <p className="font-poppins text-white/50 text-base max-w-lg mx-auto mb-10 relative z-10">From a quick party glam to a full bridal experience — our certified artists come to you, fully equipped.</p>
           <div className="flex flex-wrap gap-4 justify-center relative z-10">
-            <a href="https://wa.me/917985183449" target="_blank" rel="noopener noreferrer"
+            <a href="https://wa.me/919129577514" target="_blank" rel="noopener noreferrer"
               className="btn-press font-poppins text-sm font-semibold px-8 py-4 bg-rose text-white hover:bg-mauve transition-colors duration-300 rounded-full">
               <span className="inline-flex items-center gap-2"><WAIcon size={15} />Book Now on WhatsApp</span>
             </a>

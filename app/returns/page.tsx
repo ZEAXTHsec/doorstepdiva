@@ -21,7 +21,7 @@ const SECTIONS = [
         'Cancellations made less than 6 hours before the appointment will incur a 100% charge.',
         'No-show appointments (artist arrives and client is unreachable) will be charged in full.',
       ],
-      'To cancel or reschedule, message us on WhatsApp at +91 79851 83449 or reach out via Instagram @doorstepdivaa.',
+      'To cancel or reschedule, message us on WhatsApp at +91 91295 77514 or reach out via Instagram @doorstepdivaa.',
     ],
   },
   {
@@ -89,7 +89,7 @@ const SECTIONS = [
     body: [
       'If you have any questions about returns, refunds, or cancellations, reach out:',
       [
-        'WhatsApp: +91 79851 83449',
+        'WhatsApp: +91 91295 77514',
         'Instagram: @doorstepdivaa',
         'Website: doorstepdiva.com',
       ],
@@ -207,7 +207,7 @@ export default function ReturnsPage() {
           We will confirm your cancellation or help find a new slot.
         </p>
         <a
-          href="https://wa.me/917985183449"
+          href="https://wa.me/919129577514"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 font-poppins text-sm font-semibold px-6 py-3 rounded-full text-white transition-opacity hover:opacity-90"

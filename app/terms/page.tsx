@@ -105,7 +105,7 @@ const SECTIONS = [
     body: [
       'For questions about these Terms & Conditions, or to report a concern:',
       [
-        'WhatsApp: +91 79851 83449',
+        'WhatsApp: +91 91295 77514',
         'Instagram: @doorstepdivaa',
         'Website: doorstepdiva.com',
       ],
@@ -223,7 +223,7 @@ export default function TermsPage() {
           If anything in these terms is unclear, reach out on WhatsApp and we will explain.
         </p>
         <a
-          href="https://wa.me/917985183449"
+          href="https://wa.me/919129577514"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 font-poppins text-sm font-semibold px-6 py-3 rounded-full text-white transition-opacity hover:opacity-90"
