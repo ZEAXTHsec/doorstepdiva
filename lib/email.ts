@@ -1,6 +1,6 @@
 import { Resend } from 'resend'
 
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'doorstepdiva.lucknow@gmail.com'
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'divadoorstep@gmail.com'
 
 export interface BookingEmailData {
   customer_name: string
