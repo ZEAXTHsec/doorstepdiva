@@ -108,8 +108,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Failed to record booking. Please reach us directly on WhatsApp!' }, { status: 500 })
     }
 
-    // Fire email notification to admin with true city
-    sendBookingNotification({
+    // Fire email/webhook notification to admin with true city
+    const notificationResult = await sendBookingNotification({
       customer_name: customer_name.trim(),
       customer_phone: customer_phone.trim(),
       customer_email: emailToSave,
@@ -123,11 +123,15 @@ export async function POST(req: NextRequest) {
       notes: combinedNotes || undefined,
       payment_mode: 'pay_on_service',
       deposit_paid: false,
-    }).catch(err => console.error('Email alert err:', err))
+    }).catch(err => {
+      console.error('Email alert err:', err)
+      return { email_sent: false, error: String(err) }
+    })
 
     return NextResponse.json({
       success: true,
       booking: data || payload,
+      notification: notificationResult,
       message: 'Booking request confirmed. Our coordinator will contact you shortly.',
     })
   } catch (err: unknown) {

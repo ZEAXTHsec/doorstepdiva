@@ -28,20 +28,29 @@ export default function AcademyEnquiryForm({ onClose, compact = false }: Props) 
     e.preventDefault()
     setStatus('sending')
     try {
-      const fd = new FormData()
-      fd.append('access_key', '10edd539-4395-49ea-be12-105d1439f716')
-      fd.append('subject', `Academy Enquiry — ${form.course || 'General'} — ${form.name}`)
-      fd.append('from_name', 'Doorstep Diva Academy Form')
-      fd.append('name', form.name)
-      fd.append('phone', form.phone)
-      fd.append('email', form.email)
-      fd.append('course', form.course)
-      fd.append('message', form.message)
-      const res  = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd })
+      const res = await fetch('/api/book', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customer_name: form.name.trim(),
+          customer_phone: form.phone.trim(),
+          customer_email: form.email.trim(),
+          customer_address: 'Academy Enquiry Desk',
+          service_type: form.course ? `Academy Course: ${form.course}` : 'Academy General Enquiry',
+          city: 'lucknow',
+          notes: form.message.trim() || undefined,
+        }),
+      })
       const data = await res.json()
-      if (data.success) { setStatus('success'); setForm({ name: '', phone: '', email: '', course: '', message: '' }) }
-      else setStatus('error')
-    } catch { setStatus('error') }
+      if (res.ok && data.success) {
+        setStatus('success')
+        setForm({ name: '', phone: '', email: '', course: '', message: '' })
+      } else {
+        setStatus('error')
+      }
+    } catch {
+      setStatus('error')
+    }
   }
 
   const fieldStyle: React.CSSProperties = {

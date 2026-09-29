@@ -101,17 +101,21 @@ export default function Contact() {
     e.preventDefault()
     setStatus('sending')
     try {
-      const fd = new FormData()
-      fd.append('access_key', '10edd539-4395-49ea-be12-105d1439f716')
-      fd.append('subject', `New Booking Request — ${formData.service || 'General Enquiry'}`)
-      fd.append('name', formData.name)
-      fd.append('phone', formData.phone)
-      fd.append('email', formData.email)
-      fd.append('service', formData.service)
-      fd.append('message', formData.message)
-      const res  = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd })
+      const res = await fetch('/api/book', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customer_name: formData.name.trim(),
+          customer_phone: formData.phone.trim(),
+          customer_email: formData.email.trim(),
+          customer_address: 'Direct Section Contact Booking Form',
+          service_type: formData.service || 'General Service Enquiry',
+          city: 'lucknow',
+          notes: formData.message.trim() || undefined,
+        }),
+      })
       const data = await res.json()
-      if (data.success) {
+      if (res.ok && data.success) {
         setStatus('success')
         setFormData({ name: '', phone: '', email: '', service: '', message: '' })
       } else {

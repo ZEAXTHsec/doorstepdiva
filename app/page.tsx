@@ -1209,20 +1209,21 @@ function Contact() {
     e.preventDefault()
     setStatus('sending')
     try {
-      const fd = new FormData()
-      fd.append('access_key', '10edd539-4395-49ea-be12-105d1439f716')
-      fd.append('subject', `New Booking Request — ${formData.service || 'General Enquiry'}`)
-      fd.append('name', formData.name)
-      fd.append('phone', formData.phone)
-      fd.append('email', formData.email)
-      fd.append('service', formData.service)
-      fd.append('message', formData.message)
-      const res = await fetch('https://api.web3forms.com/submit', {
+      const res = await fetch('/api/book', {
         method: 'POST',
-        body: fd,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customer_name: formData.name.trim(),
+          customer_phone: formData.phone.trim(),
+          customer_email: formData.email.trim(),
+          customer_address: 'Direct Homepage Booking Form',
+          service_type: formData.service || 'General Service Enquiry',
+          city: 'lucknow',
+          notes: formData.message.trim() || undefined,
+        }),
       })
       const data = await res.json()
-      if (data.success) {
+      if (res.ok && data.success) {
         setStatus('success')
         setFormData({ name: '', phone: '', email: '', service: '', message: '' })
       } else {
@@ -1276,16 +1277,27 @@ function Contact() {
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
               </div>
-              <h3 className="font-playfair text-2xl font-bold text-white mb-2">Request Sent!</h3>
-              <p className="font-poppins text-sm text-white/50 leading-relaxed mb-7">
-                We&apos;ve received your booking request. Our team will get back to you within a few hours to confirm.
+              <h3 className="font-playfair text-2xl font-bold text-white mb-2">Booking Request Sent!</h3>
+              <p className="font-poppins text-sm text-white/70 leading-relaxed mb-6">
+                We&apos;ve recorded your booking in our system. Our coordinator will call you shortly to confirm your certified artist.
               </p>
-              <button
-                onClick={() => setStatus('idle')}
-                className="font-poppins text-xs font-medium px-5 py-2.5 border border-white/20 text-white/60 hover:text-white hover:border-white/40 transition-colors rounded-full"
+              <a
+                href={`https://wa.me/919129577514?text=${encodeURIComponent('Hi DoorStep Diva! I just submitted a booking request on your website. Please confirm my artist arrival!')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-press inline-flex items-center gap-2 font-poppins text-xs font-semibold px-5 py-3 bg-[#25D366] text-white rounded-full hover:opacity-90 transition-opacity mb-5"
               >
-                Submit another request
-              </button>
+                <IconWhatsApp size={16} />
+                Message Coordinator on WhatsApp for Instant Confirmation
+              </a>
+              <div>
+                <button
+                  onClick={() => setStatus('idle')}
+                  className="font-poppins text-xs font-medium px-5 py-2.5 border border-white/20 text-white/60 hover:text-white hover:border-white/40 transition-colors rounded-full"
+                >
+                  Submit another request
+                </button>
+              </div>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-3">
