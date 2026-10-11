@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 import { getSkillType } from '@/lib/booking-utils'
 import { sendBookingNotification } from '@/lib/email'
+import { syncBookingToGoogleSheets } from '@/lib/google-sheets'
 
 export const dynamic = 'force-dynamic'
 
@@ -128,10 +129,28 @@ export async function POST(req: NextRequest) {
       return { email_sent: false, error: String(err) }
     })
 
+    // Real-time synchronization to DoorStep Diva Google Sheets CRM
+    const sheetSyncResult = await syncBookingToGoogleSheets({
+      customer_name: customer_name.trim(),
+      customer_phone: customer_phone.trim(),
+      customer_email: emailToSave,
+      customer_address: customer_address.trim(),
+      service_type: service_type.trim(),
+      city: cityValue,
+      appointment_date: appointment_date || undefined,
+      appointment_time: appointment_time || undefined,
+      total_estimate: total_estimate || undefined,
+      notes: combinedNotes || undefined,
+    }).catch(err => {
+      console.error('Google Sheets sync error:', err)
+      return { success: false, error: String(err) }
+    })
+
     return NextResponse.json({
       success: true,
       booking: data || payload,
       notification: notificationResult,
+      sheet_sync: sheetSyncResult,
       message: 'Booking request confirmed. Our coordinator will contact you shortly.',
     })
   } catch (err: unknown) {

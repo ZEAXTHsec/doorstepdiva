@@ -3,6 +3,7 @@ import React, { useState, useRef } from 'react'
 import Link from 'next/link'
 import { ServiceStickyNav } from '../../components/ServiceStickyNav'
 import AddToCartButton from '@/app/components/AddToCartButton'
+import WhatsAppBookButton from '@/app/components/WhatsAppBookButton'
 
 const NAV_SECTIONS = [
   { id: 'party',       label: 'Party',        services: ['Natural Glam', 'Full Glam', 'Cocktail Glam', 'Festive Look'] },
@@ -218,9 +219,12 @@ function MakeupContent() {
                 <p className="font-poppins text-xs text-stone-light leading-relaxed mb-4">{p.desc}</p>
                 <span className="font-poppins text-[11px] text-stone-light/70">{p.time}</span>
               </div>
-              <div className="pt-4 mt-4 border-t border-blush/10">
+              <div className="pt-4 mt-4 border-t border-blush/10 flex flex-col gap-2">
                 <PriceTag price={p.price} origPrice={p.origPrice} />
-                <AddToCartButton variant="inline" id={p.name} name={p.name} price={p.price} duration={p.time || ''} image="https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png" category="Makeup" href="/book" />
+                <div className="flex items-center gap-2 mt-1">
+                  <AddToCartButton variant="inline" id={p.name} name={p.name} price={p.price} duration={p.time || ''} image="https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png" category="Makeup" href="/book" />
+                  <WhatsAppBookButton serviceName={p.name} price={p.price} />
+                </div>
               </div>
             </div>
           ))}
@@ -248,9 +252,12 @@ function MakeupContent() {
                 <span className="font-poppins text-xs text-stone-light/70 whitespace-nowrap">{e.time}</span>
               </div>
               <p className="font-poppins text-sm text-stone-light leading-relaxed mb-6">{e.desc}</p>
-              <div className="flex items-center justify-between pt-4 border-t border-blush/10">
+              <div className="flex flex-wrap items-center justify-between gap-2 pt-4 border-t border-blush/10">
                 <PriceTag price={e.price} origPrice={e.origPrice} />
-                <AddToCartButton variant="inline" id={e.name} name={e.name} price={e.price} duration={e.time || ''} image="https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png" category="Makeup" href="/book" />
+                <div className="flex items-center gap-2">
+                  <AddToCartButton variant="inline" id={e.name} name={e.name} price={e.price} duration={e.time || ''} image="https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png" category="Makeup" href="/book" />
+                  <WhatsAppBookButton serviceName={e.name} price={e.price} />
+                </div>
                 <span className="font-poppins text-[10px] font-semibold text-green-600 bg-green-50 px-2 py-1 rounded-full">
                   Save ₹{e.origPrice - e.price}
                 </span>
@@ -299,7 +306,13 @@ function MakeupContent() {
                   </td>
                   <td className="px-6 py-4 font-poppins text-xs text-stone-light hidden sm:table-cell">{b.desc}</td>
                   <td className="px-6 py-4 font-poppins text-xs text-stone-light whitespace-nowrap">{b.time}</td>
-                  <td className="px-6 py-4 text-right"><PriceTag price={b.price} origPrice={b.origPrice} /><AddToCartButton variant="inline" id={b.name} name={b.name} price={b.price} duration={b.time || ''} image="https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png" category="Makeup" href="/book" /></td>
+                  <td className="px-6 py-4 text-right">
+                    <div className="flex items-center justify-end gap-2">
+                      <PriceTag price={b.price} origPrice={b.origPrice} />
+                      <AddToCartButton variant="inline" id={b.name} name={b.name} price={b.price} duration={b.time || ''} image="https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png" category="Makeup" href="/book" />
+                      <WhatsAppBookButton serviceName={b.name} price={b.price} />
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
