@@ -55,7 +55,7 @@ export default function Footer() {
               className="font-poppins text-sm leading-relaxed mb-5"
               style={{ color: 'rgba(239,204,212,0.65)' }}
             >
-              Luxury beauty, at your door. Certified artists across Delhi NCR, Lucknow &amp; Ayodhya.
+              Luxury beauty, at your door. Certified artists across Delhi NCR, Lucknow &amp; Ayodhya. A brand by Digixfly.
             </p>
             {/* Social */}
             <div className="flex items-center gap-3">
@@ -216,11 +216,11 @@ export default function Footer() {
         >
           <p
             className="font-poppins text-xs"
-            style={{ color: 'rgba(239,204,212,0.35)' }}
+            style={{ color: 'rgba(239,204,212,0.45)' }}
           >
-            © {new Date().getFullYear()} DoorStep Diva. All rights reserved.
+            © {new Date().getFullYear()} DoorStep Diva. Parent company: <a href="https://digixfly.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white underline decoration-rose decoration-1 underline-offset-2 transition-colors font-medium">Digixfly</a>. All rights reserved.
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
             <Link
               href="/returns"
               className="font-poppins text-xs transition-colors hover:text-white"
@@ -247,9 +247,9 @@ export default function Footer() {
             <span style={{ color: 'rgba(239,204,212,0.15)' }}>·</span>
             <p
               className="font-poppins text-xs"
-              style={{ color: 'rgba(239,204,212,0.35)' }}
+              style={{ color: 'rgba(239,204,212,0.5)' }}
             >
-              Made with ❤️ in India
+              Made with ❤️ by <a href="https://digixfly.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white underline decoration-rose decoration-1 underline-offset-2 transition-colors font-semibold" style={{ color: '#EFCCD4' }}>Digixfly</a>
             </p>
           </div>
         </div>

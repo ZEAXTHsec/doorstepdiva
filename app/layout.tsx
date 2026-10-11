@@ -59,6 +59,11 @@ const SCHEMA_JSON_LD = {
       url: 'https://mydoorstepdiva.com',
       logo: 'https://mydoorstepdiva.com/favicon.png',
       description: 'Premium certified at-home salon and bridal beauty services delivered across Delhi NCR, Lucknow, and Ayodhya. Specialized in hair, skin, bridal makeup, nail extensions, and semi-permanent makeup.',
+      parentOrganization: {
+        '@type': 'Organization',
+        name: 'Digixfly',
+        url: 'https://digixfly.com',
+      },
       telephone: '+919129577514',
       priceRange: '₹₹',
       currenciesAccepted: 'INR',
