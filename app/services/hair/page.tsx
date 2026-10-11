@@ -3,6 +3,7 @@ import React, { useState, useRef } from 'react'
 import Link from 'next/link'
 import { ServiceStickyNav } from '../../components/ServiceStickyNav'
 import AddToCartButton from '@/app/components/AddToCartButton'
+import WhatsAppBookButton from '@/app/components/WhatsAppBookButton'
 
 const NAV_SECTIONS = [
   { id: 'cuts',        label: 'Haircuts',     services: ['Short Cut', 'Medium Cut', 'Long Cut', 'Feather Cut', 'Step Cut', 'U/V Shape', 'Bob Cut', 'Layer Cut', 'Split Ends'] },
@@ -301,7 +302,12 @@ export default function HairPage() {
                   <td className="px-6 py-4 font-poppins text-xs text-stone-light hidden sm:table-cell">{s.desc}</td>
                   <td className="px-6 py-4 font-poppins text-xs text-stone-light whitespace-nowrap">{s.time}</td>
                   <td className="px-6 py-4 text-right"><PriceTag price={s.price} origPrice={s.origPrice} /></td>
-                  <td className="px-6 py-4"><AddToCartButton variant="inline" id={s.name} name={s.name} price={s.price} duration={s.time} image="https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png" category="Hair" href="/book" /></td>
+                  <td className="px-6 py-4">
+                    <div className="flex items-center gap-1.5">
+                      <AddToCartButton variant="inline" id={s.name} name={s.name} price={s.price} duration={s.time} image="https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png" category="Hair" href="/book" />
+                      <WhatsAppBookButton serviceName={s.name} price={s.price} />
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
