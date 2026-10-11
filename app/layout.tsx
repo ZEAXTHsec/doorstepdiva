@@ -7,6 +7,7 @@ import Footer from './components/Footer'
 import ScrollRevealInit from './components/ScrollRevealInit'
 import { CartProvider } from './context/CartContext'
 import CartDrawer from './components/CartDrawer'
+import LuxuryCursor from './components/LuxuryCursor'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -42,6 +43,9 @@ export const metadata: Metadata = {
     url: 'https://mydoorstepdiva.com',
     siteName: 'DoorStep Diva',
     type: 'website',
+  },
+  verification: {
+    google: 'ZJvSH7pK4rvvfbDP8k7ajo2veNpjefOuWFwq8HMYc6M',
   },
 }
 
@@ -130,6 +134,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${poppins.variable}`}>
       <head>
+        <meta name="google-site-verification" content="ZJvSH7pK4rvvfbDP8k7ajo2veNpjefOuWFwq8HMYc6M" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA_JSON_LD) }}
@@ -137,6 +142,7 @@ export default function RootLayout({
       </head>
       <body className="bg-petal text-stone font-poppins antialiased">
         <CartProvider>
+        <LuxuryCursor />
         {/* Scroll reveal observer — runs once, watches all .reveal elements */}
         <ScrollRevealInit />
 
