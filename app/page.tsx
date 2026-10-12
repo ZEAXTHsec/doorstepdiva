@@ -2,6 +2,8 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import BeforeAfterSlider from '@/app/components/BeforeAfterSlider'
+import HygieneProtocol from '@/app/components/HygieneProtocol'
+import BridalTimeline from '@/app/components/BridalTimeline'
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
@@ -641,104 +643,7 @@ function Services() {
   )
 }
 
-// ─── HYGIENE & SAFETY ─────────────────────────────────────────────────────────
 
-const TRUST_BADGES = [
-  {
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-        <polyline points="9 12 11 14 15 10"/>
-      </svg>
-    ),
-    title: 'Sanitized Tools',
-    desc: 'Every tool is sterilized before each visit — no exceptions.',
-  },
-  {
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
-      </svg>
-    ),
-    title: 'Single-Use Disposables',
-    desc: 'Gloves, applicators and sheets are used once and discarded.',
-  },
-  {
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="8" r="4"/>
-        <path d="M6 20v-2a6 6 0 0112 0v2"/>
-        <polyline points="16 11 17.5 13 20 10"/>
-      </svg>
-    ),
-    title: 'Certified Artists',
-    desc: '100% trained & certified professionals, background-verified.',
-  },
-  {
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-      </svg>
-    ),
-    title: 'Premium Brands Only',
-    desc: 'We use top-tier, skin-safe products — nothing cheap or harmful.',
-  },
-  {
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-        <path d="M7 11V7a5 5 0 0110 0v4"/>
-      </svg>
-    ),
-    title: 'Fully Insured Service',
-    desc: 'Every session is covered — your safety and peace of mind matter.',
-  },
-]
-
-function HygieneSafety() {
-  return (
-    <section className="py-20 sm:py-24" style={{ background: '#FDF8F8' }}>
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-16">
-        {/* Heading */}
-        <div className="text-center mb-14">
-          <p className="font-poppins text-[10px] font-semibold tracking-[0.2em] uppercase text-rose-light mb-3">
-            Your Safety First
-          </p>
-          <h2 className="font-playfair text-3xl sm:text-4xl font-bold text-stone mb-4">
-            Clean. Safe. <em className="text-rose">Professional.</em>
-          </h2>
-          <p className="font-poppins text-sm text-stone-light max-w-md mx-auto leading-relaxed">
-            Every DoorStep Diva visit follows strict hygiene protocols — so you can relax completely.
-          </p>
-        </div>
-
-        {/* Badges grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
-          {TRUST_BADGES.map(({ icon, title, desc }) => (
-            <div
-              key={title}
-              className="flex flex-col items-center text-center p-6 rounded-2xl"
-              style={{
-                background: 'white',
-                border: '1px solid rgba(196,118,138,0.12)',
-                boxShadow: '0 4px 20px rgba(139,58,82,0.06)',
-              }}
-            >
-              <div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4 text-rose"
-                style={{ background: 'rgba(196,118,138,0.1)' }}
-              >
-                {icon}
-              </div>
-              <h3 className="font-poppins text-sm font-semibold text-stone mb-2">{title}</h3>
-              <p className="font-poppins text-xs text-stone-light leading-relaxed">{desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
 
 // ─── HOW IT WORKS ─────────────────────────────────────────────────────────────
 
@@ -1357,7 +1262,8 @@ export default function HomePage() {
       <Marquee />
       <Services />
       <BeforeAfterSlider />
-      <HygieneSafety />
+      <HygieneProtocol />
+      <BridalTimeline />
       <HowItWorks />
       <About />
       <Testimonials />
