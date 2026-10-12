@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useCart } from '../context/CartContext'
+import { normalizeIndianPhone } from '@/lib/booking-utils'
 
 // ── Types ──────────────────────────────────────────────────
 
@@ -140,7 +141,7 @@ export default function BookPage() {
 
   function validateForm(): string | null {
     if (!form.customer_name.trim()) return 'Please enter your full name.'
-    const cleanPhone = form.customer_phone.replace(/\D/g, '')
+    const cleanPhone = normalizeIndianPhone(form.customer_phone)
     if (cleanPhone.length !== 10) return 'Please enter a valid 10-digit mobile number so we can call or WhatsApp you.'
     if (!form.customer_address.trim()) return 'Please enter your home address & locality so our artist can arrive on time.'
     if (!form.service_type) return 'Please select at least one beauty service.'
@@ -167,14 +168,16 @@ export default function BookPage() {
     setSubmitting(true)
     setError('')
 
+    const cleanPhone = normalizeIndianPhone(form.customer_phone)
+
     const timingSummary = form.preferred_timing === 'Specific Upcoming Date' && form.specific_date
       ? `Date: ${form.specific_date}`
       : form.preferred_timing
 
     const body = {
       customer_name: form.customer_name.trim(),
-      customer_phone: form.customer_phone.trim(),
-      customer_email: form.customer_email.trim() || `${form.customer_phone.replace(/\D/g, '')}@doorstepdiva.lead`,
+      customer_phone: cleanPhone,
+      customer_email: form.customer_email.trim() || `${cleanPhone}@doorstepdiva.lead`,
       customer_address: form.customer_address.trim(),
       city: form.city,
       service_type: form.service_type,
@@ -197,6 +200,7 @@ export default function BookPage() {
         throw new Error(json.error || 'Failed to submit booking')
       }
 
+      setForm(prev => ({ ...prev, customer_phone: cleanPhone }))
       setStep('success')
       clearCart()
       window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -208,9 +212,10 @@ export default function BookPage() {
   }
 
   const cityNameDisplay = form.city === 'delhi-ncr' ? 'Delhi NCR' : form.city === 'lucknow' ? 'Lucknow' : 'Ayodhya'
+  const normalizedPhone = normalizeIndianPhone(form.customer_phone)
 
   const waSuccessMsg = encodeURIComponent(
-    `Hi DoorStep Diva! I just requested a booking for ${form.service_type} in ${cityNameDisplay}. Name: ${form.customer_name}, Phone: ${form.customer_phone}. Preferred Time: ${form.preferred_timing === 'Specific Upcoming Date' ? form.specific_date : form.preferred_timing}. Please confirm my artist!`
+    `Hi DoorStep Diva! I just requested a booking for ${form.service_type} in ${cityNameDisplay}. Name: ${form.customer_name}, Phone: ${normalizedPhone || form.customer_phone}. Preferred Time: ${form.preferred_timing === 'Specific Upcoming Date' ? form.specific_date : form.preferred_timing}. Please confirm my artist!`
   )
 
   const directWaMsg = encodeURIComponent(
@@ -227,7 +232,7 @@ export default function BookPage() {
     `\n\nCity: ${cityNameDisplay}` +
     `\nPreferred Time: ${form.preferred_timing === 'Specific Upcoming Date' ? (form.specific_date || 'Upcoming Date') : form.preferred_timing}` +
     (form.customer_name ? `\nName: ${form.customer_name}` : '') +
-    (form.customer_phone ? `\nPhone: ${form.customer_phone}` : '') +
+    (normalizedPhone ? `\nPhone: +91 ${normalizedPhone}` : (form.customer_phone ? `\nPhone: ${form.customer_phone}` : '')) +
     (form.customer_address ? `\nAddress: ${form.customer_address}` : '') +
     `\n\nTotal Estimate: ₹${effectiveEstimate ? effectiveEstimate.toLocaleString('en-IN') : 'To be confirmed'} (Pay After Service)` +
     `\n\nPlease confirm artist availability!`
@@ -259,7 +264,7 @@ export default function BookPage() {
               Booking Request Received!
             </h1>
             <p className="text-stone-600 text-sm sm:text-base max-w-lg mx-auto mb-8">
-              Thank you, <strong>{form.customer_name}</strong>. Our beauty coordinator has received your request and will call or message you on <strong>{form.customer_phone}</strong> within 15 minutes to confirm your certified artist and exact arrival time.
+              Thank you, <strong>{form.customer_name}</strong>. Our beauty coordinator has received your request and will call or message you on <strong>{normalizedPhone ? `+91 ${normalizedPhone}` : form.customer_phone}</strong> within 15 minutes to confirm your certified artist and exact arrival time.
             </p>
 
             {/* Quick summary box */}
@@ -360,23 +365,43 @@ export default function BookPage() {
 
             {/* Trust Pill Bar */}
             <div className="mb-8 grid grid-cols-3 gap-2 sm:gap-4 bg-[#FDF2F5] p-3 sm:p-4 rounded-2xl border border-[#F3DBE2] text-center">
-              <div>
-                <span className="block text-base sm:text-lg">🛡️</span>
+              <div className="flex flex-col items-center">
+                <div className="w-7 h-7 mb-1 rounded-full bg-[#8B3A52]/10 text-[#8B3A52] flex items-center justify-center">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    <path d="m9 12 2 2 4-4" />
+                  </svg>
+                </div>
                 <span className="text-[11px] sm:text-xs font-semibold text-stone-800">100% Sealed Kits</span>
               </div>
-              <div>
-                <span className="block text-base sm:text-lg">👩‍🎨</span>
+              <div className="flex flex-col items-center">
+                <div className="w-7 h-7 mb-1 rounded-full bg-[#8B3A52]/10 text-[#8B3A52] flex items-center justify-center">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <polyline points="16 11 18 13 22 9" />
+                  </svg>
+                </div>
                 <span className="text-[11px] sm:text-xs font-semibold text-stone-800">Verified Artists</span>
               </div>
-              <div>
-                <span className="block text-base sm:text-lg">💳</span>
+              <div className="flex flex-col items-center">
+                <div className="w-7 h-7 mb-1 rounded-full bg-[#8B3A52]/10 text-[#8B3A52] flex items-center justify-center">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="5" width="20" height="14" rx="2" />
+                    <line x1="2" y1="10" x2="22" y2="10" />
+                  </svg>
+                </div>
                 <span className="text-[11px] sm:text-xs font-semibold text-stone-800">Pay After Service</span>
               </div>
             </div>
 
             {error && (
-              <div className="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs sm:text-sm font-medium flex items-center gap-2">
-                <span>⚠️</span>
+              <div className="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs sm:text-sm font-medium flex items-center gap-2.5">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-rose-600">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
                 <span>{error}</span>
               </div>
             )}
@@ -608,13 +633,13 @@ export default function BookPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs text-stone-600 font-medium mb-1">10-Digit Mobile Number *</label>
+                    <label className="block text-xs text-stone-600 font-medium mb-1">Mobile Number (Call & WhatsApp) *</label>
                     <input
                       type="tel"
-                      placeholder="e.g. 9876543210"
+                      placeholder="e.g. 9876543210 or +91 98765 43210"
                       value={form.customer_phone}
                       onChange={e => updateForm('customer_phone', e.target.value)}
-                      maxLength={10}
+                      maxLength={16}
                       className="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#8B3A52]/20 focus:border-[#8B3A52]"
                       required
                     />
@@ -658,7 +683,11 @@ export default function BookPage() {
 
               {/* Reassurance Banner */}
               <div className="bg-[#FAF3F5] rounded-2xl p-4 border border-[#EACCD6]/50 flex items-start gap-3">
-                <span className="text-xl">✨</span>
+                <div className="w-5 h-5 rounded-full bg-[#8B3A52]/10 text-[#8B3A52] flex items-center justify-center shrink-0 mt-0.5">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                  </svg>
+                </div>
                 <div className="text-xs text-stone-700 leading-relaxed">
                   <strong>Zero Advance Fee:</strong> You do not need to make any payment online right now. Our coordinator will call/WhatsApp you within 15 minutes to confirm artist arrival. You can pay securely via UPI or cash after your service.
                 </div>

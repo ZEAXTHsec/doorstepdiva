@@ -1,7 +1,7 @@
 // POST /api/book
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
-import { getSkillType } from '@/lib/booking-utils'
+import { getSkillType, normalizeIndianPhone } from '@/lib/booking-utils'
 import { sendBookingNotification } from '@/lib/email'
 import { syncBookingToGoogleSheets } from '@/lib/google-sheets'
 
@@ -21,6 +21,11 @@ export async function POST(req: NextRequest) {
     // Validate required fields
     if (!customer_name || !customer_phone || !customer_address || !service_type || !city) {
       return NextResponse.json({ error: 'Please provide your name, phone number, address, city, and service.' }, { status: 400 })
+    }
+
+    const normalizedPhone = normalizeIndianPhone(customer_phone)
+    if (normalizedPhone.length !== 10) {
+      return NextResponse.json({ error: 'Please provide a valid 10-digit mobile number.' }, { status: 400 })
     }
 
     // Normalize city
@@ -54,11 +59,11 @@ export async function POST(req: NextRequest) {
     // Build the primary booking payload
     const emailToSave = customer_email && customer_email.includes('@') 
       ? customer_email 
-      : `${customer_phone.replace(/\D/g, '')}@doorstepdiva.lead`
+      : `${normalizedPhone}@doorstepdiva.lead`
 
     const payload: Record<string, unknown> = {
       customer_name: customer_name.trim(),
-      customer_phone: customer_phone.trim(),
+      customer_phone: normalizedPhone,
       customer_email: emailToSave,
       customer_address: customer_address.trim(),
       service_type: service_type.trim(),
@@ -112,7 +117,7 @@ export async function POST(req: NextRequest) {
     // Fire email/webhook notification to admin with true city
     const notificationResult = await sendBookingNotification({
       customer_name: customer_name.trim(),
-      customer_phone: customer_phone.trim(),
+      customer_phone: normalizedPhone,
       customer_email: emailToSave,
       customer_address: customer_address.trim(),
       service_type: service_type.trim(),
@@ -132,7 +137,7 @@ export async function POST(req: NextRequest) {
     // Real-time synchronization to DoorStep Diva Google Sheets CRM
     const sheetSyncResult = await syncBookingToGoogleSheets({
       customer_name: customer_name.trim(),
-      customer_phone: customer_phone.trim(),
+      customer_phone: normalizedPhone,
       customer_email: emailToSave,
       customer_address: customer_address.trim(),
       service_type: service_type.trim(),

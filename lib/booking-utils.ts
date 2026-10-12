@@ -127,3 +127,17 @@ export async function getNextAvailableSlot(
   const afterMins = toMinutes(afterTime)
   return slots.find(s => toMinutes(s) > afterMins) ?? null
 }
+
+/**
+ * Normalizes any Indian phone number format (with +91, 91, leading 0, spaces, dashes)
+ * to a clean 10-digit mobile number.
+ */
+export function normalizeIndianPhone(rawPhone: string): string {
+  let digits = (rawPhone || '').replace(/\D/g, '')
+  if (digits.length === 12 && digits.startsWith('91')) {
+    digits = digits.slice(2)
+  } else if (digits.length === 11 && digits.startsWith('0')) {
+    digits = digits.slice(1)
+  }
+  return digits
+}

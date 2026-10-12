@@ -283,7 +283,7 @@ export default function BridalTimeline() {
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row items-center gap-4">
                 <a
-                  href={`https://wa.me/918353982888?text=Hello%20DoorStep%20Diva%2C%20I%20would%20like%20to%20consult%20regarding%20the%20Bridal%20Regimen%20(${encodeURIComponent(
+                  href={`https://wa.me/919129577514?text=Hello%20DoorStep%20Diva%2C%20I%20would%20like%20to%20consult%20regarding%20the%20Bridal%20Regimen%20(${encodeURIComponent(
                     currentMilestone.title
                   )}%20-%20${encodeURIComponent(currentMilestone.timing)}).`}
                   target="_blank"

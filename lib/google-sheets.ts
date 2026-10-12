@@ -1,4 +1,6 @@
 // Real-time synchronization to DoorStep Diva Google Sheets CRM
+import { normalizeIndianPhone } from './booking-utils'
+
 const GOOGLE_SHEET_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbyNgHQOM87tqzEvsahz_GVIzQxlrmWewmrSYDSqULmCbA0wBPEh_Z3tgQJ0Y7rTQiyQ6w/exec'
 
 interface SyncBookingParams {
@@ -16,7 +18,7 @@ interface SyncBookingParams {
 
 export async function syncBookingToGoogleSheets(data: SyncBookingParams) {
   try {
-    const cleanPhone = data.customer_phone.replace(/[^0-9]/g, '')
+    const cleanPhone = normalizeIndianPhone(data.customer_phone)
     const isAcademy = data.service_type.toLowerCase().includes('academy') || 
                       data.service_type.toLowerCase().includes('course') || 
                       data.service_type.toLowerCase().includes('workshop') ||

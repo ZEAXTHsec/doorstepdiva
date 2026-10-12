@@ -232,7 +232,7 @@ export default function HygieneProtocol() {
           </div>
 
           <a
-            href="https://wa.me/918353982888?text=Hello%20DoorStep%20Diva%2C%20I%20have%20an%20inquiry%20regarding%20your%20hygiene%20and%20sterilization%20protocols%20for%20home%20appointments."
+            href="https://wa.me/919129577514?text=Hello%20DoorStep%20Diva%2C%20I%20have%20an%20inquiry%20regarding%20your%20hygiene%20and%20sterilization%20protocols%20for%20home%20appointments."
             target="_blank"
             rel="noopener noreferrer"
             className="flex-shrink-0 inline-flex items-center gap-2.5 px-6 py-3 rounded-xl font-poppins text-xs font-semibold tracking-wider uppercase transition-all duration-300 text-white hover:brightness-105"
