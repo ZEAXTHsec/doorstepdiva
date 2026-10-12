@@ -80,6 +80,22 @@ export default function BeforeAfterSlider() {
   const [activeTab, setActiveTab] = useState<string>('hair')
   const [sliderPos, setSliderPos] = useState<number>(50)
   const [isDragging, setIsDragging] = useState<boolean>(false)
+  const [loupeActive, setLoupeActive] = useState<boolean>(true)
+  const [loupeState, setLoupeState] = useState<{
+    show: boolean
+    x: number
+    y: number
+    width: number
+    height: number
+    side: 'before' | 'after'
+  }>({
+    show: false,
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+    side: 'after',
+  })
   const containerRef = useRef<HTMLDivElement>(null)
 
   const activeItem = TRANSFORMATIONS.find(t => t.id === activeTab) || TRANSFORMATIONS[0]
@@ -95,6 +111,7 @@ export default function BeforeAfterSlider() {
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     setIsDragging(true)
+    setLoupeState(prev => ({ ...prev, show: false }))
     containerRef.current?.setPointerCapture(e.pointerId)
     updatePosition(e.clientX)
   }
@@ -111,6 +128,27 @@ export default function BeforeAfterSlider() {
     } catch {
       // Ignored if pointer was released outside
     }
+  }
+
+  // Desktop Hover Magnifier Loupe
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isDragging || !loupeActive || !containerRef.current) return
+    const rect = containerRef.current.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    const side = (x / rect.width) * 100 <= sliderPos ? 'before' : 'after'
+    setLoupeState({
+      show: true,
+      x,
+      y,
+      width: rect.width,
+      height: rect.height,
+      side,
+    })
+  }
+
+  const handleMouseLeave = () => {
+    setLoupeState(prev => ({ ...prev, show: false }))
   }
 
   return (
@@ -183,6 +221,8 @@ export default function BeforeAfterSlider() {
               onPointerMove={handlePointerMove}
               onPointerUp={handlePointerUp}
               onPointerCancel={handlePointerUp}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
               className="relative w-full h-[360px] sm:h-[460px] md:h-[500px] rounded-3xl overflow-hidden shadow-2xl select-none cursor-ew-resize border border-white/60 touch-none"
               style={{
                 boxShadow: '0 20px 60px rgba(139,58,82,0.14)',
@@ -277,6 +317,70 @@ export default function BeforeAfterSlider() {
                   ‹ Drag left / right to compare ›
                 </span>
               </div>
+
+              {/* Desktop Hover Detail Loupe Bubble */}
+              {loupeActive && !isDragging && loupeState.show && (
+                <div
+                  className="hidden md:block absolute pointer-events-none z-40 rounded-full overflow-hidden"
+                  style={{
+                    width: '160px',
+                    height: '160px',
+                    left: `${loupeState.x - 80}px`,
+                    top: `${loupeState.y - 80}px`,
+                    border: '2.5px solid #C8974A',
+                    boxShadow: '0 16px 40px rgba(61,43,43,0.35), 0 0 0 3px rgba(255,255,255,0.4)',
+                    backgroundImage: `url(${loupeState.side === 'before' ? activeItem.beforeImg : activeItem.afterImg})`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: `${loupeState.width * 2.4}px ${loupeState.height * 2.4}px`,
+                    backgroundPosition: `-${loupeState.x * 2.4 - 80}px -${loupeState.y * 2.4 - 80}px`,
+                    backgroundColor: '#3D2B2B',
+                  }}
+                >
+                  {/* Subtle Lens Glare */}
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background: 'radial-gradient(circle at 35% 30%, rgba(255,255,255,0.25) 0%, transparent 60%)',
+                    }}
+                  />
+                  {/* Subtle Precision Focal Ring */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+                    <div className="w-5 h-px bg-white" />
+                    <div className="h-5 w-px bg-white absolute" />
+                  </div>
+
+                  {/* Top Label Badge */}
+                  <div
+                    className="absolute top-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded font-poppins text-[9px] font-bold tracking-wider uppercase text-white shadow-sm"
+                    style={{
+                      background: loupeState.side === 'before' ? 'rgba(61,43,43,0.85)' : 'rgba(139,58,82,0.9)',
+                    }}
+                  >
+                    {loupeState.side === 'before' ? 'Before · 2.4X' : 'After · 2.4X'}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Loupe & Drag Controls Note */}
+            <div className="flex items-center justify-between mt-3 px-2">
+              <span className="font-poppins text-[11px] text-[#7A5C5C]">
+                <span className="hidden md:inline">Hover over image to inspect 2.4X detail · </span>
+                Drag center divider to compare
+              </span>
+              <button
+                type="button"
+                onClick={() => setLoupeActive(!loupeActive)}
+                className="hidden md:inline-flex items-center gap-1.5 font-poppins text-[10px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full border transition-all"
+                style={{
+                  background: loupeActive ? 'rgba(200,151,74,0.1)' : 'rgba(61,43,43,0.05)',
+                  borderColor: loupeActive ? '#C8974A' : 'rgba(61,43,43,0.15)',
+                  color: loupeActive ? '#966B26' : '#7A5C5C',
+                }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full" style={{ background: loupeActive ? '#C8974A' : '#7A5C5C' }} />
+                <span>Zoom Loupe: {loupeActive ? 'Active' : 'Off'}</span>
+              </button>
             </div>
           </div>
 
