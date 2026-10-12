@@ -404,18 +404,18 @@ function Hero() {
 
             {/* Headline */}
             <h1
-              className="font-playfair font-bold leading-[1.07] mb-6"
+              className="font-playfair font-bold leading-[1.07] mb-6 text-white"
               style={{
                 fontSize: 'clamp(2.6rem, 5.5vw, 4.8rem)',
                 animation: 'fadeUp .65s ease .08s both',
-                color: '#ffffff',
+                textShadow: '0 3px 28px rgba(0,0,0,0.45)',
               }}
             >
               Brows. Skin. Hair.<br />
               <em
                 className="not-italic"
                 style={{
-                  background: 'linear-gradient(120deg, #C4768A 20%, #8B3A52 80%)',
+                  background: 'linear-gradient(120deg, #FFFFFF 10%, #F5D8DC 45%, #E5A8B8 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',

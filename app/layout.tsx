@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Playfair_Display, Poppins } from 'next/font/google'
+import { DM_Serif_Display, Poppins } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import Header from './components/Header'
@@ -9,11 +9,12 @@ import { CartProvider } from './context/CartContext'
 import CartDrawer from './components/CartDrawer'
 import LuxuryCursor from './components/LuxuryCursor'
 
-const playfair = Playfair_Display({
+const dmSerif = DM_Serif_Display({
   subsets: ['latin'],
   variable: '--font-playfair',
   display: 'swap',
-  weight: ['400', '500', '600', '700', '800'],
+  weight: '400',
+  style: ['normal', 'italic'],
 })
 
 const poppins = Poppins({
@@ -143,7 +144,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${poppins.variable}`}>
+    <html lang="en" className={`${dmSerif.variable} ${poppins.variable}`}>
       <head>
         <meta name="google-site-verification" content="ZJvSH7pK4rvvfbDP8k7ajo2veNpjefOuWFwq8HMYc6M" />
         <script

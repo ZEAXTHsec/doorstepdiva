@@ -17,6 +17,7 @@ module.exports = {
       },
       fontFamily: {
         playfair: ['var(--font-playfair)', 'serif'],
+        serif:    ['var(--font-playfair)', 'serif'],
         poppins:  ['var(--font-poppins)',  'sans-serif'],
       },
     },
