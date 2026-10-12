@@ -24,19 +24,21 @@ export async function POST(req: NextRequest) {
     if (!student_name || typeof student_name !== 'string' || !student_name.trim()) {
       return NextResponse.json({ error: 'Please enter your full name.' }, { status: 400 })
     }
-    if (!student_phone || typeof student_phone !== 'string' || !student_phone.trim()) {
-      return NextResponse.json({ error: 'Please provide a valid WhatsApp / contact phone number.' }, { status: 400 })
+    const cleanPhone = (student_phone || '').toString().trim()
+    const digitsOnly = cleanPhone.replace(/\D/g, '')
+    if (digitsOnly.length < 10) {
+      return NextResponse.json({ error: 'Please provide a valid 10-digit WhatsApp / contact phone number.' }, { status: 400 })
     }
-    if (!student_email || typeof student_email !== 'string' || !student_email.includes('@')) {
-      return NextResponse.json({ error: 'Please provide a valid email address to receive your confirmation.' }, { status: 400 })
+    const cleanEmail = (student_email || '').toString().trim()
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!cleanEmail || !emailRegex.test(cleanEmail)) {
+      return NextResponse.json({ error: 'Please provide a valid email address (e.g. name@example.com) to receive your confirmation.' }, { status: 400 })
     }
     if (!courses || !Array.isArray(courses) || courses.length === 0) {
       return NextResponse.json({ error: 'Please select at least one course for admission.' }, { status: 400 })
     }
 
     const cleanName = student_name.trim()
-    const cleanPhone = student_phone.trim()
-    const cleanEmail = student_email.trim()
     const targetCity = city ? city.trim() : 'Lucknow'
     const batch = batch_preference || 'Next Upcoming Intake'
 

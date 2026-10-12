@@ -23,6 +23,7 @@ const STATIC_PAGES = [
   { url: '/services/semi-permanent',                 priority: '0.9', changefreq: 'monthly' },
   { url: '/services/skin/korean-glass-hydration-facial', priority: '0.8', changefreq: 'monthly' },
   { url: '/academy',                                 priority: '0.9', changefreq: 'weekly'  },
+  { url: '/academy/apply',                           priority: '0.9', changefreq: 'weekly'  },
   { url: '/academy/makeup',                          priority: '0.8', changefreq: 'monthly' },
   { url: '/academy/hair',                            priority: '0.8', changefreq: 'monthly' },
   { url: '/academy/skin',                            priority: '0.8', changefreq: 'monthly' },

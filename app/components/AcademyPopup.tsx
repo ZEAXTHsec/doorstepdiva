@@ -1,8 +1,10 @@
 'use client'
 import { useState, useEffect, useCallback } from 'react'
+import { usePathname } from 'next/navigation'
 import AcademyEnquiryForm from './AcademyEnquiryForm'
 
 export default function AcademyPopup() {
+  const pathname = usePathname()
   const [open, setOpen] = useState(false)
 
   // Close on Escape key
@@ -23,6 +25,11 @@ export default function AcademyPopup() {
       document.body.style.overflow = ''
     }
   }, [open, handleKey])
+
+  // Do not show floating button or popup when already on the admissions application page
+  if (pathname === '/academy/apply') {
+    return null
+  }
 
   return (
     <>

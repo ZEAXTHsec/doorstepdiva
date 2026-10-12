@@ -133,6 +133,18 @@ function AcademyApplyFormContent() {
       return
     }
 
+    const phoneDigits = formData.student_phone.replace(/\D/g, '')
+    if (phoneDigits.length < 10) {
+      setErrorMessage('Please enter a valid 10-digit WhatsApp / contact phone number.')
+      return
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(formData.student_email.trim())) {
+      setErrorMessage('Please enter a valid email address (e.g. name@example.com) to receive your confirmation.')
+      return
+    }
+
     setStatus('submitting')
     setErrorMessage('')
 

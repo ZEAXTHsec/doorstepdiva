@@ -19,11 +19,12 @@ const SERVICE_LINKS = [
 ]
 
 const ACADEMY_LINKS = [
+  { href: '/academy/apply',       label: 'Admissions & Enrollment' },
   { href: '/academy/makeup',      label: 'Makeup Course' },
   { href: '/academy/hair',        label: 'Hair Course' },
   { href: '/academy/skin',        label: 'Skin Course' },
   { href: '/academy/nail-art',    label: 'Nail Art Course' },
-  { href: '/academy/Cosmetology', label: 'Cosmetology' },
+  { href: '/academy/cosmetology', label: 'Cosmetology Diploma' },
 ]
 
 const AREAS = ['Delhi NCR', 'Noida', 'Gurugram', 'Lucknow', 'Ayodhya']
@@ -249,7 +250,7 @@ export default function Footer() {
               className="font-poppins text-xs"
               style={{ color: 'rgba(239,204,212,0.5)' }}
             >
-              Made with ❤️ by <a href="https://digixfly.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white underline decoration-rose decoration-1 underline-offset-2 transition-colors font-semibold" style={{ color: '#EFCCD4' }}>Digixfly</a>
+              Crafted with care by <a href="https://digixfly.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white underline decoration-rose decoration-1 underline-offset-2 transition-colors font-semibold" style={{ color: '#EFCCD4' }}>Digixfly</a>
             </p>
           </div>
         </div>
