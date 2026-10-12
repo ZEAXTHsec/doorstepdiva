@@ -62,7 +62,7 @@ export default function CoursePageTemplate({ course }: { course: CourseData }) {
                 {course.intro}
               </p>
 
-              {/* Duration + eligibility + 0% EMI pills */}
+              {/* Duration + eligibility pills */}
               <div className="flex flex-wrap gap-2.5 mb-8">
                 <div
                   className="flex items-center gap-2 font-poppins text-xs sm:text-sm font-medium px-4 py-2 rounded-full"
@@ -81,13 +81,6 @@ export default function CoursePageTemplate({ course }: { course: CourseData }) {
                     <polyline points="20 6 9 17 4 12"/>
                   </svg>
                   {course.eligibility}
-                </div>
-                <div
-                  className="flex items-center gap-1.5 font-poppins text-xs sm:text-sm font-semibold px-4 py-2 rounded-full"
-                  style={{ background: 'rgba(200,151,74,0.14)', color: '#966B26', border: '1px solid rgba(200,151,74,0.30)' }}
-                >
-                  <span>💳</span>
-                  <span>0% EMI: Pay in 3 Installments</span>
                 </div>
               </div>
 

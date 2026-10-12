@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import Link from 'next/link'
-import TeamSection from '@/app/components/sections/Team'
+import BeforeAfterSlider from '@/app/components/BeforeAfterSlider'
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
@@ -1200,7 +1200,7 @@ function FAQ() {
 
 function Contact() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
-  const [formData, setFormData] = useState({ name: '', phone: '', email: '', service: '', artist: '', message: '' })
+  const [formData, setFormData] = useState({ name: '', phone: '', email: '', service: '', message: '' })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
@@ -1210,11 +1210,6 @@ function Contact() {
     e.preventDefault()
     setStatus('sending')
     try {
-      const formattedNotes = [
-        formData.artist ? `[Requested Artist: ${formData.artist}]` : '',
-        formData.message.trim(),
-      ].filter(Boolean).join(' - ')
-
       const res = await fetch('/api/book', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1225,13 +1220,13 @@ function Contact() {
           customer_address: 'Direct Homepage Booking Form',
           service_type: formData.service || 'General Service Enquiry',
           city: 'lucknow',
-          notes: formattedNotes || undefined,
+          notes: formData.message.trim() || undefined,
         }),
       })
       const data = await res.json()
       if (res.ok && data.success) {
         setStatus('success')
-        setFormData({ name: '', phone: '', email: '', service: '', artist: '', message: '' })
+        setFormData({ name: '', phone: '', email: '', service: '', message: '' })
       } else {
         setStatus('error')
       }
@@ -1319,32 +1314,18 @@ function Contact() {
               </div>
               <input name="email" type="email" placeholder="Email (optional — for confirmation)" value={formData.email} onChange={handleChange}
                 className="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 font-poppins text-sm text-white placeholder:text-white/30 outline-none focus:border-blush/50 focus:bg-white/15 transition-all" />
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <select name="service" required value={formData.service} onChange={handleChange}
-                  className="w-full border border-white/10 rounded-xl px-4 py-3 font-poppins text-sm outline-none focus:border-blush/50 transition-all appearance-none"
-                  style={{ background: 'rgba(255,255,255,0.12)', color: formData.service ? '#ffffff' : 'rgba(255,255,255,0.45)' }}>
-                  <option value="" disabled style={{ background: '#3D2B2B', color: '#ffffff' }}>Service You Need *</option>
-                  <option value="Hair" style={{ background: '#3D2B2B', color: '#ffffff' }}>Hair — Cuts, Color, Treatments</option>
-                  <option value="Skin" style={{ background: '#3D2B2B', color: '#ffffff' }}>Skin — Waxing, Facials, Body Care</option>
-                  <option value="Makeup" style={{ background: '#3D2B2B', color: '#ffffff' }}>Makeup — Party, Bridal, Events</option>
-                  <option value="Eyelash" style={{ background: '#3D2B2B', color: '#ffffff' }}>Eyelash — Classic, Hybrid, Volume</option>
-                  <option value="Semi-Permanent" style={{ background: '#3D2B2B', color: '#ffffff' }}>Semi-Permanent — Microblading, Microneedling</option>
-                  <option value="Nails" style={{ background: '#3D2B2B', color: '#ffffff' }}>Nail Extensions — Acrylic, Gel, PolyGel</option>
-                  <option value="Multiple / Package" style={{ background: '#3D2B2B', color: '#ffffff' }}>Multiple Services / Package</option>
-                </select>
-
-                <select id="preferred-artist-select" name="artist" value={formData.artist} onChange={handleChange}
-                  className="w-full border border-white/10 rounded-xl px-4 py-3 font-poppins text-sm outline-none focus:border-blush/50 transition-all appearance-none"
-                  style={{ background: 'rgba(255,255,255,0.12)', color: formData.artist ? '#ffffff' : 'rgba(255,255,255,0.45)' }}>
-                  <option value="" style={{ background: '#3D2B2B', color: '#ffffff' }}>Preferred Artist (Optional)</option>
-                  <option value="Kavita Verma (Bridal Director)" style={{ background: '#3D2B2B', color: '#ffffff' }}>Kavita Verma (Bridal Director)</option>
-                  <option value="Sneha Sharma (Hair Architect)" style={{ background: '#3D2B2B', color: '#ffffff' }}>Sneha Sharma (Hair Architect)</option>
-                  <option value="Pooja Gupta (Skin Specialist)" style={{ background: '#3D2B2B', color: '#ffffff' }}>Pooja Gupta (Skin Specialist)</option>
-                  <option value="Ritika Mishra (PMU & Lashes)" style={{ background: '#3D2B2B', color: '#ffffff' }}>Ritika Mishra (PMU & Lashes)</option>
-                  <option value="Divya Singh (Nail Sculptor)" style={{ background: '#3D2B2B', color: '#ffffff' }}>Divya Singh (Nail Sculptor)</option>
-                  <option value="Any Available Master" style={{ background: '#3D2B2B', color: '#ffffff' }}>Any Available Master Artist</option>
-                </select>
-              </div>
+              <select name="service" required value={formData.service} onChange={handleChange}
+                className="w-full border border-white/10 rounded-xl px-4 py-3 font-poppins text-sm outline-none focus:border-blush/50 transition-all appearance-none"
+                style={{ background: 'rgba(255,255,255,0.12)', color: formData.service ? '#ffffff' : 'rgba(255,255,255,0.45)' }}>
+                <option value="" disabled style={{ background: '#3D2B2B', color: '#ffffff' }}>Service You Need *</option>
+                <option value="Hair" style={{ background: '#3D2B2B', color: '#ffffff' }}>Hair — Cuts, Color, Treatments</option>
+                <option value="Skin" style={{ background: '#3D2B2B', color: '#ffffff' }}>Skin — Waxing, Facials, Body Care</option>
+                <option value="Makeup" style={{ background: '#3D2B2B', color: '#ffffff' }}>Makeup — Party, Bridal, Events</option>
+                <option value="Eyelash" style={{ background: '#3D2B2B', color: '#ffffff' }}>Eyelash — Classic, Hybrid, Volume</option>
+                <option value="Semi-Permanent" style={{ background: '#3D2B2B', color: '#ffffff' }}>Semi-Permanent — Microblading, Microneedling</option>
+                <option value="Nails" style={{ background: '#3D2B2B', color: '#ffffff' }}>Nail Extensions — Acrylic, Gel, PolyGel</option>
+                <option value="Multiple / Package" style={{ background: '#3D2B2B', color: '#ffffff' }}>Multiple Services / Package</option>
+              </select>
               <textarea name="message" rows={3} placeholder="Anything else? (date, location, special requests...)" value={formData.message} onChange={handleChange}
                 className="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 font-poppins text-sm text-white placeholder:text-white/30 outline-none focus:border-blush/50 focus:bg-white/15 transition-all resize-none" />
               {status === 'error' && (
@@ -1375,10 +1356,10 @@ export default function HomePage() {
       <Hero />
       <Marquee />
       <Services />
+      <BeforeAfterSlider />
       <HygieneSafety />
       <HowItWorks />
       <About />
-      <TeamSection />
       <Testimonials />
       <Locations />
       <AcademyTeaser />

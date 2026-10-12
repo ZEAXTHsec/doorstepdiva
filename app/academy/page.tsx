@@ -10,7 +10,6 @@ const COURSES = [
     title: 'Make Up',
     tagline: 'From foundation to avant-garde artistry',
     duration: '1–2 months',
-    emi: '3 Zero-Interest EMIs',
     image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777463680/Makeup_course_hetn7w.png',
     gradient: 'from-rose/10 to-blush/30',
     accent: '#8B3A52',
@@ -21,7 +20,6 @@ const COURSES = [
     title: 'Hair',
     tagline: 'Cuts, colour & advanced styling techniques',
     duration: '3–6 months',
-    emi: '3 Zero-Interest EMIs',
     image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777463678/Hair_course_brxz2u.png',
     gradient: 'from-gold/10 to-blush/20',
     accent: '#C8974A',
@@ -32,7 +30,6 @@ const COURSES = [
     title: 'Skin',
     tagline: 'Science-backed skincare & advanced facials',
     duration: '3–6 months',
-    emi: '3 Zero-Interest EMIs',
     image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777463675/Skin_course_dqtf7c.png',
     gradient: 'from-rose-light/10 to-petal-dark/40',
     accent: '#C4768A',
@@ -43,7 +40,6 @@ const COURSES = [
     title: 'Cosmetology',
     tagline: 'Complete hair, skin, makeup & salon management',
     duration: '3–6 months',
-    emi: '3 Zero-Interest EMIs',
     image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777463677/Cosmetology_Course_lf7c5p.png',
     gradient: 'from-mauve/10 to-blush/30',
     accent: '#B07080',
@@ -54,7 +50,6 @@ const COURSES = [
     title: 'Nail Art',
     tagline: 'Nail care, extensions, gel & 3D design',
     duration: '1–2 months',
-    emi: '3 Zero-Interest EMIs',
     image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777463671/Nail_Art_course_taldxt.png',
     gradient: 'from-rose/10 to-gold/10',
     accent: '#8B3A52',
@@ -378,23 +373,14 @@ export default function AcademyPage() {
                   {course.tagline}
                 </p>
 
-                {/* Duration & 0% EMI badges */}
-                <div className="flex flex-wrap items-center gap-2 mb-4">
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/80 border border-black/5">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={course.accent} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-                    </svg>
-                    <span className="font-poppins text-xs font-medium" style={{ color: course.accent }}>
-                      {course.duration}
-                    </span>
-                  </div>
-
-                  <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-gold/15 border border-gold/30">
-                    <span className="text-[10px]">💳</span>
-                    <span className="font-poppins text-[10px] font-bold text-[#966B26]">
-                      0% EMI: Pay in 3
-                    </span>
-                  </div>
+                {/* Duration badge */}
+                <div className="flex items-center gap-2 mb-5">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={course.accent} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                  <span className="font-poppins text-xs font-medium" style={{ color: course.accent }}>
+                    Duration: {course.duration}
+                  </span>
                 </div>
 
                 {/* Top careers */}
@@ -449,41 +435,6 @@ export default function AcademyPage() {
               Enquire Now
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
-          </div>
-        </div>
-
-        {/* ── 0% EMI & Pay-in-Installments Explainer ── */}
-        <div
-          className="mt-14 rounded-3xl p-8 sm:p-10 border relative overflow-hidden"
-          style={{
-            background: 'linear-gradient(135deg, rgba(200,151,74,0.07) 0%, rgba(196,118,138,0.07) 100%)',
-            borderColor: 'rgba(200,151,74,0.30)',
-          }}
-        >
-          <div className="grid md:grid-cols-3 gap-6 items-center">
-            <div className="md:col-span-1">
-              <span className="font-poppins text-xs font-bold uppercase tracking-wider text-[#966B26]">Zero Financial Burden</span>
-              <h3 className="font-playfair text-2xl font-bold mt-1 mb-2 text-stone">
-                Pay in 3 Zero-Interest Installments
-              </h3>
-              <p className="font-poppins text-xs text-stone-light leading-relaxed">
-                Break your course tuition into 3 convenient monthly installments with 0% interest, no credit card required, and instant document approval.
-              </p>
-            </div>
-
-            <div className="md:col-span-2 grid sm:grid-cols-3 gap-3.5">
-              {[
-                { title: '0% Interest Guarantee', desc: 'Exact course fee divided by 3 with no hidden processing fees or markups.', icon: '🏷️' },
-                { title: 'Instant Approval', desc: 'Zero complicated bank hurdles. Simple verification with Aadhaar / PAN.', icon: '⚡' },
-                { title: 'Earn While You Learn', desc: 'Begin taking supervised live client bookings by month 2 to support fees.', icon: '🎓' },
-              ].map((perk) => (
-                <div key={perk.title} className="p-4 rounded-2xl bg-white border border-gold/25 shadow-sm">
-                  <span className="text-xl mb-1.5 block">{perk.icon}</span>
-                  <h4 className="font-playfair text-xs font-bold text-stone mb-1">{perk.title}</h4>
-                  <p className="font-poppins text-[11px] text-stone-light leading-relaxed">{perk.desc}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
