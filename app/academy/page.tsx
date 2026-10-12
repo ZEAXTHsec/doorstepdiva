@@ -100,13 +100,20 @@ export default function AcademyPage() {
                 Professional beauty courses taught by industry experts. From makeup artistry to complete cosmetology — gain real-world skills and the confidence to succeed.
               </p>
               <div className="flex flex-wrap gap-3.5">
+                <Link
+                  href="/academy/apply"
+                  className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-6 py-3.5 rounded-full text-white transition-all duration-200 hover:scale-[1.03] hover:shadow-lg"
+                  style={{ background: 'linear-gradient(135deg,#8B3A52,#732D42)' }}
+                >
+                  Apply for Admission
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </Link>
                 <a
                   href="#courses"
-                  className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-6 py-3.5 rounded-full text-white transition-all duration-200 hover:scale-[1.03] hover:shadow-lg"
-                  style={{ background: 'linear-gradient(135deg,#C4768A,#8B3A52)' }}
+                  className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-6 py-3.5 rounded-full border-2 transition-all duration-200 hover:bg-rose/5"
+                  style={{ borderColor: '#8B3A52', color: '#8B3A52' }}
                 >
                   Explore Courses
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
                 <a
                   href="https://wa.me/919129577514?text=Namaste%20DoorStep%20Diva%20Academy!%20Please%20share%20the%20complete%20Course%20Syllabus%2C%20fee%20structure%2C%20and%20upcoming%20batch%20dates."
@@ -117,13 +124,6 @@ export default function AcademyPage() {
                 >
                   <WhatsAppIcon size={16} />
                   Get Syllabus on WhatsApp
-                </a>
-                <a
-                  href="#enquire"
-                  className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-6 py-3.5 rounded-full border-2 transition-all duration-200 hover:bg-rose/5"
-                  style={{ borderColor: '#8B3A52', color: '#8B3A52' }}
-                >
-                  Enquire Online
                 </a>
               </div>
             </div>
@@ -257,13 +257,13 @@ export default function AcademyPage() {
                   Register for Free Demo on WhatsApp
                 </a>
 
-                <a
-                  href="#enquire"
+                <Link
+                  href="/academy/apply"
                   className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-6 py-3.5 rounded-full border-2 transition-all duration-200 hover:bg-rose/5"
                   style={{ borderColor: '#8B3A52', color: '#8B3A52' }}
                 >
-                  Reserve Demo Seat via Form ↓
-                </a>
+                  Reserve Demo Seat Online
+                </Link>
               </div>
             </div>
 
@@ -283,24 +283,30 @@ export default function AcademyPage() {
 
                 <div className="space-y-4 mb-6">
                   <div className="flex items-start gap-3">
-                    <span className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-sm flex-shrink-0 mt-0.5">📍</span>
+                    <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
                     <div>
                       <p className="font-poppins text-[11px] text-white/60">Campus</p>
-                      <p className="font-poppins text-xs font-semibold text-white">Doorstep Diva Academy, Ayodhya & Lucknow</p>
+                      <p className="font-poppins text-xs font-semibold text-white">Doorstep Diva Academy, Gomti Nagar, Lucknow</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <span className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-sm flex-shrink-0 mt-0.5">⏱️</span>
+                    <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
                     <div>
                       <p className="font-poppins text-[11px] text-white/60">Duration</p>
                       <p className="font-poppins text-xs font-semibold text-white">3 Hours Live Practical Session</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <span className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-sm flex-shrink-0 mt-0.5">🎟️</span>
+                    <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8974A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 12V8H6a2 2 0 01-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12a2 2 0 002 2h14v-4"/><circle cx="18" cy="12" r="2"/></svg>
+                    </div>
                     <div>
                       <p className="font-poppins text-[11px] text-white/60">Demo Fee</p>
-                      <p className="font-poppins text-xs font-semibold text-gold">₹0 (Completely Free of Cost)</p>
+                      <p className="font-poppins text-xs font-semibold text-gold">INR 0 (Completely Free of Cost)</p>
                     </div>
                   </div>
                 </div>
@@ -427,14 +433,14 @@ export default function AcademyPage() {
             <p className="font-poppins text-sm text-white/80 mb-6 leading-relaxed">
               Talk to our counsellors and find the perfect programme for your goals and schedule.
             </p>
-            <a
-              href="#enquire"
+            <Link
+              href="/academy/apply"
               className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-6 py-3 rounded-full bg-white transition-all duration-200 hover:scale-[1.04]"
               style={{ color: '#8B3A52' }}
             >
-              Enquire Now
+              Apply for Admission
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
+            </Link>
           </div>
         </div>
       </section>

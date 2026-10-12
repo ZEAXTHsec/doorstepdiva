@@ -85,16 +85,14 @@ export default function CoursePageTemplate({ course }: { course: CourseData }) {
               </div>
 
               <div className="flex flex-wrap gap-3">
-                <a
-                  href={`https://wa.me/919129577514?text=Hi%2C+I%27d+like+to+enrol+in+the+${encodeURIComponent(course.title)}+course+at+Doorstep+Diva+Academy`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href={`/academy/apply?course=${encodeURIComponent(course.slug)}`}
                   className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-6 py-3.5 rounded-full text-white transition-all duration-200 hover:scale-[1.03] hover:shadow-lg"
                   style={{ background: `linear-gradient(135deg,${course.accentColor}cc,${course.accentColor})` }}
                 >
-                  Enrol on WhatsApp
+                  Apply for Admission
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
+                </Link>
                 <a
                   href={`https://wa.me/919129577514?text=Namaste%20DoorStep%20Diva%20Academy!%20I%20would%20like%20to%20attend%20a%20Free%201-Day%20Trial%20Demo%20Class%20for%20the%20${encodeURIComponent(course.title)}%20course.%20Please%20share%20the%20next%20batch%20timings.`}
                   target="_blank"
@@ -110,7 +108,7 @@ export default function CoursePageTemplate({ course }: { course: CourseData }) {
                   className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-6 py-3.5 rounded-full border-2 transition-all duration-200 hover:bg-rose/5"
                   style={{ borderColor: course.accentColor, color: course.accentColor }}
                 >
-                  ← All Courses
+                  All Courses
                 </Link>
               </div>
             </div>
@@ -232,21 +230,22 @@ export default function CoursePageTemplate({ course }: { course: CourseData }) {
             Limited seats available. Reach out today for a free counselling session and to reserve your spot.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href={`/academy/apply?course=${encodeURIComponent(course.slug)}`}
+              className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-8 py-4 rounded-full bg-white transition-all duration-200 hover:scale-[1.04] hover:shadow-xl"
+              style={{ color: course.accentColor }}
+            >
+              Apply Online Now
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </Link>
             <a
               href={`https://wa.me/919129577514?text=Hi%2C+I%27d+like+to+enrol+in+the+${encodeURIComponent(course.title)}+course+at+Doorstep+Diva+Academy`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-8 py-4 rounded-full bg-white transition-all duration-200 hover:scale-[1.04] hover:shadow-xl"
-              style={{ color: course.accentColor }}
+              className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-8 py-4 rounded-full border-2 border-white/60 text-white transition-all duration-200 hover:bg-white/10"
             >
-              Enrol Now on WhatsApp
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <a
-              href="tel:+919129577514"
-              className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-8 py-4 rounded-full border-2 border-white/40 text-white transition-all duration-200 hover:bg-white/10"
-            >
-              Call Us
+              <WhatsAppIcon size={16} />
+              Enrol on WhatsApp
             </a>
           </div>
         </div>
