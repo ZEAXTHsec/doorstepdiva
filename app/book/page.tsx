@@ -82,14 +82,20 @@ function getServiceMinPrice(label: string): number {
   return opt?.minPrice || 0
 }
 
-const COMMON_ADDONS = [
-  { label: 'Eyebrow Threading (+₹30)', value: 'Eyebrow Threading' },
-  { label: 'Upper Lip Threading (+₹30)', value: 'Upper Lip Threading' },
-  { label: 'Full Face Threading (+₹139)', value: 'Full Face Threading' },
-  { label: 'Quick De-tan Pack (+₹199)', value: 'Quick De-tan' },
-  { label: 'Scalp Massage & Serum Ampoule (+₹299)', value: 'Scalp Ampoule' },
-  { label: 'Gel French Tip Add-on (+₹149)', value: 'French Tip' },
-  { label: 'Nail Art / Chrome Glaze (+₹99)', value: 'Chrome Glaze' },
+interface CommonAddon {
+  label: string
+  value: string
+  price: number
+}
+
+const COMMON_ADDONS: CommonAddon[] = [
+  { label: 'Eyebrow Threading (+₹30)', value: 'Eyebrow Threading', price: 30 },
+  { label: 'Upper Lip Threading (+₹30)', value: 'Upper Lip Threading', price: 30 },
+  { label: 'Full Face Threading (+₹139)', value: 'Full Face Threading', price: 139 },
+  { label: 'Quick De-tan Pack (+₹199)', value: 'Quick De-tan', price: 199 },
+  { label: 'Scalp Massage & Serum Ampoule (+₹299)', value: 'Scalp Ampoule', price: 299 },
+  { label: 'Gel French Tip Add-on (+₹149)', value: 'French Tip', price: 149 },
+  { label: 'Nail Art / Chrome Glaze (+₹99)', value: 'Chrome Glaze', price: 99 },
 ]
 
 const TIMING_OPTIONS = [
@@ -141,7 +147,13 @@ export default function BookPage() {
     return null
   }
 
-  const effectiveEstimate = cartSubtotal > 0 ? cartSubtotal : (selectedServicePrice > 0 ? selectedServicePrice : null)
+  const addonsTotal = form.addons.reduce((sum, addonVal) => {
+    const found = COMMON_ADDONS.find(a => a.value === addonVal)
+    return sum + (found?.price || 0)
+  }, 0)
+
+  const baseEstimate = cartSubtotal > 0 ? cartSubtotal : (selectedServicePrice > 0 ? selectedServicePrice : 0)
+  const effectiveEstimate = (baseEstimate > 0 || addonsTotal > 0) ? (baseEstimate + addonsTotal) : null
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -473,6 +485,46 @@ export default function BookPage() {
                     })}
                   </div>
                 </div>
+
+                {/* Real-time Order Estimate Breakdown */}
+                {(baseEstimate > 0 || form.addons.length > 0) && (
+                  <div className="mt-5 p-4 rounded-2xl bg-white border border-[#EACCD6] shadow-sm">
+                    <div className="text-xs font-bold text-stone-800 uppercase tracking-wider mb-2.5 flex items-center justify-between">
+                      <span>Booking Price Summary</span>
+                      <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full">
+                        Pay After Service
+                      </span>
+                    </div>
+                    <div className="space-y-2 text-xs text-stone-700">
+                      {cartItems.length > 0 ? (
+                        <div className="flex justify-between items-center">
+                          <span>Cart Services Subtotal ({cartItems.length} items):</span>
+                          <span className="font-semibold text-stone-900">₹{cartSubtotal.toLocaleString('en-IN')}</span>
+                        </div>
+                      ) : selectedServicePrice > 0 ? (
+                        <div className="flex justify-between items-center">
+                          <span className="truncate pr-2">Base Service ({form.service_type}):</span>
+                          <span className="font-semibold text-stone-900">₹{selectedServicePrice.toLocaleString('en-IN')}</span>
+                        </div>
+                      ) : null}
+
+                      {form.addons.map(addonVal => {
+                        const addon = COMMON_ADDONS.find(a => a.value === addonVal)
+                        return (
+                          <div key={addonVal} className="flex justify-between items-center text-stone-600 pl-2 border-l-2 border-[#8B3A52]/20">
+                            <span>+ {addonVal}</span>
+                            <span className="font-medium text-[#8B3A52]">+₹{addon?.price || 0}</span>
+                          </div>
+                        )
+                      })}
+
+                      <div className="border-t border-stone-200 mt-2.5 pt-2.5 flex justify-between items-center text-sm font-bold text-stone-900">
+                        <span>Total Payable Estimate:</span>
+                        <span className="text-base text-[#8B3A52]">₹{effectiveEstimate?.toLocaleString('en-IN')}</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* 3. TIMING PREFERENCE */}
@@ -605,7 +657,7 @@ export default function BookPage() {
                       <span>Submitting Request...</span>
                     </>
                   ) : (
-                    <span>Confirm At-Home Booking Request (Pay After Service) →</span>
+                    <span>Confirm At-Home Booking Request {effectiveEstimate ? `(₹${effectiveEstimate.toLocaleString('en-IN')} · Pay After Service)` : '(Pay After Service)'} →</span>
                   )}
                 </button>
                 <p className="text-center text-xs text-stone-500 mt-3">
