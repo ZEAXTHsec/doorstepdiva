@@ -14,6 +14,7 @@ type FormData = {
   customer_address: string
   city: CityOption
   service_type: string
+  preferred_artist?: string
   addons: string[]
   preferred_timing: string
   specific_date: string
@@ -27,6 +28,7 @@ const EMPTY_FORM: FormData = {
   customer_address: '',
   city: 'delhi-ncr',
   service_type: '',
+  preferred_artist: '',
   addons: [],
   preferred_timing: 'Tomorrow — Morning (9:00 AM – 12:00 PM)',
   specific_date: '',
@@ -159,6 +161,11 @@ export default function BookPage() {
       ? `Date: ${form.specific_date}`
       : form.preferred_timing
 
+    const formattedNotes = [
+      form.preferred_artist ? `[Requested Artist: ${form.preferred_artist}]` : '',
+      form.notes.trim(),
+    ].filter(Boolean).join(' - ')
+
     const body = {
       customer_name: form.customer_name.trim(),
       customer_phone: form.customer_phone.trim(),
@@ -170,7 +177,7 @@ export default function BookPage() {
       preferred_timing: timingSummary,
       appointment_date: form.specific_date || null,
       total_estimate: effectiveEstimate,
-      notes: form.notes.trim() || undefined,
+      notes: formattedNotes || undefined,
     }
 
     try {
@@ -472,6 +479,28 @@ export default function BookPage() {
                       )
                     })}
                   </div>
+                </div>
+
+                {/* Preferred Artist Selector */}
+                <div className="mt-5 pt-4 border-t border-stone-100">
+                  <label className="block text-xs font-bold text-stone-800 uppercase tracking-wider mb-2">
+                    Request Your Preferred Master Artist (Optional)
+                  </label>
+                  <select
+                    value={form.preferred_artist || ''}
+                    onChange={e => updateForm('preferred_artist', e.target.value)}
+                    className="w-full px-4 py-3 rounded-2xl border border-stone-200 text-xs sm:text-sm text-stone-900 bg-white focus:outline-none focus:ring-2 focus:ring-[#8B3A52]/20 focus:border-[#8B3A52]"
+                  >
+                    <option value="">Any Available Certified Master Artist (Auto-Match)</option>
+                    <option value="Kavita Verma (Bridal Director)">Kavita Verma — Lead Bridal Director (10+ Yrs Exp)</option>
+                    <option value="Sneha Sharma (Hair Architect)">Sneha Sharma — Senior Hair Architect & Colorist (7+ Yrs Exp)</option>
+                    <option value="Pooja Gupta (Skin Specialist)">Pooja Gupta — Clinical Aesthetician & Skin Specialist (8+ Yrs Exp)</option>
+                    <option value="Ritika Mishra (PMU & Lashes)">Ritika Mishra — PMU & Lash Artistry Specialist (6+ Yrs Exp)</option>
+                    <option value="Divya Singh (Nail Sculptor)">Divya Singh — Master Nail Sculptor & Educator (5+ Yrs Exp)</option>
+                  </select>
+                  <p className="text-[11px] text-stone-500 mt-1.5">
+                    ✨ You get direct continuity with the same artist every time, with zero surprise strangers.
+                  </p>
                 </div>
               </div>
 

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import AcademyEnquiryForm from '@/app/components/AcademyEnquiryForm'
 import { WhatsAppIcon } from '@/app/components/WhatsAppIcon'
+import StudentShowcase from '@/app/components/StudentShowcase'
 
 const COURSES = [
   {
@@ -9,6 +10,7 @@ const COURSES = [
     title: 'Make Up',
     tagline: 'From foundation to avant-garde artistry',
     duration: '1–2 months',
+    emi: '3 Zero-Interest EMIs',
     image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777463680/Makeup_course_hetn7w.png',
     gradient: 'from-rose/10 to-blush/30',
     accent: '#8B3A52',
@@ -19,6 +21,7 @@ const COURSES = [
     title: 'Hair',
     tagline: 'Cuts, colour & advanced styling techniques',
     duration: '3–6 months',
+    emi: '3 Zero-Interest EMIs',
     image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777463678/Hair_course_brxz2u.png',
     gradient: 'from-gold/10 to-blush/20',
     accent: '#C8974A',
@@ -29,6 +32,7 @@ const COURSES = [
     title: 'Skin',
     tagline: 'Science-backed skincare & advanced facials',
     duration: '3–6 months',
+    emi: '3 Zero-Interest EMIs',
     image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777463675/Skin_course_dqtf7c.png',
     gradient: 'from-rose-light/10 to-petal-dark/40',
     accent: '#C4768A',
@@ -39,6 +43,7 @@ const COURSES = [
     title: 'Cosmetology',
     tagline: 'Complete hair, skin, makeup & salon management',
     duration: '3–6 months',
+    emi: '3 Zero-Interest EMIs',
     image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777463677/Cosmetology_Course_lf7c5p.png',
     gradient: 'from-mauve/10 to-blush/30',
     accent: '#B07080',
@@ -49,6 +54,7 @@ const COURSES = [
     title: 'Nail Art',
     tagline: 'Nail care, extensions, gel & 3D design',
     duration: '1–2 months',
+    emi: '3 Zero-Interest EMIs',
     image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777463671/Nail_Art_course_taldxt.png',
     gradient: 'from-rose/10 to-gold/10',
     accent: '#8B3A52',
@@ -187,6 +193,137 @@ export default function AcademyPage() {
         </div>
       </div>
 
+      {/* ── Free 1-Day Trial Demo Class Section ── */}
+      <section className="max-w-7xl mx-auto px-5 sm:px-8 md:px-16 pt-16 pb-4">
+        <div
+          className="relative rounded-3xl overflow-hidden p-8 sm:p-12 md:p-14 border"
+          style={{
+            background: 'linear-gradient(135deg, #FFFFFF 0%, #FFF9F9 50%, #FDF0F0 100%)',
+            borderColor: 'rgba(196,118,138,0.28)',
+            boxShadow: '0 16px 48px rgba(139,58,82,0.08)',
+          }}
+        >
+          {/* Subtle gold glow */}
+          <div
+            className="absolute top-0 right-0 w-96 h-96 rounded-full pointer-events-none opacity-40"
+            style={{
+              background: 'radial-gradient(circle, rgba(200,151,74,0.18) 0%, transparent 70%)',
+            }}
+          />
+
+          <div className="relative z-10 grid lg:grid-cols-12 gap-10 items-center">
+            {/* Left Column: Offer & Details */}
+            <div className="lg:col-span-7">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-4"
+                style={{ background: 'rgba(139,58,82,0.08)', border: '1px solid rgba(139,58,82,0.20)' }}>
+                <span className="w-2 h-2 rounded-full animate-ping" style={{ background: '#8B3A52' }} />
+                <span className="font-poppins text-xs font-semibold tracking-wider uppercase" style={{ color: '#8B3A52' }}>
+                  Zero Cost · Limited to 5 Demo Seats Per Batch
+                </span>
+              </div>
+
+              <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight" style={{ color: '#3D2B2B' }}>
+                Book a Free 1-Day Trial <br />
+                <span style={{ color: '#8B3A52' }}>Demo Class at the Academy</span>
+              </h2>
+
+              <p className="font-poppins text-sm sm:text-base leading-relaxed mb-6" style={{ color: '#7A5C5C' }}>
+                Not sure if beauty artistry is right for you? Experience the classroom before committing a single rupee. Visit Doorstep Diva Academy for a complete 1-day practical trial session. Watch master educators teach live models, handle pro kits, and map your career roadmap.
+              </p>
+
+              {/* 4 Feature Pills */}
+              <div className="grid sm:grid-cols-2 gap-3 mb-8">
+                {[
+                  { title: 'Live Model Demonstrations', desc: 'Observe real bridal HD makeup, hair architecture, or clinical facials.' },
+                  { title: 'Inspect Professional Kits', desc: 'Test premium MAC, Kryolan, L’Oréal, and Olaplex student products.' },
+                  { title: '1-on-1 Career Roadmap', desc: 'Direct guidance on salon placement vs high-earning freelance practice.' },
+                  { title: '100% Free & No Pressure', desc: 'Zero obligation to enroll. Pure learning and honest career advice.' },
+                ].map((item) => (
+                  <div key={item.title} className="p-3 rounded-2xl bg-white/90 border border-rose/15 flex items-start gap-2.5 shadow-sm">
+                    <span className="text-gold font-bold text-base mt-0.5">✓</span>
+                    <div>
+                      <p className="font-poppins text-xs font-bold text-stone">{item.title}</p>
+                      <p className="font-poppins text-[11px] text-stone-light mt-0.5">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-3.5">
+                <a
+                  href="https://wa.me/919129577514?text=Namaste%20DoorStep%20Diva%20Academy!%20I%20would%20like%20to%20register%20for%20a%20Free%201-Day%20Trial%20Demo%20Class.%20Please%20share%20the%20next%20available%20batch%20date%20and%20timings."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-6 py-3.5 rounded-full text-white transition-all duration-200 hover:scale-[1.03] shadow-md"
+                  style={{ background: '#25D366' }}
+                >
+                  <WhatsAppIcon size={16} />
+                  Register for Free Demo on WhatsApp
+                </a>
+
+                <a
+                  href="#enquire"
+                  className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-6 py-3.5 rounded-full border-2 transition-all duration-200 hover:bg-rose/5"
+                  style={{ borderColor: '#8B3A52', color: '#8B3A52' }}
+                >
+                  Reserve Demo Seat via Form ↓
+                </a>
+              </div>
+            </div>
+
+            {/* Right Column: Demo Pass Card */}
+            <div className="lg:col-span-5">
+              <div
+                className="rounded-3xl p-7 text-white relative overflow-hidden"
+                style={{
+                  background: 'linear-gradient(135deg, #3D2B2B 0%, #6E3345 60%, #8B3A52 100%)',
+                  boxShadow: '0 16px 40px rgba(139,58,82,0.22)',
+                }}
+              >
+                <div className="flex items-center justify-between pb-4 mb-5 border-b border-white/15">
+                  <span className="font-poppins text-xs font-semibold uppercase tracking-wider text-gold">Free Demo Pass</span>
+                  <span className="font-poppins text-[10px] font-bold px-2.5 py-1 rounded-full bg-gold/20 text-gold border border-gold/40">Open This Weekend</span>
+                </div>
+
+                <div className="space-y-4 mb-6">
+                  <div className="flex items-start gap-3">
+                    <span className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-sm flex-shrink-0 mt-0.5">📍</span>
+                    <div>
+                      <p className="font-poppins text-[11px] text-white/60">Campus</p>
+                      <p className="font-poppins text-xs font-semibold text-white">Doorstep Diva Academy, Ayodhya & Lucknow</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-sm flex-shrink-0 mt-0.5">⏱️</span>
+                    <div>
+                      <p className="font-poppins text-[11px] text-white/60">Duration</p>
+                      <p className="font-poppins text-xs font-semibold text-white">3 Hours Live Practical Session</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-sm flex-shrink-0 mt-0.5">🎟️</span>
+                    <div>
+                      <p className="font-poppins text-[11px] text-white/60">Demo Fee</p>
+                      <p className="font-poppins text-xs font-semibold text-gold">₹0 (Completely Free of Cost)</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-white/10 border border-white/10">
+                  <p className="font-poppins text-[11px] text-white/85 leading-relaxed italic">
+                    &ldquo;I was nervous about shifting to beauty. After the 1-day demo class, I saw how clear the teaching was and immediately enrolled.&rdquo;
+                  </p>
+                  <p className="font-poppins text-[10px] text-gold font-semibold mt-1">
+                    — Priya M., Academy Graduate
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Courses grid ── */}
       <section id="courses" className="max-w-7xl mx-auto px-5 sm:px-8 md:px-16 py-20 md:py-28">
         <div className="text-center mb-14 reveal fade-up">
@@ -241,14 +378,23 @@ export default function AcademyPage() {
                   {course.tagline}
                 </p>
 
-                {/* Duration badge */}
-                <div className="flex items-center gap-2 mb-5">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={course.accent} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-                  </svg>
-                  <span className="font-poppins text-xs font-medium" style={{ color: course.accent }}>
-                    Duration: {course.duration}
-                  </span>
+                {/* Duration & 0% EMI badges */}
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/80 border border-black/5">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={course.accent} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                    <span className="font-poppins text-xs font-medium" style={{ color: course.accent }}>
+                      {course.duration}
+                    </span>
+                  </div>
+
+                  <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-gold/15 border border-gold/30">
+                    <span className="text-[10px]">💳</span>
+                    <span className="font-poppins text-[10px] font-bold text-[#966B26]">
+                      0% EMI: Pay in 3
+                    </span>
+                  </div>
                 </div>
 
                 {/* Top careers */}
@@ -305,7 +451,45 @@ export default function AcademyPage() {
             </a>
           </div>
         </div>
+
+        {/* ── 0% EMI & Pay-in-Installments Explainer ── */}
+        <div
+          className="mt-14 rounded-3xl p-8 sm:p-10 border relative overflow-hidden"
+          style={{
+            background: 'linear-gradient(135deg, rgba(200,151,74,0.07) 0%, rgba(196,118,138,0.07) 100%)',
+            borderColor: 'rgba(200,151,74,0.30)',
+          }}
+        >
+          <div className="grid md:grid-cols-3 gap-6 items-center">
+            <div className="md:col-span-1">
+              <span className="font-poppins text-xs font-bold uppercase tracking-wider text-[#966B26]">Zero Financial Burden</span>
+              <h3 className="font-playfair text-2xl font-bold mt-1 mb-2 text-stone">
+                Pay in 3 Zero-Interest Installments
+              </h3>
+              <p className="font-poppins text-xs text-stone-light leading-relaxed">
+                Break your course tuition into 3 convenient monthly installments with 0% interest, no credit card required, and instant document approval.
+              </p>
+            </div>
+
+            <div className="md:col-span-2 grid sm:grid-cols-3 gap-3.5">
+              {[
+                { title: '0% Interest Guarantee', desc: 'Exact course fee divided by 3 with no hidden processing fees or markups.', icon: '🏷️' },
+                { title: 'Instant Approval', desc: 'Zero complicated bank hurdles. Simple verification with Aadhaar / PAN.', icon: '⚡' },
+                { title: 'Earn While You Learn', desc: 'Begin taking supervised live client bookings by month 2 to support fees.', icon: '🎓' },
+              ].map((perk) => (
+                <div key={perk.title} className="p-4 rounded-2xl bg-white border border-gold/25 shadow-sm">
+                  <span className="text-xl mb-1.5 block">{perk.icon}</span>
+                  <h4 className="font-playfair text-xs font-bold text-stone mb-1">{perk.title}</h4>
+                  <p className="font-poppins text-[11px] text-stone-light leading-relaxed">{perk.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
+
+      {/* ── Student Makeover & Alumni Showcase ── */}
+      <StudentShowcase />
 
       {/* ── Why Academy section ── */}
       <section

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { WhatsAppIcon } from '@/app/components/WhatsAppIcon'
 
 export interface CourseData {
   slug: string
@@ -61,10 +62,10 @@ export default function CoursePageTemplate({ course }: { course: CourseData }) {
                 {course.intro}
               </p>
 
-              {/* Duration + eligibility pills */}
-              <div className="flex flex-wrap gap-3 mb-8">
+              {/* Duration + eligibility + 0% EMI pills */}
+              <div className="flex flex-wrap gap-2.5 mb-8">
                 <div
-                  className="flex items-center gap-2 font-poppins text-sm font-medium px-4 py-2 rounded-full"
+                  className="flex items-center gap-2 font-poppins text-xs sm:text-sm font-medium px-4 py-2 rounded-full"
                   style={{ background: `${course.accentColor}14`, color: course.accentColor }}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -73,13 +74,20 @@ export default function CoursePageTemplate({ course }: { course: CourseData }) {
                   {course.duration.foundation}{course.duration.advanced ? ` · ${course.duration.advanced}` : ''}
                 </div>
                 <div
-                  className="flex items-center gap-2 font-poppins text-sm font-medium px-4 py-2 rounded-full"
+                  className="flex items-center gap-2 font-poppins text-xs sm:text-sm font-medium px-4 py-2 rounded-full"
                   style={{ background: 'rgba(200,151,74,0.10)', color: '#C8974A' }}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12"/>
                   </svg>
                   {course.eligibility}
+                </div>
+                <div
+                  className="flex items-center gap-1.5 font-poppins text-xs sm:text-sm font-semibold px-4 py-2 rounded-full"
+                  style={{ background: 'rgba(200,151,74,0.14)', color: '#966B26', border: '1px solid rgba(200,151,74,0.30)' }}
+                >
+                  <span>💳</span>
+                  <span>0% EMI: Pay in 3 Installments</span>
                 </div>
               </div>
 
@@ -88,15 +96,25 @@ export default function CoursePageTemplate({ course }: { course: CourseData }) {
                   href={`https://wa.me/919129577514?text=Hi%2C+I%27d+like+to+enrol+in+the+${encodeURIComponent(course.title)}+course+at+Doorstep+Diva+Academy`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-7 py-3.5 rounded-full text-white transition-all duration-200 hover:scale-[1.03] hover:shadow-lg"
+                  className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-6 py-3.5 rounded-full text-white transition-all duration-200 hover:scale-[1.03] hover:shadow-lg"
                   style={{ background: `linear-gradient(135deg,${course.accentColor}cc,${course.accentColor})` }}
                 >
                   Enrol on WhatsApp
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
+                <a
+                  href={`https://wa.me/919129577514?text=Namaste%20DoorStep%20Diva%20Academy!%20I%20would%20like%20to%20attend%20a%20Free%201-Day%20Trial%20Demo%20Class%20for%20the%20${encodeURIComponent(course.title)}%20course.%20Please%20share%20the%20next%20batch%20timings.`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-6 py-3.5 rounded-full text-white transition-all duration-200 hover:scale-[1.03] shadow-md"
+                  style={{ background: '#25D366' }}
+                >
+                  <WhatsAppIcon size={16} />
+                  Book Free 1-Day Trial Demo
+                </a>
                 <Link
                   href="/academy"
-                  className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-7 py-3.5 rounded-full border-2 transition-all duration-200 hover:bg-rose/5"
+                  className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-6 py-3.5 rounded-full border-2 transition-all duration-200 hover:bg-rose/5"
                   style={{ borderColor: course.accentColor, color: course.accentColor }}
                 >
                   ← All Courses

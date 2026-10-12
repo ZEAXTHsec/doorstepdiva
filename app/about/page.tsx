@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { IconCheck, IconWhatsApp } from '@/app/components/icons'
+import TeamSection from '@/app/components/sections/Team'
 
 export const metadata: Metadata = {
   title: 'Our Story — DoorStep Diva',
@@ -308,6 +309,9 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
+
+      {/* ── MEET THE TEAM ── */}
+      <TeamSection id="team" />
 
       {/* ── CTA BANNER ── */}
       <section className="px-5 sm:px-8 md:px-16 pb-24 max-w-7xl mx-auto">
