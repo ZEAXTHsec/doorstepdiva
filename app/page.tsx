@@ -4,6 +4,8 @@ import Link from 'next/link'
 import BeforeAfterSlider from '@/app/components/BeforeAfterSlider'
 import HygieneProtocol from '@/app/components/HygieneProtocol'
 import BridalTimeline from '@/app/components/BridalTimeline'
+import HeroLuxuryGlassCard from '@/app/components/HeroLuxuryGlassCard'
+import PinnedRitualStory from '@/app/components/PinnedRitualStory'
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
@@ -76,52 +78,6 @@ const STATS = [
   { n: '∞',    label: 'At Your Doorstep'   },
 ]
 
-const HOW_IT_WORKS = [
-  {
-    step: '01',
-    badge: 'Instant Concierge',
-    title: 'Book in 60 Seconds',
-    desc: 'Reserve directly via WhatsApp or online. Select your service, custom slot, and location. No app download or registration needed.',
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
-      </svg>
-    ),
-    accent: '#8B3A52',
-  },
-  {
-    step: '02',
-    badge: 'Sterile Mobile Vanity',
-    title: 'We Arrive Fully Equipped',
-    desc: 'Your certified artist arrives punctually with sealed single-use tools, hospital-grade sterilisation, and luxury brands like MAC, Olaplex & Kérastase.',
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
-      </svg>
-    ),
-    accent: '#C8974A',
-  },
-  {
-    step: '03',
-    badge: 'Sanctuary Comfort',
-    title: 'You Glow, Effortlessly',
-    desc: 'Zero traffic, zero salon parking, zero waiting rooms. Enjoy runway-level transformations in the absolute comfort and privacy of your home.',
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="5"/>
-        <line x1="12" y1="1" x2="12" y2="3"/>
-        <line x1="12" y1="21" x2="12" y2="23"/>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-        <line x1="1" y1="12" x2="3" y2="12"/>
-        <line x1="21" y1="12" x2="23" y2="12"/>
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-      </svg>
-    ),
-    accent: '#C4768A',
-  },
-]
 
 const TESTIMONIALS = [
   {
@@ -492,111 +448,8 @@ function Hero() {
             </div>
           </div>
 
-          {/* ── RIGHT — floating brand card cluster ── */}
-          <div
-            className="hidden lg:flex flex-col items-end gap-4"
-            style={{ animation: 'fadeUp .8s ease .4s both' }}
-            aria-hidden="true"
-          >
-            {/* Main brand card */}
-            <div
-              className="w-72 rounded-3xl p-7 relative overflow-hidden"
-              style={{
-                background: 'linear-gradient(145deg, #fff 0%, #fdf0f4 100%)',
-                border: '1px solid rgba(196,118,138,0.18)',
-                boxShadow: '0 20px 60px rgba(139,58,82,0.12), 0 4px 16px rgba(139,58,82,0.07)',
-              }}
-            >
-              {/* Gold accent line */}
-              <div className="absolute top-0 left-8 right-8 h-[2px] rounded-full"
-                style={{ background: 'linear-gradient(90deg, transparent, #C8974A, transparent)' }} />
-
-              {/* Logo text replica */}
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: 'linear-gradient(135deg, #EFCCD4, #C4768A)' }}>
-                  {/* Petal icon */}
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2C12 2 7 6 7 11C7 13.76 9.24 16 12 16C14.76 16 17 13.76 17 11C17 6 12 2 12 2Z" fill="white" fillOpacity="0.9"/>
-                    <path d="M12 16C12 16 7 14 5 11C3.5 14 5 18 8 20C9.5 21 11 21.5 12 22C13 21.5 14.5 21 16 20C19 18 20.5 14 19 11C17 14 12 16 12 16Z" fill="white" fillOpacity="0.7"/>
-                  </svg>
-                </div>
-                <div>
-                  <p className="font-playfair text-base font-bold text-stone leading-none">DoorStep Diva</p>
-                  <p className="font-poppins text-[9px] tracking-[0.22em] uppercase mt-1" style={{ color: '#C8974A' }}>
-                    at-home beauty
-                  </p>
-                </div>
-              </div>
-
-              {/* Rating */}
-              <div className="flex items-center gap-2 mb-5">
-                <div className="flex gap-0.5">
-                  {[1,2,3,4,5].map(s => (
-                    <svg key={s} width="12" height="12" viewBox="0 0 24 24" fill="#C8974A">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                    </svg>
-                  ))}
-                </div>
-                <span className="font-poppins text-xs font-semibold text-stone">4.9</span>
-                <span className="font-poppins text-[10px] text-stone-light">Client Rating</span>
-              </div>
-
-              {/* Divider */}
-              <div className="h-px mb-5" style={{ background: 'rgba(196,118,138,0.15)' }} />
-
-              {/* Stats row */}
-              <div className="grid grid-cols-3 gap-3 mb-5">
-                {[
-                  { n: '06', label: 'Divisions' },
-                  { n: '15+', label: 'Brands' },
-                  { n: '100%', label: 'Certified' },
-                ].map(({ n, label }) => (
-                  <div key={label} className="text-center">
-                    <p className="font-playfair text-xl font-bold" style={{ color: '#8B3A52' }}>{n}</p>
-                    <p className="font-poppins text-[9px] text-stone-light uppercase tracking-wider mt-0.5">{label}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* CTA mini */}
-              <div
-                className="flex items-center justify-between rounded-xl px-4 py-3 mt-1"
-                style={{ background: 'linear-gradient(120deg, #EFCCD4 0%, #f9e0e8 100%)' }}
-              >
-                <div>
-                  <p className="font-poppins text-[9px] uppercase tracking-widest font-semibold" style={{ color: '#8B3A52' }}>Most Booked</p>
-                  <p className="font-playfair text-sm font-semibold text-stone mt-0.5">Bridal Package</p>
-                </div>
-                <div className="w-8 h-8 rounded-full flex items-center justify-center text-white"
-                  style={{ background: 'linear-gradient(135deg, #C4768A, #8B3A52)' }}>
-                  <IconChevronRight />
-                </div>
-              </div>
-            </div>
-
-            {/* Second smaller card */}
-            <div
-              className="w-56 rounded-2xl p-4 flex items-center gap-3"
-              style={{
-                background: 'linear-gradient(135deg, #1C0812 0%, #300C1B 100%)',
-                border: '1px solid rgba(200, 151, 74, 0.25)',
-                boxShadow: '0 14px 36px rgba(28, 8, 18, 0.35)',
-                marginRight: '2rem',
-              }}
-            >
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ background: 'rgba(196,118,138,0.25)' }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EFCCD4" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
-                </svg>
-              </div>
-              <div>
-                <p className="font-poppins text-[9px] uppercase tracking-wider text-white/50 font-medium">Serving</p>
-                <p className="font-poppins text-xs font-semibold text-white leading-snug mt-0.5">Delhi NCR · Lucknow<br />Ayodhya</p>
-              </div>
-            </div>
-          </div>
+          {/* ── RIGHT — interactive frosted liquid glass card ── */}
+          <HeroLuxuryGlassCard />
         </div>
       </div>
 
@@ -678,109 +531,6 @@ function Services() {
 }
 
 
-
-// ─── HOW IT WORKS ─────────────────────────────────────────────────────────────
-
-function HowItWorks() {
-  return (
-    <section
-      className="px-5 sm:px-8 md:px-16 py-24 overflow-hidden relative"
-      style={{ background: 'linear-gradient(180deg, #FAF7F5 0%, #FFF5F7 50%, #FAF7F5 100%)' }}
-      aria-labelledby="how-heading"
-    >
-      {/* Ambient champagne and blush glow blooms */}
-      <div
-        aria-hidden="true"
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-80 rounded-full pointer-events-none opacity-60"
-        style={{ background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(200, 151, 74, 0.14) 0%, transparent 70%)' }}
-      />
-      <div
-        aria-hidden="true"
-        className="absolute -left-32 top-1/3 w-80 h-80 rounded-full pointer-events-none opacity-20"
-        style={{ background: 'radial-gradient(circle, rgba(196, 118, 138, 0.25) 0%, transparent 70%)' }}
-      />
-      <div
-        aria-hidden="true"
-        className="absolute -right-32 bottom-1/4 w-80 h-80 rounded-full pointer-events-none opacity-15"
-        style={{ background: 'radial-gradient(circle, rgba(200, 151, 74, 0.25) 0%, transparent 70%)' }}
-      />
-
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-16">
-          <p className="font-poppins text-[11px] tracking-[0.3em] uppercase text-rose font-semibold mb-3">
-            The Doorstep Diva Experience
-          </p>
-          <h2 id="how-heading" className="font-playfair text-4xl sm:text-5xl font-bold text-stone mb-4">
-            How It <em className="text-rose font-serif italic">Works</em>
-          </h2>
-          <p className="font-poppins text-stone-light text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-            From instant reservation to runway glow — clinical-grade salon artistry delivered to your living room in three effortless steps.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-7 relative">
-          {HOW_IT_WORKS.map((step) => (
-            <div
-              key={step.step}
-              className="bg-white rounded-3xl p-8 sm:p-9 border border-rose/15 shadow-sm hover:shadow-2xl hover:shadow-rose/10 transition-all duration-300 relative group flex flex-col text-center items-center"
-            >
-              {/* Gold watermark numeral */}
-              <span className="font-playfair text-4xl font-bold text-gold/25 group-hover:text-gold/50 transition-colors absolute top-6 right-7 select-none">
-                {step.step}
-              </span>
-
-              {/* Icon wrap with warm gold border */}
-              <div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 text-rose transition-transform duration-300 group-hover:scale-105"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(139, 58, 82, 0.08), rgba(200, 151, 74, 0.15))',
-                  border: '1px solid rgba(200, 151, 74, 0.35)',
-                }}
-              >
-                {step.icon}
-              </div>
-
-              {/* Category badge */}
-              <span
-                className="inline-block font-poppins text-[10px] font-bold tracking-wider uppercase text-rose px-3.5 py-1 rounded-full mb-3.5"
-                style={{ background: 'rgba(139, 58, 82, 0.07)' }}
-              >
-                {step.badge}
-              </span>
-
-              <h3 className="font-playfair text-xl sm:text-2xl font-bold text-stone mb-3">
-                {step.title}
-              </h3>
-
-              <p className="font-poppins text-xs sm:text-sm text-stone-light leading-relaxed max-w-xs flex-1">
-                {step.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        {/* Action CTAs */}
-        <div className="flex flex-wrap items-center justify-center gap-4 mt-14">
-          <a
-            href="https://wa.me/919129577514"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 font-poppins text-sm font-semibold px-8 py-4 bg-[#25D366] text-white hover:opacity-95 transition-all duration-200 hover:scale-[1.02] rounded-full shadow-lg shadow-black/10"
-          >
-            <IconWhatsApp size={16} />
-            Book on WhatsApp in 60s
-          </a>
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 font-poppins text-sm font-semibold px-8 py-4 rounded-full border-2 border-rose text-rose hover:bg-rose/5 transition-all duration-200"
-          >
-            Reserve Slot Online
-          </a>
-        </div>
-      </div>
-    </section>
-  )
-}
 
 // ─── ABOUT ────────────────────────────────────────────────────────────────────
 
@@ -1362,7 +1112,7 @@ export default function HomePage() {
       <BeforeAfterSlider />
       <HygieneProtocol />
       <BridalTimeline />
-      <HowItWorks />
+      <PinnedRitualStory />
       <About />
       <Testimonials />
       <Locations />

@@ -9,6 +9,7 @@ import { CartProvider } from './context/CartContext'
 import CartDrawer from './components/CartDrawer'
 import LuxuryCursor from './components/LuxuryCursor'
 import FloatingWhatsApp from './components/FloatingWhatsApp'
+import SmoothScroll from './components/SmoothScroll'
 
 const dmSerif = DM_Serif_Display({
   subsets: ['latin'],
@@ -155,24 +156,25 @@ export default function RootLayout({
       </head>
       <body className="bg-petal text-stone font-poppins antialiased">
         <CartProvider>
-        <LuxuryCursor />
-        {/* Scroll reveal observer — runs once, watches all .reveal elements */}
-        <ScrollRevealInit />
+          <SmoothScroll>
+            <LuxuryCursor />
+            {/* Scroll reveal observer — runs once, watches all .reveal elements */}
+            <ScrollRevealInit />
 
-        {/* Site header — fixed, always visible */}
-        <Header />
+            {/* Site header — fixed, always visible */}
+            <Header />
 
-        {/* Page content — padded below fixed header, padded above mobile sticky bar */}
-        <main className="pt-28 pb-16 md:pb-0">{children}</main>
+            {/* Page content — padded below fixed header, padded above mobile sticky bar */}
+            <main className="pt-28 pb-16 md:pb-0">{children}</main>
 
-        {/* Site footer */}
-        <Footer />
+            {/* Site footer */}
+            <Footer />
 
-        {/* Cart drawer */}
-        <CartDrawer />
+            {/* Cart drawer */}
+            <CartDrawer />
 
-        {/* WhatsApp floating button (cart-aware with badge and bundle prefill) */}
-        <FloatingWhatsApp />
+            {/* WhatsApp floating button (cart-aware with badge and bundle prefill) */}
+            <FloatingWhatsApp />
 
         {/* Meta Pixel */}
         <Script id="meta-pixel" strategy="afterInteractive">{`
@@ -243,6 +245,7 @@ export default function RootLayout({
             Book Now
           </a>
         </div>
+        </SmoothScroll>
         </CartProvider>
       </body>
     </html>
