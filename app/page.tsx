@@ -553,8 +553,9 @@ function Hero() {
             <div
               className="w-56 rounded-2xl p-4 flex items-center gap-3"
               style={{
-                background: 'linear-gradient(135deg, #3D2B2B 0%, #5a3d3d 100%)',
-                boxShadow: '0 12px 32px rgba(61,43,43,0.20)',
+                background: 'linear-gradient(135deg, #1C0812 0%, #300C1B 100%)',
+                border: '1px solid rgba(200, 151, 74, 0.25)',
+                boxShadow: '0 14px 36px rgba(28, 8, 18, 0.35)',
                 marginRight: '2rem',
               }}
             >
@@ -606,37 +607,41 @@ function Services() {
     <section id="services" className="px-5 sm:px-8 md:px-16 py-24 max-w-7xl mx-auto" aria-labelledby="services-heading">
       <div className="text-center mb-16">
         <p className="font-poppins text-[11px] tracking-[0.3em] uppercase text-rose font-semibold mb-3">What We Offer</p>
-        <h2 id="services-heading" className="font-playfair text-4xl md:text-5xl font-bold text-stone mb-4">Our <em>Six Divisions</em></h2>
-        <p className="font-poppins text-stone-light text-sm max-w-lg mx-auto leading-relaxed">
-          Every service designed for results. Every artist certified. Everything brought to you.
+        <h2 id="services-heading" className="font-playfair text-4xl md:text-5xl font-bold text-stone mb-4">Our <em className="text-rose font-serif italic">Six Divisions</em></h2>
+        <p className="font-poppins text-stone-light text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
+          Every service designed for results. Every artist certified. Everything brought to your doorstep.
         </p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {SERVICES.map((s, i) => (
           <Link key={s.id} href={s.href}
-            className="group relative rounded-2xl overflow-hidden block shadow-sm hover:shadow-xl transition-all duration-500"
+            className="group relative rounded-3xl overflow-hidden block bg-white border border-rose/15 shadow-sm hover:shadow-2xl hover:shadow-rose/15 transition-all duration-500 hover:-translate-y-1.5"
             style={{ animationDelay: `${i * 0.1}s` }}>
-            <div className="relative h-56 overflow-hidden">
+            <div className="relative h-60 overflow-hidden">
               <img src={s.image} alt={`${s.title} services at home — DoorStep Diva`}
-                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-              <span className="absolute top-3 left-3 font-poppins text-[10px] font-bold tracking-widest uppercase text-white/80 bg-white/15 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/20">
+                className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+              <span className="absolute top-4 left-4 font-poppins text-[10px] font-bold tracking-widest uppercase text-white bg-black/30 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
                 {s.id}
               </span>
-              <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/15 backdrop-blur-sm border border-white/20 group-hover:bg-rose group-hover:border-rose text-white flex items-center justify-center transition-all duration-300">
+              <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/20 backdrop-blur-md border border-white/30 group-hover:bg-rose group-hover:border-rose text-white flex items-center justify-center transition-all duration-300 group-hover:scale-105">
                 <IconChevronRight />
               </div>
-              <div className="absolute bottom-0 left-0 right-0 p-4">
-                <h3 className="font-playfair text-xl font-semibold text-white mb-0.5">{s.title}</h3>
-                <p className="font-poppins text-[10px] tracking-widest uppercase text-white/70 font-medium">{s.tagline}</p>
+              <div className="absolute bottom-0 left-0 right-0 p-5">
+                <h3 className="font-playfair text-2xl font-bold text-white mb-1">{s.title}</h3>
+                <p className="font-poppins text-[10px] tracking-widest uppercase text-gold font-semibold">{s.tagline}</p>
               </div>
             </div>
-            <div className="p-5" style={{ background: `${s.accent}55` }}>
-              <p className="font-poppins text-xs text-stone-light leading-relaxed mb-3 line-clamp-2">{s.desc}</p>
-              <div className="flex flex-wrap gap-1.5">
+            <div className="p-6 bg-gradient-to-b from-white to-petal/30">
+              <p className="font-poppins text-xs sm:text-sm text-stone-light leading-relaxed mb-4 line-clamp-2">{s.desc}</p>
+              <div className="flex flex-wrap gap-1.5 mb-4">
                 {s.tags.map((t) => (
-                  <span key={t} className="bg-white/70 font-poppins text-[10px] text-stone-light px-2.5 py-0.5 rounded-full font-medium">{t}</span>
+                  <span key={t} className="bg-white border border-rose/10 font-poppins text-[10px] text-stone-light px-3 py-1 rounded-full font-medium shadow-2xs">{t}</span>
                 ))}
+              </div>
+              <div className="flex items-center gap-1 font-poppins text-xs font-semibold text-rose group-hover:gap-2 transition-all duration-200">
+                <span>View Treatments</span>
+                <span className="text-sm">→</span>
               </div>
             </div>
           </Link>
