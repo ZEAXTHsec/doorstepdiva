@@ -34,7 +34,13 @@ export const metadata: Metadata = {
     canonical: 'https://mydoorstepdiva.com',
   },
   icons: {
-    icon: '/favicon.png',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.png', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png' },
+    ],
   },
   openGraph: {
     title: 'DoorStep Diva — Salon-Quality Beauty At Your Door',
