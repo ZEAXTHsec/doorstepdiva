@@ -79,32 +79,35 @@ const STATS = [
 const HOW_IT_WORKS = [
   {
     step: '01',
+    badge: 'Instant Concierge',
     title: 'Book in 60 Seconds',
-    desc: 'Message us on WhatsApp or call directly. Tell us the service, your location, and preferred time. No app, no login needed.',
+    desc: 'Reserve directly via WhatsApp or online. Select your service, custom slot, and location. No app download or registration needed.',
     icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
       </svg>
     ),
-    accent: '#EFCCD4',
+    accent: '#8B3A52',
   },
   {
     step: '02',
+    badge: 'Sterile Mobile Vanity',
     title: 'We Arrive Fully Equipped',
-    desc: 'Your certified artist arrives on time with all professional tools, premium products, and everything needed for a full salon experience.',
+    desc: 'Your certified artist arrives punctually with sealed single-use tools, hospital-grade sterilisation, and luxury brands like MAC, Olaplex & Kérastase.',
     icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M5 12h14M12 5l7 7-7 7"/>
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
       </svg>
     ),
-    accent: '#F0D8E8',
+    accent: '#C8974A',
   },
   {
     step: '03',
+    badge: 'Sanctuary Comfort',
     title: 'You Glow, Effortlessly',
-    desc: 'Sit back and enjoy. Zero travel, zero parking, zero waiting room. Just results — delivered in the comfort of your own home.',
+    desc: 'Zero traffic, zero salon parking, zero waiting rooms. Enjoy runway-level transformations in the absolute comfort and privacy of your home.',
     icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="5"/>
         <line x1="12" y1="1" x2="12" y2="3"/>
         <line x1="12" y1="21" x2="12" y2="23"/>
@@ -116,7 +119,7 @@ const HOW_IT_WORKS = [
         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
       </svg>
     ),
-    accent: '#F5E0D0',
+    accent: '#C4768A',
   },
 ]
 
@@ -649,41 +652,98 @@ function Services() {
 
 function HowItWorks() {
   return (
-    <section className="bg-stone px-5 sm:px-8 md:px-16 py-24 overflow-hidden relative" aria-labelledby="how-heading">
-      <div aria-hidden="true" className="absolute -left-32 top-0 w-96 h-96 rounded-full opacity-5" style={{ background: '#EFCCD4' }} />
-      <div aria-hidden="true" className="absolute -right-32 bottom-0 w-64 h-64 rounded-full opacity-5" style={{ background: '#F0D8E8' }} />
+    <section
+      className="px-5 sm:px-8 md:px-16 py-24 overflow-hidden relative"
+      style={{ background: 'linear-gradient(180deg, #FAF7F5 0%, #FFF5F7 50%, #FAF7F5 100%)' }}
+      aria-labelledby="how-heading"
+    >
+      {/* Ambient champagne and blush glow blooms */}
+      <div
+        aria-hidden="true"
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-80 rounded-full pointer-events-none opacity-60"
+        style={{ background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(200, 151, 74, 0.14) 0%, transparent 70%)' }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute -left-32 top-1/3 w-80 h-80 rounded-full pointer-events-none opacity-20"
+        style={{ background: 'radial-gradient(circle, rgba(196, 118, 138, 0.25) 0%, transparent 70%)' }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute -right-32 bottom-1/4 w-80 h-80 rounded-full pointer-events-none opacity-15"
+        style={{ background: 'radial-gradient(circle, rgba(200, 151, 74, 0.25) 0%, transparent 70%)' }}
+      />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-14">
-          <p className="font-poppins text-[11px] tracking-[0.3em] uppercase text-rose-light font-semibold mb-3">Simple Process</p>
-          <h2 id="how-heading" className="font-playfair text-4xl font-bold text-white mb-4">
-            How It <em className="text-blush">Works</em>
+        <div className="text-center mb-16">
+          <p className="font-poppins text-[11px] tracking-[0.3em] uppercase text-rose font-semibold mb-3">
+            The Doorstep Diva Experience
+          </p>
+          <h2 id="how-heading" className="font-playfair text-4xl sm:text-5xl font-bold text-stone mb-4">
+            How It <em className="text-rose font-serif italic">Works</em>
           </h2>
-          <p className="font-poppins text-white/50 text-sm max-w-lg mx-auto">
-            From booking to glow — the entire experience takes minutes to arrange.
+          <p className="font-poppins text-stone-light text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+            From instant reservation to runway glow — clinical-grade salon artistry delivered to your living room in three effortless steps.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 relative">
-          <div aria-hidden="true" className="hidden md:block absolute top-14 left-[calc(16.7%+1rem)] right-[calc(16.7%+1rem)] h-px bg-white/10" />
+        <div className="grid md:grid-cols-3 gap-7 relative">
           {HOW_IT_WORKS.map((step) => (
-            <div key={step.step} className="relative flex flex-col items-center text-center group">
-              <div className="relative z-10 w-12 h-12 rounded-full flex items-center justify-center mb-5 text-stone group-hover:scale-110 transition-transform duration-300"
-                style={{ background: step.accent }}>
+            <div
+              key={step.step}
+              className="bg-white rounded-3xl p-8 sm:p-9 border border-rose/15 shadow-sm hover:shadow-2xl hover:shadow-rose/10 transition-all duration-300 relative group flex flex-col text-center items-center"
+            >
+              {/* Gold watermark numeral */}
+              <span className="font-playfair text-4xl font-bold text-gold/25 group-hover:text-gold/50 transition-colors absolute top-6 right-7 select-none">
+                {step.step}
+              </span>
+
+              {/* Icon wrap with warm gold border */}
+              <div
+                className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 text-rose transition-transform duration-300 group-hover:scale-105"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(139, 58, 82, 0.08), rgba(200, 151, 74, 0.15))',
+                  border: '1px solid rgba(200, 151, 74, 0.35)',
+                }}
+              >
                 {step.icon}
               </div>
-              <p className="font-poppins text-[10px] tracking-widest uppercase text-white/30 font-semibold mb-2">{step.step}</p>
-              <h3 className="font-playfair text-xl font-bold text-white mb-3">{step.title}</h3>
-              <p className="font-poppins text-xs text-white/50 leading-relaxed max-w-xs">{step.desc}</p>
+
+              {/* Category badge */}
+              <span
+                className="inline-block font-poppins text-[10px] font-bold tracking-wider uppercase text-rose px-3.5 py-1 rounded-full mb-3.5"
+                style={{ background: 'rgba(139, 58, 82, 0.07)' }}
+              >
+                {step.badge}
+              </span>
+
+              <h3 className="font-playfair text-xl sm:text-2xl font-bold text-stone mb-3">
+                {step.title}
+              </h3>
+
+              <p className="font-poppins text-xs sm:text-sm text-stone-light leading-relaxed max-w-xs flex-1">
+                {step.desc}
+              </p>
             </div>
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <a href="https://wa.me/919129577514" target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 font-poppins text-sm font-semibold px-6 py-3 bg-[#25D366] text-white hover:opacity-90 transition-opacity rounded-full shadow-lg shadow-black/20">
-            <IconWhatsApp size={15} />
-            Book Your First Session
+        {/* Action CTAs */}
+        <div className="flex flex-wrap items-center justify-center gap-4 mt-14">
+          <a
+            href="https://wa.me/919129577514"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 font-poppins text-sm font-semibold px-8 py-4 bg-[#25D366] text-white hover:opacity-95 transition-all duration-200 hover:scale-[1.02] rounded-full shadow-lg shadow-black/10"
+          >
+            <IconWhatsApp size={16} />
+            Book on WhatsApp in 60s
+          </a>
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 font-poppins text-sm font-semibold px-8 py-4 rounded-full border-2 border-rose text-rose hover:bg-rose/5 transition-all duration-200"
+          >
+            Reserve Slot Online
           </a>
         </div>
       </div>
@@ -894,14 +954,14 @@ function AcademyTeaser() {
     <section
       id="academy"
       aria-labelledby="academy-heading"
-      style={{ background: '#3D2B2B' }}
+      style={{ background: 'linear-gradient(135deg, #1C0812 0%, #2E0D1B 50%, #1A0710 100%)' }}
       className="relative overflow-hidden py-24 px-5 sm:px-8 md:px-16"
     >
       {/* Subtle background glow blobs */}
-      <div aria-hidden="true" className="pointer-events-none absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full opacity-[0.06]"
-        style={{ background: '#C4768A', filter: 'blur(80px)' }} />
-      <div aria-hidden="true" className="pointer-events-none absolute -bottom-40 -right-40 w-[400px] h-[400px] rounded-full opacity-[0.06]"
-        style={{ background: '#C8974A', filter: 'blur(80px)' }} />
+      <div aria-hidden="true" className="pointer-events-none absolute -top-40 -left-40 w-[550px] h-[550px] rounded-full opacity-[0.16]"
+        style={{ background: '#C4768A', filter: 'blur(90px)' }} />
+      <div aria-hidden="true" className="pointer-events-none absolute -bottom-40 -right-40 w-[450px] h-[450px] rounded-full opacity-[0.16]"
+        style={{ background: '#C8974A', filter: 'blur(90px)' }} />
 
       <div className="max-w-7xl mx-auto relative z-10">
 
@@ -1142,9 +1202,16 @@ function Contact() {
 
   return (
     <section id="contact" className="px-5 sm:px-8 md:px-16 py-24 max-w-7xl mx-auto" aria-labelledby="contact-heading">
-      <div className="bg-stone rounded-3xl p-7 sm:p-10 md:p-14 grid md:grid-cols-2 gap-10 md:gap-14 items-start relative overflow-hidden">
-        <div aria-hidden="true" className="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-10 pointer-events-none"
-          style={{ background: '#EFCCD4' }} />
+      <div
+        className="rounded-3xl p-7 sm:p-10 md:p-14 grid md:grid-cols-2 gap-10 md:gap-14 items-start relative overflow-hidden"
+        style={{
+          background: 'linear-gradient(135deg, #1C0812 0%, #300C1B 50%, #1A0710 100%)',
+          border: '1px solid rgba(200, 151, 74, 0.28)',
+          boxShadow: '0 24px 60px rgba(28, 8, 18, 0.35)',
+        }}
+      >
+        <div aria-hidden="true" className="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-20 pointer-events-none"
+          style={{ background: 'radial-gradient(circle, #C8974A 0%, transparent 70%)' }} />
 
         {/* Left */}
         <div className="relative z-10">
@@ -1222,14 +1289,14 @@ function Contact() {
               <select name="service" required value={formData.service} onChange={handleChange}
                 className="w-full border border-white/10 rounded-xl px-4 py-3 font-poppins text-sm outline-none focus:border-blush/50 transition-all appearance-none"
                 style={{ background: 'rgba(255,255,255,0.12)', color: formData.service ? '#ffffff' : 'rgba(255,255,255,0.45)' }}>
-                <option value="" disabled style={{ background: '#3D2B2B', color: '#ffffff' }}>Service You Need *</option>
-                <option value="Hair" style={{ background: '#3D2B2B', color: '#ffffff' }}>Hair — Cuts, Color, Treatments</option>
-                <option value="Skin" style={{ background: '#3D2B2B', color: '#ffffff' }}>Skin — Waxing, Facials, Body Care</option>
-                <option value="Makeup" style={{ background: '#3D2B2B', color: '#ffffff' }}>Makeup — Party, Bridal, Events</option>
-                <option value="Eyelash" style={{ background: '#3D2B2B', color: '#ffffff' }}>Eyelash — Classic, Hybrid, Volume</option>
-                <option value="Semi-Permanent" style={{ background: '#3D2B2B', color: '#ffffff' }}>Semi-Permanent — Microblading, Microneedling</option>
-                <option value="Nails" style={{ background: '#3D2B2B', color: '#ffffff' }}>Nail Extensions — Acrylic, Gel, PolyGel</option>
-                <option value="Multiple / Package" style={{ background: '#3D2B2B', color: '#ffffff' }}>Multiple Services / Package</option>
+                <option value="" disabled style={{ background: '#240A17', color: '#ffffff' }}>Service You Need *</option>
+                <option value="Hair" style={{ background: '#240A17', color: '#ffffff' }}>Hair — Cuts, Color, Treatments</option>
+                <option value="Skin" style={{ background: '#240A17', color: '#ffffff' }}>Skin — Waxing, Facials, Body Care</option>
+                <option value="Makeup" style={{ background: '#240A17', color: '#ffffff' }}>Makeup — Party, Bridal, Events</option>
+                <option value="Eyelash" style={{ background: '#240A17', color: '#ffffff' }}>Eyelash — Classic, Hybrid, Volume</option>
+                <option value="Semi-Permanent" style={{ background: '#240A17', color: '#ffffff' }}>Semi-Permanent — Microblading, Microneedling</option>
+                <option value="Nails" style={{ background: '#240A17', color: '#ffffff' }}>Nail Extensions — Acrylic, Gel, PolyGel</option>
+                <option value="Multiple / Package" style={{ background: '#240A17', color: '#ffffff' }}>Multiple Services / Package</option>
               </select>
               <textarea name="message" rows={3} placeholder="Anything else? (date, location, special requests...)" value={formData.message} onChange={handleChange}
                 className="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 font-poppins text-sm text-white placeholder:text-white/30 outline-none focus:border-blush/50 focus:bg-white/15 transition-all resize-none" />

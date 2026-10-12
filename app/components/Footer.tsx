@@ -32,11 +32,11 @@ const AREAS = ['Delhi NCR', 'Noida', 'Gurugram', 'Lucknow', 'Ayodhya']
 export default function Footer() {
   return (
     <footer
-      style={{ background: '#3D2B2B' }}
+      style={{ background: 'linear-gradient(180deg, #18070F 0%, #10040A 100%)' }}
       className="text-blush"
     >
-      {/* Top gradient divider */}
-      <div style={{ height: 2, background: 'linear-gradient(90deg, transparent, #C4768A 40%, #EFCCD4 60%, transparent)' }} />
+      {/* Top dual champagne and rose gradient divider */}
+      <div style={{ height: 2, background: 'linear-gradient(90deg, transparent, #C8974A 30%, #C4768A 50%, #EFCCD4 70%, transparent)' }} />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-16 pt-14 pb-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
