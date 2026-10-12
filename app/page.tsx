@@ -280,7 +280,8 @@ function IconCreditCard() {
   )
 }
 
-// ─── HERO ─────────────────────────────────────────────────────────────────────
+// Toggle for hero background: set to false to instantly rollback to still image
+const USE_HERO_VIDEO = true
 
 function Hero() {
   return (
@@ -288,18 +289,43 @@ function Hero() {
       className="relative min-h-screen flex items-center overflow-hidden"
       aria-label="DoorStep Diva — At-home beauty services"
     >
-      {/* ── Hero background image ── */}
+      {/* ── Hero background (video with poster fallback or still image) ── */}
       <div className="absolute inset-0 z-0">
-        <img
-          src="https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175036/Cover_ksobok.png"
-          alt=""
-          aria-hidden="true"
-          className="w-full h-full object-cover object-center sm:object-right"
+        {USE_HERO_VIDEO ? (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster="/images/hero_video_poster.jpg"
+            className="w-full h-full object-cover object-center sm:object-right"
+            aria-hidden="true"
+          >
+            <source src="/videos/hero_makeup.webm" type="video/webm" />
+            <source src="/videos/hero_makeup.mp4" type="video/mp4" />
+          </video>
+        ) : (
+          <img
+            src="https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175036/Cover_ksobok.png"
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-cover object-center sm:object-right"
+          />
+        )}
+        {/* Responsive dark scrim: uniform contrast for mobile portrait, directional split for desktop */}
+        <div
+          className="absolute inset-0 block md:hidden pointer-events-none"
+          style={{
+            background: 'linear-gradient(180deg, rgba(16,4,8,0.85) 0%, rgba(22,6,12,0.76) 50%, rgba(16,4,8,0.90) 100%)',
+          }}
         />
-        {/* Dark gradient overlay so text stays readable */}
-        <div className="absolute inset-0" style={{
-          background: 'linear-gradient(100deg, rgba(20,6,10,0.88) 0%, rgba(30,10,15,0.75) 35%, rgba(30,10,15,0.40) 60%, rgba(30,10,15,0.05) 100%)',
-        }} />
+        <div
+          className="absolute inset-0 hidden md:block pointer-events-none"
+          style={{
+            background: 'linear-gradient(100deg, rgba(20,6,10,0.88) 0%, rgba(30,10,15,0.75) 38%, rgba(30,10,15,0.42) 65%, rgba(30,10,15,0.08) 100%)',
+          }}
+        />
         {/* Subtle pink warmth */}
         <div className="absolute inset-0 pointer-events-none" style={{
           background: 'radial-gradient(ellipse 50% 80% at 15% 55%, rgba(196,118,138,0.15) 0%, transparent 65%)',
