@@ -158,21 +158,37 @@ export default function Header() {
             </div>
 
             {[
+              { href: '/festive',  label: 'Festive'   },
               { href: '/academy',  label: 'Academy'   },
+              { href: '/areas',    label: 'Areas'     },
               { href: '/about',    label: 'Our Story' },
               { href: '/blog',     label: 'Blog'      },
-              { href: '/#contact', label: 'Contact'   },
             ].map(({ href, label }) => (
               <Link key={href} href={href} onClick={closeAll}
-                className="font-poppins text-[11px] font-semibold tracking-widest uppercase px-3 py-2 rounded-lg text-stone-light hover:text-rose hover:bg-rose/5 transition-all duration-200"
+                className="font-poppins text-[11px] font-semibold tracking-widest uppercase px-2.5 py-2 rounded-lg text-stone-light hover:text-rose hover:bg-rose/5 transition-all duration-200"
               >
                 {label}
               </Link>
             ))}
           </nav>
 
-          {/* Desktop CTAs */}
-          <div className="hidden md:flex items-center gap-2">
+          {/* Location Trust Pill + Desktop CTAs */}
+          <div className="hidden md:flex items-center gap-2.5">
+            {/* Hyper-Local City Trust Pill */}
+            <div className="relative group/loc hidden xl:block">
+              <Link
+                href="/areas"
+                onClick={closeAll}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-100/80 hover:bg-[#FDF2F5] text-stone-700 hover:text-[#8B3A52] text-[11px] font-medium transition-colors border border-stone-200/60"
+              >
+                <svg className="w-3.5 h-3.5 text-[#8B3A52]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                <span>Delhi NCR · Lucknow · Ayodhya</span>
+              </Link>
+            </div>
+
             {/* Cart button */}
             <button
               onClick={openCart}
@@ -201,7 +217,7 @@ export default function Header() {
               </svg>
               WhatsApp
             </a>
-            <Link href="/#contact" onClick={closeAll}
+            <Link href="/book" onClick={closeAll}
               className="btn-press inline-flex font-poppins text-[11px] font-semibold px-4 py-2 text-white rounded-full transition-all duration-200"
               style={{ background: 'linear-gradient(135deg,#C4768A,#8B3A52)', boxShadow: '0 4px 14px rgba(139,58,82,0.25)' }}
             >
@@ -320,10 +336,11 @@ export default function Header() {
           </div>
 
           {[
-            { href: '/academy',  label: 'Academy'   },
-            { href: '/about',    label: 'Our Story' },
-            { href: '/blog',     label: 'Beauty Blog' },
-            { href: '/#contact', label: 'Contact'   },
+            { href: '/festive',  label: 'Festive & Occasions' },
+            { href: '/academy',  label: 'Academy'             },
+            { href: '/areas',    label: 'Service Areas'       },
+            { href: '/about',    label: 'Our Story'           },
+            { href: '/blog',     label: 'Beauty Blog'         },
           ].map(({ href, label }) => (
             <Link key={href} href={href} onClick={closeAll}
               className="flex items-center gap-3 px-3 py-3 rounded-xl font-poppins text-sm font-semibold text-stone hover:text-rose hover:bg-rose/5 transition-colors"
@@ -352,11 +369,11 @@ export default function Header() {
             </svg>
             Message on WhatsApp
           </a>
-          <Link href="/#contact" onClick={closeAll}
+          <Link href="/book" onClick={closeAll}
             className="flex items-center justify-center w-full font-poppins text-sm font-semibold py-3 text-white rounded-xl hover:opacity-90 transition-opacity"
             style={{ background: 'linear-gradient(135deg,#C4768A,#8B3A52)', boxShadow: '0 4px 14px rgba(139,58,82,0.22)' }}
           >
-            Book a Session
+            Book Online (Pay After Service)
           </Link>
         </div>
       </div>
