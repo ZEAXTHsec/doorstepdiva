@@ -4,7 +4,6 @@ import Link from 'next/link'
 import BeforeAfterSlider from '@/app/components/BeforeAfterSlider'
 import HygieneProtocol from '@/app/components/HygieneProtocol'
 import BridalTimeline from '@/app/components/BridalTimeline'
-import HeroLuxuryGlassCard from '@/app/components/HeroLuxuryGlassCard'
 import PinnedRitualStory from '@/app/components/PinnedRitualStory'
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
@@ -242,7 +241,7 @@ const USE_HERO_VIDEO = true
 function Hero() {
   return (
     <section
-      className="relative min-h-screen flex items-center overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-between overflow-hidden"
       aria-label="DoorStep Diva — At-home beauty services"
     >
       {/* ── Hero background (video with poster fallback or still image) ── */}
@@ -279,7 +278,7 @@ function Hero() {
         <div
           className="absolute inset-0 hidden md:block pointer-events-none"
           style={{
-            background: 'linear-gradient(100deg, rgba(20,6,10,0.88) 0%, rgba(30,10,15,0.75) 38%, rgba(30,10,15,0.42) 65%, rgba(30,10,15,0.08) 100%)',
+            background: 'linear-gradient(90deg, rgba(14,4,8,0.92) 0%, rgba(20,6,12,0.82) 44%, rgba(20,6,12,0.32) 72%, transparent 100%)',
           }}
         />
         {/* Subtle pink warmth */}
@@ -287,10 +286,10 @@ function Hero() {
           background: 'radial-gradient(ellipse 50% 80% at 15% 55%, rgba(196,118,138,0.15) 0%, transparent 65%)',
         }} />
       </div>
+
       {/* ── Petal / bloom decorative SVG shapes ── */}
-      {/* Large soft petal — top right */}
       <div aria-hidden="true" className="absolute -top-24 -right-24 w-[520px] h-[520px] pointer-events-none"
-        style={{ opacity: 0.18 }}>
+        style={{ opacity: 0.16 }}>
         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
           <path d="M100 10 C140 10 180 50 180 100 C180 150 140 190 100 190 C60 190 20 150 20 100 C20 50 60 10 100 10Z"
             fill="url(#petalGrad1)" />
@@ -303,9 +302,8 @@ function Hero() {
         </svg>
       </div>
 
-      {/* Medium petal — bottom left */}
       <div aria-hidden="true" className="absolute -bottom-16 -left-16 w-[380px] h-[380px] pointer-events-none"
-        style={{ opacity: 0.13 }}>
+        style={{ opacity: 0.12 }}>
         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
           <ellipse cx="100" cy="100" rx="80" ry="100" fill="url(#petalGrad2)" transform="rotate(-30 100 100)" />
           <defs>
@@ -317,146 +315,151 @@ function Hero() {
         </svg>
       </div>
 
-      {/* Floating petal dots — decorative */}
-      {[
-        { top: '18%', left: '8%',  size: 10, opacity: 0.25, color: '#C4768A' },
-        { top: '72%', left: '12%', size:  7, opacity: 0.20, color: '#C8974A' },
-        { top: '35%', right: '6%', size: 13, opacity: 0.18, color: '#EFCCD4' },
-        { top: '80%', right: '9%', size:  8, opacity: 0.22, color: '#C4768A' },
-        { top: '55%', left: '4%',  size:  5, opacity: 0.30, color: '#C8974A' },
-      ].map((d, i) => (
-        <div key={i} aria-hidden="true" className="absolute rounded-full pointer-events-none"
-          style={{ top: d.top, left: (d as any).left, right: (d as any).right,
-            width: d.size, height: d.size, background: d.color, opacity: d.opacity,
-            animation: `float ${3.5 + i * 0.4}s ease-in-out ${i * 0.3}s infinite` }} />
-      ))}
-
       {/* Mesh gradient overlay */}
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 60% 80% at 75% 40%, rgba(239,204,212,0.35) 0%, transparent 70%)' }} />
+        style={{ background: 'radial-gradient(ellipse 60% 80% at 75% 40%, rgba(239,204,212,0.25) 0%, transparent 70%)' }} />
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 40% 60% at 10% 70%, rgba(200,151,74,0.08) 0%, transparent 60%)' }} />
+        style={{ background: 'radial-gradient(ellipse 40% 60% at 10% 70%, rgba(200,151,74,0.06) 0%, transparent 60%)' }} />
 
-      {/* ── Main content grid ── */}
-      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 md:px-16 w-full py-20 md:py-28">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-
-          {/* ── LEFT — copy ── */}
-          <div>
-            {/* Eyebrow badge */}
-            <div
-              className="inline-flex items-center gap-2 mb-7 px-4 py-2 rounded-full border"
-              style={{
-                animation: 'fadeUp .55s ease both',
-                background: 'rgba(255,255,255,0.10)',
-                borderColor: 'rgba(255,255,255,0.25)',
-              }}
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-rose inline-block" style={{ animation: 'pulseRing 2s ease-out infinite' }} />
-              <span className="font-poppins text-[10.5px] font-semibold tracking-[0.22em] uppercase" style={{ color: "rgba(239,204,212,0.90)" }}>
-                Now Serving Delhi NCR · Lucknow · Ayodhya
-              </span>
-            </div>
-
-            {/* Headline */}
-            <h1
-              className="font-playfair font-bold leading-[1.07] mb-6 text-white"
-              style={{
-                fontSize: 'clamp(2.6rem, 5.5vw, 4.8rem)',
-                animation: 'fadeUp .65s ease .08s both',
-                textShadow: '0 3px 28px rgba(0,0,0,0.45)',
-              }}
-            >
-              Brows. Skin. Hair.<br />
-              <em
-                className="not-italic"
-                style={{
-                  background: 'linear-gradient(120deg, #FFFFFF 10%, #F5D8DC 45%, #E5A8B8 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  fontStyle: 'italic',
-                }}
-              >
-                Professionally.
-              </em>
-              <br />
-              At Your Door.
-            </h1>
-
-            {/* Sub-copy */}
-            <p
-              className="font-poppins text-sm sm:text-[0.95rem] leading-[1.85] mb-9 max-w-[480px]"
-              style={{ color: "rgba(255,255,255,0.70)", animation: 'fadeUp .65s ease .17s both' }}
-            >
-              Delhi’s only at-home semi-permanent brow studio — microblading, combo brows &amp; eyebrow lifting by certified artists. Plus hair, skin, makeup, lashes &amp; nails, delivered wherever you are.
-            </p>
-
-            {/* CTA row */}
-            <div
-              className="flex flex-wrap items-center gap-3 mb-10"
-              style={{ animation: 'fadeUp .65s ease .26s both' }}
-            >
-              <a
-                href="#contact"
-                className="btn-press inline-flex items-center gap-2 font-poppins text-sm font-semibold px-6 py-3 text-white rounded-full transition-all duration-300"
-                style={{
-                  background: 'linear-gradient(135deg, #C4768A 0%, #8B3A52 100%)',
-                  boxShadow: '0 8px 24px rgba(139,58,82,0.28)',
-                }}
-              >
-                Book a Session
-                <IconChevronRight />
-              </a>
-              <a
-                href="https://wa.me/919129577514"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-press inline-flex items-center gap-2 font-poppins text-sm font-semibold px-6 py-3 bg-[#25D366] text-white hover:opacity-90 transition-opacity rounded-full"
-                style={{ boxShadow: '0 6px 20px rgba(37,211,102,0.22)' }}
-              >
-                <IconWhatsApp size={15} />
-                WhatsApp
-              </a>
-              <a
-                href="#services"
-                className="inline-flex items-center gap-1.5 font-poppins text-sm font-medium px-5 py-3 rounded-full border transition-colors duration-200" style={{ borderColor: "rgba(255,255,255,0.30)", color: "rgba(255,255,255,0.80)" }}
-              >
-                Explore Services
-              </a>
-            </div>
-
-            {/* Trust strip */}
-            <div
-              className="flex flex-wrap items-center gap-5 pt-6"
-              style={{
-                animation: 'fadeUp .65s ease .35s both',
-                borderTop: '1px solid rgba(255,255,255,0.15)',
-              }}
-            >
-              {['Certified Artists', 'Premium Products', 'At-Home Comfort'].map((label) => (
-                <div key={label} className="flex items-center gap-2">
-                  <div
-                    className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0"
-                    style={{ background: 'rgba(255,255,255,0.15)', color: '#EFCCD4' }}
-                  >
-                    <IconCheck />
-                  </div>
-                  <span className="font-poppins text-xs font-medium" style={{ color: "rgba(255,255,255,0.70)" }}>{label}</span>
-                </div>
-              ))}
-            </div>
+      {/* ── Main content area ── */}
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 md:px-16 w-full pt-32 pb-16 md:pt-40 md:pb-20 flex-1 flex items-center">
+        <div className="max-w-2xl lg:max-w-3xl">
+          {/* Eyebrow badge */}
+          <div
+            className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border"
+            style={{
+              animation: 'fadeUp .55s ease both',
+              background: 'rgba(255,255,255,0.10)',
+              borderColor: 'rgba(255,255,255,0.22)',
+              backdropFilter: 'blur(12px)',
+            }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-rose inline-block" style={{ animation: 'pulseRing 2s ease-out infinite' }} />
+            <span className="font-poppins text-[10.5px] font-semibold tracking-[0.22em] uppercase text-[#F5D8DC]">
+              At-Home Luxury Beauty &amp; Bridal Artistry
+            </span>
           </div>
 
-          {/* ── RIGHT — interactive frosted liquid glass card ── */}
-          <HeroLuxuryGlassCard />
+          {/* Headline */}
+          <h1
+            className="font-playfair font-bold leading-[1.06] mb-6 text-white"
+            style={{
+              fontSize: 'clamp(2.75rem, 5.8vw, 5rem)',
+              animation: 'fadeUp .65s ease .08s both',
+              textShadow: '0 4px 32px rgba(0,0,0,0.5)',
+            }}
+          >
+            Brows. Skin. Hair.<br />
+            <em
+              className="not-italic"
+              style={{
+                background: 'linear-gradient(120deg, #FFFFFF 10%, #F5D8DC 45%, #E5A8B8 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                fontStyle: 'italic',
+              }}
+            >
+              Professionally.
+            </em>
+            <br />
+            At Your Door.
+          </h1>
+
+          {/* Sub-copy */}
+          <p
+            className="font-poppins text-sm sm:text-[1.02rem] leading-[1.85] mb-8 max-w-xl"
+            style={{ color: "rgba(255,255,255,0.80)", animation: 'fadeUp .65s ease .17s both' }}
+          >
+            Delhi NCR &amp; Lucknow’s premier at-home beauty sanctuary. Certified female estheticians deliver medical-grade facials, bridal trousseau glam, salon hair rituals, lash artistry &amp; semi-permanent brows directly to you — with 100% sealed single-use kits.
+          </p>
+
+          {/* CTA row */}
+          <div
+            className="flex flex-wrap items-center gap-3.5 mb-9"
+            style={{ animation: 'fadeUp .65s ease .26s both' }}
+          >
+            <Link
+              href="/book"
+              className="btn-press inline-flex items-center gap-2.5 font-poppins text-sm font-semibold px-7 py-3.5 text-white rounded-full transition-all duration-300"
+              style={{
+                background: 'linear-gradient(135deg, #C4768A 0%, #8B3A52 100%)',
+                boxShadow: '0 8px 24px rgba(139,58,82,0.35)',
+              }}
+            >
+              <span>Book an Appointment</span>
+              <IconChevronRight />
+            </Link>
+            <a
+              href="https://wa.me/919129577514"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-press inline-flex items-center gap-2.5 font-poppins text-sm font-semibold px-6 py-3.5 bg-[#25D366] text-white hover:opacity-90 transition-opacity rounded-full"
+              style={{ boxShadow: '0 6px 20px rgba(37,211,102,0.25)' }}
+            >
+              <IconWhatsApp size={16} />
+              <span>WhatsApp Consultation</span>
+            </a>
+            <a
+              href="#services"
+              className="inline-flex items-center gap-1.5 font-poppins text-sm font-medium px-5 py-3.5 rounded-full border border-white/25 hover:border-white/40 text-white/80 hover:text-white hover:bg-white/5 transition-all duration-200"
+            >
+              <span>Explore Services</span>
+            </a>
+          </div>
+
+          {/* Trust strip */}
+          <div
+            className="flex flex-wrap items-center gap-5 pt-6"
+            style={{
+              animation: 'fadeUp .65s ease .35s both',
+              borderTop: '1px solid rgba(255,255,255,0.18)',
+            }}
+          >
+            {[
+              '100% Sealed Single-Use Kits',
+              'Pay After Service (Zero Advance)',
+              'Certified Female Estheticians',
+            ].map((label) => (
+              <div key={label} className="flex items-center gap-2">
+                <div
+                  className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{ background: 'rgba(255,255,255,0.18)', color: '#EFCCD4' }}
+                >
+                  <IconCheck />
+                </div>
+                <span className="font-poppins text-xs font-medium text-white/85">{label}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Scroll cue */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5" aria-hidden="true">
-        <span className="font-poppins text-[10px] tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.40)' }}>Scroll</span>
-        <div className="w-px h-10" style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.30), transparent)' }} />
+      {/* ── Bottom Luxury Frosted Trust Bar ── */}
+      <div className="relative z-10 w-full border-t border-white/12 bg-black/40 backdrop-blur-md">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-16 py-3.5 flex flex-wrap items-center justify-between gap-4 text-xs font-poppins text-white/80">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="font-semibold text-white/95 tracking-wide">
+              Live At-Home Dispatch Available
+            </span>
+          </div>
+          <div className="hidden sm:flex items-center gap-6 text-[11px] font-medium tracking-wide">
+            <span className="flex items-center gap-1.5 text-white/85">
+              <svg className="w-3.5 h-3.5 text-[#C8974A]" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <strong className="text-white">4.9 / 5</strong> (2,400+ Verified Appointments)
+            </span>
+            <span className="text-white/30">·</span>
+            <span className="text-white/80">Autoclaved &amp; Disinfected Instruments</span>
+            <span className="text-white/30">·</span>
+            <span className="text-white/80">Zero Advance Deposit Required</span>
+          </div>
+          <Link href="/areas" className="text-[11px] font-semibold text-[#EFCCD4] hover:text-white transition-colors flex items-center gap-1">
+            Coverage Areas →
+          </Link>
+        </div>
       </div>
     </section>
   )
