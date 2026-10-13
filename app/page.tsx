@@ -268,22 +268,29 @@ function Hero() {
             className="w-full h-full object-cover object-center sm:object-right"
           />
         )}
-        {/* Responsive dark scrim: uniform contrast for mobile portrait, directional split for desktop */}
+        {/* Responsive dark scrim: uniform contrast for mobile portrait, centered cinematic vignette for desktop */}
         <div
           className="absolute inset-0 block md:hidden pointer-events-none"
           style={{
-            background: 'linear-gradient(180deg, rgba(16,4,8,0.85) 0%, rgba(22,6,12,0.76) 50%, rgba(16,4,8,0.90) 100%)',
+            background: 'linear-gradient(180deg, rgba(16,4,8,0.88) 0%, rgba(22,6,12,0.78) 50%, rgba(16,4,8,0.94) 100%)',
           }}
         />
         <div
           className="absolute inset-0 hidden md:block pointer-events-none"
           style={{
-            background: 'linear-gradient(90deg, rgba(14,4,8,0.92) 0%, rgba(20,6,12,0.82) 44%, rgba(20,6,12,0.32) 72%, transparent 100%)',
+            background: 'radial-gradient(ellipse 75% 75% at 50% 48%, rgba(14,4,8,0.82) 0%, rgba(18,5,10,0.68) 55%, rgba(14,4,8,0.88) 100%)',
+          }}
+        />
+        {/* Subtle vertical edge scrim */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'linear-gradient(180deg, rgba(14,4,8,0.60) 0%, transparent 22%, transparent 78%, rgba(14,4,8,0.75) 100%)',
           }}
         />
         {/* Subtle pink warmth */}
         <div className="absolute inset-0 pointer-events-none" style={{
-          background: 'radial-gradient(ellipse 50% 80% at 15% 55%, rgba(196,118,138,0.15) 0%, transparent 65%)',
+          background: 'radial-gradient(ellipse 55% 70% at 50% 50%, rgba(196,118,138,0.18) 0%, transparent 70%)',
         }} />
       </div>
 
@@ -317,20 +324,20 @@ function Hero() {
 
       {/* Mesh gradient overlay */}
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 60% 80% at 75% 40%, rgba(239,204,212,0.25) 0%, transparent 70%)' }} />
+        style={{ background: 'radial-gradient(ellipse 60% 80% at 75% 40%, rgba(239,204,212,0.20) 0%, transparent 70%)' }} />
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none"
         style={{ background: 'radial-gradient(ellipse 40% 60% at 10% 70%, rgba(200,151,74,0.06) 0%, transparent 60%)' }} />
 
-      {/* ── Main content area ── */}
-      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 md:px-16 w-full pt-32 pb-16 md:pt-40 md:pb-20 flex-1 flex items-center">
-        <div className="max-w-2xl lg:max-w-3xl">
+      {/* ── Main content area (Centered on PC & Mobile) ── */}
+      <div className="relative z-10 max-w-5xl mx-auto px-5 sm:px-8 w-full pt-32 pb-16 md:pt-40 md:pb-20 flex-1 flex flex-col items-center justify-center text-center">
+        <div className="max-w-3xl mx-auto flex flex-col items-center">
           {/* Eyebrow badge */}
           <div
-            className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border"
+            className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border mx-auto"
             style={{
               animation: 'fadeUp .55s ease both',
-              background: 'rgba(255,255,255,0.10)',
-              borderColor: 'rgba(255,255,255,0.22)',
+              background: 'rgba(255,255,255,0.12)',
+              borderColor: 'rgba(255,255,255,0.25)',
               backdropFilter: 'blur(12px)',
             }}
           >
@@ -342,11 +349,11 @@ function Hero() {
 
           {/* Headline */}
           <h1
-            className="font-playfair font-bold leading-[1.06] mb-6 text-white"
+            className="font-playfair font-bold leading-[1.08] mb-6 text-white text-center"
             style={{
-              fontSize: 'clamp(2.75rem, 5.8vw, 5rem)',
+              fontSize: 'clamp(2.6rem, 5.2vw, 4.6rem)',
               animation: 'fadeUp .65s ease .08s both',
-              textShadow: '0 4px 32px rgba(0,0,0,0.5)',
+              textShadow: '0 4px 32px rgba(0,0,0,0.65)',
             }}
           >
             Brows. Skin. Hair.<br />
@@ -368,15 +375,15 @@ function Hero() {
 
           {/* Sub-copy */}
           <p
-            className="font-poppins text-sm sm:text-[1.02rem] leading-[1.85] mb-8 max-w-xl"
-            style={{ color: "rgba(255,255,255,0.80)", animation: 'fadeUp .65s ease .17s both' }}
+            className="font-poppins text-sm sm:text-base leading-[1.85] mb-8 max-w-xl mx-auto text-center"
+            style={{ color: "rgba(255,255,255,0.85)", animation: 'fadeUp .65s ease .17s both' }}
           >
             Delhi NCR &amp; Lucknow’s premier at-home beauty sanctuary. Certified female estheticians deliver medical-grade facials, bridal trousseau glam, salon hair rituals, lash artistry &amp; semi-permanent brows directly to you — with 100% sealed single-use kits.
           </p>
 
           {/* CTA row */}
           <div
-            className="flex flex-wrap items-center gap-3.5 mb-9"
+            className="flex flex-wrap items-center justify-center gap-3.5 mb-9"
             style={{ animation: 'fadeUp .65s ease .26s both' }}
           >
             <Link
@@ -384,7 +391,7 @@ function Hero() {
               className="btn-press inline-flex items-center gap-2.5 font-poppins text-sm font-semibold px-7 py-3.5 text-white rounded-full transition-all duration-300"
               style={{
                 background: 'linear-gradient(135deg, #C4768A 0%, #8B3A52 100%)',
-                boxShadow: '0 8px 24px rgba(139,58,82,0.35)',
+                boxShadow: '0 8px 24px rgba(139,58,82,0.4)',
               }}
             >
               <span>Book an Appointment</span>
@@ -394,15 +401,15 @@ function Hero() {
               href="https://wa.me/919129577514"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-press inline-flex items-center gap-2.5 font-poppins text-sm font-semibold px-6 py-3.5 bg-[#25D366] text-white hover:opacity-90 transition-opacity rounded-full"
-              style={{ boxShadow: '0 6px 20px rgba(37,211,102,0.25)' }}
+              className="btn-press inline-flex items-center gap-2.5 font-poppins text-sm font-semibold px-6 py-3.5 bg-[#25D366] text-white hover:opacity-90 transition-opacity rounded-full shadow-lg"
+              style={{ boxShadow: '0 6px 20px rgba(37,211,102,0.28)' }}
             >
               <IconWhatsApp size={16} />
               <span>WhatsApp Consultation</span>
             </a>
             <a
               href="#services"
-              className="inline-flex items-center gap-1.5 font-poppins text-sm font-medium px-5 py-3.5 rounded-full border border-white/25 hover:border-white/40 text-white/80 hover:text-white hover:bg-white/5 transition-all duration-200"
+              className="inline-flex items-center gap-1.5 font-poppins text-sm font-medium px-5 py-3.5 rounded-full border border-white/30 hover:border-white/50 text-white/85 hover:text-white hover:bg-white/10 transition-all duration-200"
             >
               <span>Explore Services</span>
             </a>
@@ -410,10 +417,10 @@ function Hero() {
 
           {/* Trust strip */}
           <div
-            className="flex flex-wrap items-center gap-5 pt-6"
+            className="flex flex-wrap items-center justify-center gap-5 sm:gap-7 pt-6 w-full max-w-xl mx-auto"
             style={{
               animation: 'fadeUp .65s ease .35s both',
-              borderTop: '1px solid rgba(255,255,255,0.18)',
+              borderTop: '1px solid rgba(255,255,255,0.20)',
             }}
           >
             {[
@@ -424,11 +431,11 @@ function Hero() {
               <div key={label} className="flex items-center gap-2">
                 <div
                   className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0"
-                  style={{ background: 'rgba(255,255,255,0.18)', color: '#EFCCD4' }}
+                  style={{ background: 'rgba(255,255,255,0.20)', color: '#EFCCD4' }}
                 >
                   <IconCheck />
                 </div>
-                <span className="font-poppins text-xs font-medium text-white/85">{label}</span>
+                <span className="font-poppins text-xs font-medium text-white/90">{label}</span>
               </div>
             ))}
           </div>
