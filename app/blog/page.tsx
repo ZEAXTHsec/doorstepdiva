@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { CURATED_POSTS } from '@/app/_data/curated-posts'
 
 const SUPABASE_URL = 'https://pbxmxddufezjznucjixv.supabase.co'
 const SUPABASE_ANON_KEY =
@@ -10,19 +11,19 @@ const SITE = 'https://mydoorstepdiva.com'
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: 'Beauty Blog — Tips, Trends & At-Home Salon Guides',
+  title: 'Beauty Journal — Clinical Guides, Festive Protocols & Trends | DoorStep Diva',
   description:
-    'Expert beauty tips, hair care guides, skincare routines, bridal makeup advice and more from DoorStep Diva — your certified at-home salon in Delhi NCR, Lucknow & Ayodhya.',
+    'Authoritative beauty and esthetics journal covering Karwa Chauth Solah Shringar, Korean glass skin facials, bridal HD vs airbrush makeup, and nail science in Delhi NCR, Lucknow & Ayodhya.',
+  keywords:
+    'beauty blog Delhi NCR, at home salon tips Lucknow, Karwa Chauth makeup guide, Korean glass skin facial, bridal makeup tips Ayodhya, nail extension aftercare',
   alternates: { canonical: `${SITE}/blog` },
   openGraph: {
-    title: 'Beauty Blog | DoorStep Diva',
-    description: 'Expert beauty tips and at-home salon guides for Delhi NCR, Lucknow & Ayodhya.',
+    title: 'Beauty Journal — At-Home Luxury & Clinical Esthetics | DoorStep Diva',
+    description: 'Authoritative beauty guides and clinical protocols for Delhi NCR, Lucknow & Ayodhya.',
     url: `${SITE}/blog`,
     type: 'website',
   },
 }
-
-import { CURATED_POSTS } from '@/app/_data/curated-posts'
 
 function wordCount(s: string) { return s?.trim().split(/\s+/).filter(Boolean).length || 0 }
 function readTime(s: string) { return Math.max(1, Math.round(wordCount(s) / 200)) }
@@ -37,7 +38,6 @@ async function getPosts() {
       .order('published_at', { ascending: false })
 
     const dbPosts = data || []
-    // Combine db posts with curated posts, avoiding duplicate slugs
     const existingSlugs = new Set(dbPosts.map(p => p.slug))
     const nonDuplicateCurated = CURATED_POSTS.filter(p => !existingSlugs.has(p.slug))
     return [...dbPosts, ...nonDuplicateCurated]
@@ -54,9 +54,28 @@ export default async function BlogPage() {
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: SITE },
-      { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE}/blog` },
+      { '@type': 'ListItem', position: 2, name: 'Beauty Journal', item: `${SITE}/blog` },
     ],
   }
+
+  const blogSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: 'DoorStep Diva Beauty Journal',
+    description: 'Clinical guides, festive rituals and bridal beauty blueprints.',
+    url: `${SITE}/blog`,
+    publisher: {
+      '@type': 'Organization',
+      name: 'DoorStep Diva',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777178196/40b6fd8e-8572-41d3-b5b4-75fdd1e48dd8_sckgy6.png',
+      },
+    },
+  }
+
+  const featuredPost = posts[0]
+  const otherPosts = posts.slice(1)
 
   return (
     <>
@@ -64,175 +83,209 @@ export default async function BlogPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
+      />
 
-      <div style={{
-        maxWidth: 1100, margin: '0 auto', padding: '48px 24px 80px',
-        fontFamily: 'var(--font-poppins,sans-serif)',
-      }}>
-
-        {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: 56 }}>
-          <div style={{
-            display: 'inline-block', fontSize: 11, fontWeight: 600, letterSpacing: '0.12em',
-            textTransform: 'uppercase', color: '#8B3A52', padding: '4px 14px',
-            borderRadius: 20, background: 'rgba(196,118,138,0.1)', marginBottom: 16,
-          }}>Beauty Journal</div>
-          <h1 style={{
-            fontFamily: 'var(--font-playfair,serif)', fontSize: 'clamp(32px,5vw,48px)',
-            fontWeight: 700, color: '#1a1a1a', lineHeight: 1.2, margin: '0 0 16px',
-          }}>Tips, Trends & At-Home Guides</h1>
-          <p style={{ fontSize: 16, color: '#888', maxWidth: 540, margin: '0 auto', lineHeight: 1.7 }}>
-            Expert beauty advice from certified artists — for Delhi NCR, Lucknow & Ayodhya.
-          </p>
-        </div>
-
-        {/* No posts state */}
-        {posts.length === 0 && (
-          <div style={{ textAlign: 'center', padding: '64px 24px', color: '#aaa' }}>
-            <div style={{ fontSize: 40, marginBottom: 16 }}>✍️</div>
-            <p style={{ fontSize: 16, color: '#888' }}>No posts published yet. Check back soon!</p>
-          </div>
-        )}
-
-        {/* Featured post (first) */}
-        {posts.length > 0 && (
-          <Link href={`/blog/${posts[0].slug}`} style={{ textDecoration: 'none', display: 'block', marginBottom: 56 }}>
-            <div
-              className="hover:shadow-xl transition-shadow duration-200"
-              style={{
-                borderRadius: 20, overflow: 'hidden',
-                border: '1px solid rgba(196,118,138,0.15)',
-                display: 'grid', gridTemplateColumns: '1fr 1fr',
-                background: 'white',
-              }}
-            >
-              {posts[0].featured_image ? (
-                <div style={{ position: 'relative', minHeight: 320 }}>
-                  <img
-                    src={posts[0].featured_image}
-                    alt={posts[0].image_alt || posts[0].title}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                  />
-                </div>
-              ) : (
-                <div style={{
-                  minHeight: 320, background: 'linear-gradient(135deg,rgba(196,118,138,0.15),rgba(139,58,82,0.1))',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                }}>
-                  <span style={{ fontSize: 48 }}>💄</span>
-                </div>
-              )}
-              <div style={{ padding: '40px 36px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
-                  <span style={{
-                    fontSize: 10, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase',
-                    color: '#8B3A52', padding: '3px 10px', borderRadius: 20,
-                    background: 'rgba(196,118,138,0.1)',
-                  }}>Featured</span>
-                  {posts[0].category && (
-                    <span style={{
-                      fontSize: 10, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase',
-                      color: '#666', padding: '3px 10px', borderRadius: 20,
-                      background: 'rgba(0,0,0,0.05)',
-                    }}>{posts[0].category}</span>
-                  )}
-                </div>
-                <h2 style={{
-                  fontFamily: 'var(--font-playfair,serif)', fontSize: 28, fontWeight: 700,
-                  color: '#1a1a1a', lineHeight: 1.3, margin: '0 0 14px',
-                }}>{posts[0].title}</h2>
-                {posts[0].excerpt && (
-                  <p style={{ fontSize: 14, color: '#666', lineHeight: 1.7, margin: '0 0 20px' }}>
-                    {posts[0].excerpt}
-                  </p>
-                )}
-                <div style={{ fontSize: 12, color: '#aaa', display: 'flex', gap: 12 }}>
-                  {posts[0].published_at && (
-                    <span>{new Date(posts[0].published_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-                  )}
-                  <span>{readTime(posts[0].content || '')} min read</span>
-                </div>
-                <div style={{
-                  marginTop: 24, display: 'inline-flex', alignItems: 'center', gap: 6,
-                  fontSize: 13, fontWeight: 600, color: '#8B3A52',
-                }}>
-                  Read Article →
-                </div>
-              </div>
+      <main className="min-h-screen bg-[#FCF8F9] pt-28 pb-24 font-poppins">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8">
+          {/* Header Section */}
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#8B3A52]/10 text-[#8B3A52] text-xs font-semibold uppercase tracking-wider mb-4">
+              <span>Beauty Journal &amp; Clinical Guides</span>
             </div>
-          </Link>
-        )}
+            <h1 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-bold text-stone-900 leading-tight mb-4">
+              Tips, Trends &amp; At-Home Protocols
+            </h1>
+            <p className="text-stone-600 text-sm sm:text-base leading-relaxed">
+              Researched and verified by certified cosmetologists — providing honest esthetics and seasonal guides for Delhi NCR, Lucknow &amp; Ayodhya.
+            </p>
+          </div>
 
-        {/* Grid of remaining posts */}
-        {posts.length > 1 && (
-          <div style={{
-            display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(300px,1fr))', gap: 24,
-          }}>
-            {posts.slice(1).map(post => (
-              <Link key={post.id} href={`/blog/${post.slug}`} style={{ textDecoration: 'none' }}>
-                <article
-                  className="hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200"
-                  style={{
-                    background: 'white', borderRadius: 16, overflow: 'hidden',
-                    border: '1px solid rgba(196,118,138,0.12)',
-                    height: '100%', display: 'flex', flexDirection: 'column',
-                  }}
-                >
-                  {/* Image */}
-                  <div style={{ height: 200, overflow: 'hidden', flexShrink: 0 }}>
-                    {post.featured_image ? (
+          {/* Empty State */}
+          {posts.length === 0 && (
+            <div className="text-center py-20 px-6 rounded-3xl bg-white border border-blush/20 max-w-md mx-auto">
+              <svg className="w-12 h-12 text-[#8B3A52] mx-auto mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+              </svg>
+              <p className="text-stone-500 text-sm">No articles published yet. Check back soon.</p>
+            </div>
+          )}
+
+          {/* Featured Post Card (High Visual Hierarchy) */}
+          {featuredPost && (
+            <section className="mb-16">
+              <Link
+                href={`/blog/${featuredPost.slug}`}
+                className="group block rounded-3xl bg-white border border-blush/25 overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+              >
+                <div className="grid md:grid-cols-2 items-center">
+                  <div className="relative min-h-[300px] md:min-h-[420px] w-full bg-stone-100 overflow-hidden">
+                    {featuredPost.featured_image ? (
                       <img
-                        src={post.featured_image}
-                        alt={post.image_alt || post.title}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        src={featuredPost.featured_image}
+                        alt={featuredPost.image_alt || featuredPost.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (
-                      <div style={{
-                        width: '100%', height: '100%',
-                        background: 'linear-gradient(135deg,rgba(196,118,138,0.12),rgba(139,58,82,0.08))',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      }}>
-                        <span style={{ fontSize: 36 }}>✨</span>
+                      <div className="w-full h-full bg-gradient-to-br from-[#FAF0F3] to-[#F5D8DC] flex items-center justify-center text-stone-400">
+                        DoorStep Diva
                       </div>
                     )}
+                    <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[#8B3A52] text-[10px] font-bold uppercase tracking-wider shadow-sm">
+                      Featured Guide
+                    </span>
                   </div>
 
-                  {/* Content */}
-                  <div style={{ padding: '20px 22px 22px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                    {post.category && (
-                      <span style={{
-                        fontSize: 10, fontWeight: 600, letterSpacing: '0.1em',
-                        textTransform: 'uppercase', color: '#8B3A52',
-                        marginBottom: 10, display: 'block',
-                      }}>{post.category}</span>
+                  <div className="p-8 sm:p-10 flex flex-col justify-center">
+                    {featuredPost.category && (
+                      <span className="text-xs font-bold text-[#8B3A52] uppercase tracking-wider mb-3 block">
+                        {featuredPost.category}
+                      </span>
                     )}
-                    <h3 style={{
-                      fontFamily: 'var(--font-playfair,serif)', fontSize: 18, fontWeight: 700,
-                      color: '#1a1a1a', lineHeight: 1.35, margin: '0 0 10px',
-                    }}>{post.title}</h3>
-                    {post.excerpt && (
-                      <p style={{
-                        fontSize: 13, color: '#777', lineHeight: 1.65,
-                        margin: '0 0 16px', flex: 1,
-                        display: '-webkit-box', WebkitLineClamp: 3,
-                        WebkitBoxOrient: 'vertical', overflow: 'hidden',
-                      }}>{post.excerpt}</p>
+                    <h2 className="font-playfair text-2xl sm:text-3xl font-bold text-stone-900 group-hover:text-[#8B3A52] transition-colors leading-snug mb-4">
+                      {featuredPost.title}
+                    </h2>
+                    {featuredPost.excerpt && (
+                      <p className="text-stone-600 text-sm leading-relaxed mb-6 line-clamp-3">
+                        {featuredPost.excerpt}
+                      </p>
                     )}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto' }}>
-                      <div style={{ fontSize: 11, color: '#bbb' }}>
-                        {post.published_at && new Date(post.published_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
-                        {' · '}{readTime(post.content || '')} min
-                      </div>
-                      <span style={{ fontSize: 12, fontWeight: 600, color: '#C4768A' }}>Read →</span>
+
+                    <div className="flex items-center gap-4 text-xs text-stone-400 mb-6">
+                      {featuredPost.published_at && (
+                        <span>
+                          {new Date(featuredPost.published_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+                        </span>
+                      )}
+                      <span>·</span>
+                      <span>{readTime(featuredPost.content || '')} min read</span>
+                    </div>
+
+                    <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#8B3A52] group-hover:text-[#C4768A] transition-colors">
+                      <span>Read Full Blueprint</span>
+                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="9 18 15 12 9 6"/>
+                      </svg>
                     </div>
                   </div>
-                </article>
+                </div>
               </Link>
-            ))}
-          </div>
-        )}
+            </section>
+          )}
 
-      </div>
+          {/* Grid of Other Articles */}
+          {otherPosts.length > 0 && (
+            <section>
+              <div className="flex items-center justify-between mb-8 pb-3 border-b border-blush/20">
+                <h2 className="font-playfair text-2xl font-bold text-stone-900">
+                  All Beauty &amp; Clinical Guides
+                </h2>
+                <span className="text-xs text-stone-400">
+                  {otherPosts.length} Guides Available
+                </span>
+              </div>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-7">
+                {otherPosts.map((post) => (
+                  <Link
+                    key={post.id || post.slug}
+                    href={`/blog/${post.slug}`}
+                    className="group flex flex-col rounded-2xl bg-white border border-blush/20 overflow-hidden hover:shadow-lg transition-all duration-300"
+                  >
+                    <div className="relative h-48 w-full bg-stone-100 overflow-hidden">
+                      {post.featured_image ? (
+                        <img
+                          src={post.featured_image}
+                          alt={post.image_alt || post.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-400"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-[#FAF0F3] flex items-center justify-center text-stone-400 text-xs">
+                          DoorStep Diva
+                        </div>
+                      )}
+                      {post.category && (
+                        <span className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-[#8B3A52] text-[10px] font-bold uppercase tracking-wider shadow-xs">
+                          {post.category}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="p-6 flex-1 flex flex-col justify-between">
+                      <div>
+                        <h3 className="font-playfair text-base sm:text-lg font-bold text-stone-900 group-hover:text-[#8B3A52] transition-colors leading-snug mb-2 line-clamp-2">
+                          {post.title}
+                        </h3>
+                        {post.excerpt && (
+                          <p className="text-stone-500 text-xs leading-relaxed line-clamp-3 mb-4">
+                            {post.excerpt}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="flex items-center justify-between pt-4 border-t border-blush/15 text-xs">
+                        <div className="text-stone-400 text-[11px]">
+                          {post.published_at && (
+                            <span>{new Date(post.published_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</span>
+                          )}
+                          {' · '}{readTime(post.content || '')} min
+                        </div>
+                        <span className="font-semibold text-[#8B3A52] group-hover:text-[#C4768A] transition-colors">
+                          Read →
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Bottom Conversion Banner */}
+          <div className="mt-20 p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#FAF0F3] via-white to-[#FDF4F6] border border-[#C4768A]/30 text-center">
+            <span className="inline-block px-3.5 py-1 rounded-full bg-[#8B3A52]/10 text-[#8B3A52] text-xs font-bold uppercase tracking-wider mb-3">
+              Certified Doorstep Artistry
+            </span>
+            <h2 className="font-playfair text-2xl sm:text-3xl font-bold text-stone-900 mb-3">
+              Book Certified Artists at Your Home
+            </h2>
+            <p className="text-stone-600 text-sm max-w-md mx-auto mb-7 leading-relaxed">
+              Enjoy salon treatments without traveling. Delivered across South Delhi, Noida, Gurugram, Lucknow &amp; Ayodhya. Zero advance deposit required.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-3.5">
+              <Link
+                href="/book"
+                className="btn-press inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-white text-sm font-semibold transition-all"
+                style={{
+                  background: 'linear-gradient(135deg,#C4768A,#8B3A52)',
+                  boxShadow: '0 6px 20px rgba(139,58,82,0.3)',
+                }}
+              >
+                <span>Book Slot Online</span>
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
+              </Link>
+              <a
+                href="https://wa.me/919129577514"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-press inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#25D366] text-white text-sm font-semibold hover:opacity-90 transition-opacity shadow-md"
+              >
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                <span>WhatsApp Consultation</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </main>
     </>
   )
 }
