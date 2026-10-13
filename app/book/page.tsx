@@ -45,50 +45,51 @@ interface CatalogService {
   name: string
   category: 'Hair' | 'Skin & Facials' | 'Waxing & Threading' | 'Nails & Lashes' | 'Bridal & Festive'
   minPrice: number
+  image: string
 }
 
 const CATALOG_SERVICES: CatalogService[] = [
   // Hair
-  { id: 'hair-spa', name: 'Luxury Hair Spa & Scalp Therapy', category: 'Hair', minPrice: 649 },
-  { id: 'haircut-blowdry', name: 'Haircut & Styling Blowdry', category: 'Hair', minPrice: 349 },
-  { id: 'hair-keratin', name: 'Keratin Protein Treatment', category: 'Hair', minPrice: 2599 },
-  { id: 'hair-smoothening', name: 'Smoothening / Rebonding', category: 'Hair', minPrice: 2499 },
-  { id: 'hair-color-root', name: 'Hair Color (Root Touch-Up)', category: 'Hair', minPrice: 699 },
-  { id: 'hair-color-global', name: 'Hair Color (Global L\'Oréal)', category: 'Hair', minPrice: 1200 },
-  { id: 'hair-balayage', name: 'Highlights / Balayage', category: 'Hair', minPrice: 1799 },
-  { id: 'hair-fall-therapy', name: 'Anti-Hairfall Therapy Pack', category: 'Hair', minPrice: 899 },
+  { id: 'hair-spa', name: 'Luxury Hair Spa & Scalp Therapy', category: 'Hair', minPrice: 649, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png' },
+  { id: 'haircut-blowdry', name: 'Haircut & Styling Blowdry', category: 'Hair', minPrice: 349, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png' },
+  { id: 'hair-keratin', name: 'Keratin Protein Treatment', category: 'Hair', minPrice: 2599, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png' },
+  { id: 'hair-smoothening', name: 'Smoothening / Rebonding', category: 'Hair', minPrice: 2499, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png' },
+  { id: 'hair-color-root', name: 'Hair Color (Root Touch-Up)', category: 'Hair', minPrice: 699, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png' },
+  { id: 'hair-color-global', name: 'Hair Color (Global L\'Oréal)', category: 'Hair', minPrice: 1200, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png' },
+  { id: 'hair-balayage', name: 'Highlights / Balayage', category: 'Hair', minPrice: 1799, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png' },
+  { id: 'hair-fall-therapy', name: 'Anti-Hairfall Therapy Pack', category: 'Hair', minPrice: 899, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png' },
 
   // Skin & Facials
-  { id: 'facial-glow', name: 'Signature Radiance Glow Facial', category: 'Skin & Facials', minPrice: 899 },
-  { id: 'facial-korean', name: 'Korean Glass Skin Hydration Facial', category: 'Skin & Facials', minPrice: 1499 },
-  { id: 'facial-cleanup', name: 'Deep Pore Fruit / Herbal Cleanup', category: 'Skin & Facials', minPrice: 399 },
-  { id: 'skin-detan', name: 'Herbal De-Tan Pack & Brightening', category: 'Skin & Facials', minPrice: 499 },
-  { id: 'skin-polishing', name: 'Full Body Polishing & Scrub', category: 'Skin & Facials', minPrice: 799 },
-  { id: 'skin-massage', name: 'Full Body Relaxing Therapy', category: 'Skin & Facials', minPrice: 699 },
+  { id: 'facial-glow', name: 'Signature Radiance Glow Facial', category: 'Skin & Facials', minPrice: 899, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175149/Skin_service_nrbzmt.png' },
+  { id: 'facial-korean', name: 'Korean Glass Skin Hydration Facial', category: 'Skin & Facials', minPrice: 1499, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175149/Skin_service_nrbzmt.png' },
+  { id: 'facial-cleanup', name: 'Deep Pore Fruit / Herbal Cleanup', category: 'Skin & Facials', minPrice: 399, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175149/Skin_service_nrbzmt.png' },
+  { id: 'skin-detan', name: 'Herbal De-Tan Pack & Brightening', category: 'Skin & Facials', minPrice: 499, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175149/Skin_service_nrbzmt.png' },
+  { id: 'skin-polishing', name: 'Full Body Polishing & Scrub', category: 'Skin & Facials', minPrice: 799, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175149/Skin_service_nrbzmt.png' },
+  { id: 'skin-massage', name: 'Full Body Relaxing Therapy', category: 'Skin & Facials', minPrice: 699, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175149/Skin_service_nrbzmt.png' },
 
   // Waxing & Threading
-  { id: 'wax-full-body', name: 'Full Body Rica Waxing', category: 'Waxing & Threading', minPrice: 799 },
-  { id: 'wax-arms-legs', name: 'Rica Waxing (Full Arms & Legs)', category: 'Waxing & Threading', minPrice: 499 },
-  { id: 'wax-bikini', name: 'Brazilian Bikini Wax', category: 'Waxing & Threading', minPrice: 499 },
-  { id: 'wax-chocolate', name: 'Sugar / Chocolate Waxing', category: 'Waxing & Threading', minPrice: 199 },
-  { id: 'threading-face', name: 'Full Face Threading & Eyebrows', category: 'Waxing & Threading', minPrice: 139 },
-  { id: 'threading-eyebrow', name: 'Eyebrow & Upper Lip Threading', category: 'Waxing & Threading', minPrice: 49 },
+  { id: 'wax-full-body', name: 'Full Body Rica Waxing', category: 'Waxing & Threading', minPrice: 799, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175149/Skin_service_nrbzmt.png' },
+  { id: 'wax-arms-legs', name: 'Rica Waxing (Full Arms & Legs)', category: 'Waxing & Threading', minPrice: 499, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175149/Skin_service_nrbzmt.png' },
+  { id: 'wax-bikini', name: 'Brazilian Bikini Wax', category: 'Waxing & Threading', minPrice: 499, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175149/Skin_service_nrbzmt.png' },
+  { id: 'wax-chocolate', name: 'Sugar / Chocolate Waxing', category: 'Waxing & Threading', minPrice: 199, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175149/Skin_service_nrbzmt.png' },
+  { id: 'threading-face', name: 'Full Face Threading & Eyebrows', category: 'Waxing & Threading', minPrice: 139, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175122/Eyebrowm_service_z2fmuv.png' },
+  { id: 'threading-eyebrow', name: 'Eyebrow & Upper Lip Threading', category: 'Waxing & Threading', minPrice: 49, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175122/Eyebrowm_service_z2fmuv.png' },
 
   // Nails & Lashes
-  { id: 'mani-pedi', name: 'Deluxe Manicure + Pedicure Combo', category: 'Nails & Lashes', minPrice: 699 },
-  { id: 'nail-acrylic', name: 'Acrylic Nail Extensions', category: 'Nails & Lashes', minPrice: 299 },
-  { id: 'nail-gel', name: 'Gel / Shellac Nail Polish', category: 'Nails & Lashes', minPrice: 249 },
-  { id: 'nail-polygel', name: 'PolyGel Nail Architecture', category: 'Nails & Lashes', minPrice: 349 },
-  { id: 'nail-art', name: 'Nail Art & French Tips', category: 'Nails & Lashes', minPrice: 99 },
-  { id: 'lash-extensions', name: 'Classic / Hybrid Lash Extensions', category: 'Nails & Lashes', minPrice: 799 },
-  { id: 'lash-lift', name: 'Lash Lift & Keratin Tint', category: 'Nails & Lashes', minPrice: 399 },
+  { id: 'mani-pedi', name: 'Deluxe Manicure + Pedicure Combo', category: 'Nails & Lashes', minPrice: 699, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175098/Nail_Service_akqioe.png' },
+  { id: 'nail-acrylic', name: 'Acrylic Nail Extensions', category: 'Nails & Lashes', minPrice: 299, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175098/Nail_Service_akqioe.png' },
+  { id: 'nail-gel', name: 'Gel / Shellac Nail Polish', category: 'Nails & Lashes', minPrice: 249, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175098/Nail_Service_akqioe.png' },
+  { id: 'nail-polygel', name: 'PolyGel Nail Architecture', category: 'Nails & Lashes', minPrice: 349, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175098/Nail_Service_akqioe.png' },
+  { id: 'nail-art', name: 'Nail Art & French Tips', category: 'Nails & Lashes', minPrice: 99, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175098/Nail_Service_akqioe.png' },
+  { id: 'lash-extensions', name: 'Classic / Hybrid Lash Extensions', category: 'Nails & Lashes', minPrice: 799, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175122/Eyebrowm_service_z2fmuv.png' },
+  { id: 'lash-lift', name: 'Lash Lift & Keratin Tint', category: 'Nails & Lashes', minPrice: 399, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175122/Eyebrowm_service_z2fmuv.png' },
 
   // Bridal & Festive
-  { id: 'festive-karwa', name: 'Karwa Chauth Solah Shringar Package', category: 'Bridal & Festive', minPrice: 999 },
-  { id: 'bridal-hd', name: 'HD Bridal Makeup & Saree Draping', category: 'Bridal & Festive', minPrice: 4999 },
-  { id: 'bridal-airbrush', name: 'Airbrush Luxury Bridal Package', category: 'Bridal & Festive', minPrice: 8999 },
-  { id: 'party-makeup', name: 'Party / Engagement / Sangeet Makeup', category: 'Bridal & Festive', minPrice: 1999 },
-  { id: 'pre-bridal', name: 'Custom Pre-Bridal Skin & Hair Glow', category: 'Bridal & Festive', minPrice: 3999 },
+  { id: 'festive-karwa', name: 'Karwa Chauth Solah Shringar Package', category: 'Bridal & Festive', minPrice: 999, image: '/images/karwa_chauth_hero.jpg' },
+  { id: 'bridal-hd', name: 'HD Bridal Makeup & Saree Draping', category: 'Bridal & Festive', minPrice: 4999, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175077/makeup_service_poxkc9.png' },
+  { id: 'bridal-airbrush', name: 'Airbrush Luxury Bridal Package', category: 'Bridal & Festive', minPrice: 8999, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175077/makeup_service_poxkc9.png' },
+  { id: 'party-makeup', name: 'Party / Engagement / Sangeet Makeup', category: 'Bridal & Festive', minPrice: 1999, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175077/makeup_service_poxkc9.png' },
+  { id: 'pre-bridal', name: 'Custom Pre-Bridal Skin & Hair Glow', category: 'Bridal & Festive', minPrice: 3999, image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175077/makeup_service_poxkc9.png' },
 ]
 
 const SERVICE_CATEGORIES = [
@@ -104,16 +105,52 @@ interface CommonAddon {
   label: string
   value: string
   price: number
+  image: string
 }
 
 const COMMON_ADDONS: CommonAddon[] = [
-  { label: 'Eyebrow Threading (+₹30)', value: 'Eyebrow Threading', price: 30 },
-  { label: 'Upper Lip Threading (+₹30)', value: 'Upper Lip Threading', price: 30 },
-  { label: 'Full Face Threading (+₹139)', value: 'Full Face Threading', price: 139 },
-  { label: 'Quick De-tan Pack (+₹199)', value: 'Quick De-tan', price: 199 },
-  { label: 'Scalp Massage & Serum Ampoule (+₹299)', value: 'Scalp Ampoule', price: 299 },
-  { label: 'Gel French Tip Add-on (+₹149)', value: 'French Tip', price: 149 },
-  { label: 'Nail Art / Chrome Glaze (+₹99)', value: 'Chrome Glaze', price: 99 },
+  {
+    label: 'Eyebrow Threading',
+    value: 'Eyebrow Threading',
+    price: 30,
+    image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175122/Eyebrowm_service_z2fmuv.png',
+  },
+  {
+    label: 'Upper Lip Threading',
+    value: 'Upper Lip Threading',
+    price: 30,
+    image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175122/Eyebrowm_service_z2fmuv.png',
+  },
+  {
+    label: 'Full Face Threading',
+    value: 'Full Face Threading',
+    price: 139,
+    image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175122/Eyebrowm_service_z2fmuv.png',
+  },
+  {
+    label: 'Quick De-tan Pack',
+    value: 'Quick De-tan',
+    price: 199,
+    image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175149/Skin_service_nrbzmt.png',
+  },
+  {
+    label: 'Scalp Massage & Ampoule',
+    value: 'Scalp Ampoule',
+    price: 299,
+    image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175128/Hair_service_cover_dxozc1.png',
+  },
+  {
+    label: 'Gel French Tip Add-on',
+    value: 'French Tip',
+    price: 149,
+    image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175098/Nail_Service_akqioe.png',
+  },
+  {
+    label: 'Nail Art / Chrome Glaze',
+    value: 'Chrome Glaze',
+    price: 99,
+    image: 'https://res.cloudinary.com/dzh0mxzbg/image/upload/v1777175098/Nail_Service_akqioe.png',
+  },
 ]
 
 const DAY_OPTIONS = [
@@ -571,8 +608,8 @@ export default function BookPage() {
                   ))}
                 </div>
 
-                {/* Clickable Multi-Select Service Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-72 overflow-y-auto p-1 border border-stone-200 rounded-2xl bg-stone-50/50">
+                {/* Clickable Multi-Select Service Grid with WYSIWYG Thumbnails */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-80 overflow-y-auto p-1.5 border border-stone-200 rounded-2xl bg-stone-50/50">
                   {displayedCatalog.map(item => {
                     const isSelected = form.selected_services.includes(item.name)
                     return (
@@ -580,26 +617,34 @@ export default function BookPage() {
                         type="button"
                         key={item.id}
                         onClick={() => toggleService(item.name)}
-                        className={`text-left p-3 rounded-xl border transition-all flex items-center justify-between ${
+                        className={`text-left p-2.5 rounded-2xl border transition-all flex items-center gap-3 ${
                           isSelected
-                            ? 'bg-white border-[#8B3A52] ring-1 ring-[#8B3A52] shadow-sm'
+                            ? 'bg-white border-[#8B3A52] ring-2 ring-[#8B3A52]/20 shadow-sm'
                             : 'bg-white border-stone-200 hover:border-stone-300'
                         }`}
                       >
-                        <div className="pr-2">
-                          <div className={`text-xs font-semibold ${isSelected ? 'text-[#8B3A52]' : 'text-stone-800'}`}>
+                        <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 bg-stone-100 border border-stone-100">
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="w-full h-full object-cover object-center"
+                            loading="lazy"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0 pr-1">
+                          <div className={`text-xs font-semibold leading-snug truncate ${isSelected ? 'text-[#8B3A52]' : 'text-stone-900'}`}>
                             {item.name}
                           </div>
-                          <span className="text-[10px] text-stone-500">
+                          <div className="text-[11px] font-bold text-stone-600 mt-0.5">
                             from ₹{item.minPrice.toLocaleString('en-IN')}
-                          </span>
+                          </div>
                         </div>
-                        <span className={`w-5 h-5 rounded-md flex items-center justify-center shrink-0 text-xs font-bold border transition-colors ${
+                        <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold shrink-0 transition-colors ${
                           isSelected
-                            ? 'bg-[#8B3A52] border-[#8B3A52] text-white'
-                            : 'border-stone-300 text-transparent bg-stone-50'
+                            ? 'bg-[#8B3A52] text-white'
+                            : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
                         }`}>
-                          ✓
+                          {isSelected ? '✓ Added' : 'Select'}
                         </span>
                       </button>
                     )
@@ -623,26 +668,60 @@ export default function BookPage() {
                   </p>
                 </div>
 
-                {/* Quick Add-ons */}
-                <div className="mt-4">
-                  <span className="block text-[11px] font-semibold text-stone-500 uppercase tracking-wider mb-2">
-                    Optional Quick Add-ons:
-                  </span>
-                  <div className="flex flex-wrap gap-2">
+                {/* Quick Add-ons as Small WYSIWYG Image Cards */}
+                <div className="mt-6">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="block text-xs font-bold text-stone-800 uppercase tracking-wider">
+                      Popular Quick Add-ons (Tap to Include)
+                    </span>
+                    <span className="text-[11px] text-stone-500 font-medium">
+                      Zero extra travel fee
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                     {COMMON_ADDONS.map(addon => {
-                      const checked = form.addons.includes(addon.value)
+                      const isSelected = form.addons.includes(addon.value)
                       return (
                         <button
                           type="button"
                           key={addon.value}
                           onClick={() => toggleAddon(addon.value)}
-                          className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
-                            checked
-                              ? 'bg-[#8B3A52] text-white border-[#8B3A52]'
-                              : 'bg-stone-50 text-stone-700 border-stone-200 hover:border-stone-300'
+                          className={`group text-left p-2.5 rounded-2xl border transition-all flex flex-col justify-between overflow-hidden ${
+                            isSelected
+                              ? 'bg-[#FDF2F5] border-[#8B3A52] ring-2 ring-[#8B3A52]/20 shadow-md'
+                              : 'bg-white border-stone-200 hover:border-stone-300 hover:shadow-xs'
                           }`}
                         >
-                          {checked ? '✓ ' : '+ '} {addon.label}
+                          <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden bg-stone-100 mb-2">
+                            <img
+                              src={addon.image}
+                              alt={addon.label}
+                              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                              loading="lazy"
+                            />
+                            {isSelected && (
+                              <div className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-[#8B3A52] text-white flex items-center justify-center text-[10px] font-bold shadow-md">
+                                ✓
+                              </div>
+                            )}
+                          </div>
+                          <div>
+                            <div className="font-semibold text-xs text-stone-900 leading-snug line-clamp-1 mb-1">
+                              {addon.label}
+                            </div>
+                            <div className="flex items-center justify-between mt-1">
+                              <span className="text-xs font-bold text-[#8B3A52]">
+                                +₹{addon.price}
+                              </span>
+                              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full transition-colors ${
+                                isSelected
+                                  ? 'bg-[#8B3A52] text-white'
+                                  : 'bg-stone-100 text-stone-600 group-hover:bg-stone-200'
+                              }`}>
+                                {isSelected ? 'Added' : 'Add'}
+                              </span>
+                            </div>
+                          </div>
                         </button>
                       )
                     })}
