@@ -94,7 +94,7 @@ export default function CoursePageTemplate({ course }: { course: CourseData }) {
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </Link>
                 <a
-                  href={`https://wa.me/919129577514?text=Namaste%20DoorStep%20Diva%20Academy!%20I%20would%20like%20to%20attend%20a%20Free%201-Day%20Trial%20Demo%20Class%20for%20the%20${encodeURIComponent(course.title)}%20course.%20Please%20share%20the%20next%20batch%20timings.`}
+                  href={`https://wa.me/919129577514?text=Namaste%20DoorStep%20Diva%20Academy!%20I%20would%20like%20to%20attend%20a%20Free%201-Day%20Trial%20Demo%20Class%20for%20the%20${encodeURIComponent(course.title)}%20course.%20Please%20connect%20me%20with%20an%20admissions%20counselor.`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-6 py-3.5 rounded-full text-white transition-all duration-200 hover:scale-[1.03] shadow-md"

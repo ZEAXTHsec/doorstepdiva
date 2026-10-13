@@ -61,7 +61,7 @@ function AcademyApplyFormContent() {
     student_phone: '',
     student_email: '',
     city: 'Lucknow',
-    batch_preference: 'Weekday Morning (10:00 AM – 01:00 PM)',
+    batch_preference: 'Coordinated by Academic Counselor',
     experience_level: 'Complete Beginner (Starting Fresh)',
     career_goal: 'Freelance Bridal Makeup & Hair Artist',
     demo_class_requested: true,
@@ -405,50 +405,36 @@ function AcademyApplyFormContent() {
                 </div>
               </div>
 
-              {/* SECTION 2: BATCH TIMING */}
-              <div>
-                <h3 className="font-playfair text-lg font-semibold text-stone mb-1">
-                  2. Preferred Batch Timing
-                </h3>
-                <p className="text-[11px] text-stone/60 mb-3">
-                  All batches held in our Gomti Nagar, Lucknow studio with live practical models.
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {[
-                    'Weekday Morning (10:00 AM – 01:00 PM)',
-                    'Weekend Intensive (11:00 AM – 04:00 PM)',
-                    'Next Upcoming Monthly Intake',
-                  ].map((batch) => {
-                    const isSelected = formData.batch_preference === batch
-                    return (
-                      <label
-                        key={batch}
-                        className="cursor-pointer p-3.5 rounded-xl border text-xs font-medium flex items-center gap-2.5 transition-all"
-                        style={{
-                          background: isSelected ? '#FAF4F5' : '#FFFFFF',
-                          borderColor: isSelected ? '#8B3A52' : 'rgba(139,58,82,0.15)',
-                          color: isSelected ? '#8B3A52' : '#3D2B2B',
-                        }}
-                      >
-                        <input
-                          type="radio"
-                          name="batch_preference"
-                          value={batch}
-                          checked={isSelected}
-                          onChange={handleChange}
-                          className="accent-[#8B3A52]"
-                        />
-                        <span>{batch}</span>
-                      </label>
-                    )
-                  })}
+              {/* COUNSELOR SCHEDULE COORDINATION ADVISORY */}
+              <div
+                className="p-5 rounded-2xl border flex items-start gap-3.5"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(250, 244, 245, 0.8), rgba(255, 255, 255, 0.95))',
+                  borderColor: 'rgba(139, 58, 82, 0.18)',
+                }}
+              >
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
+                  style={{ background: 'rgba(139, 58, 82, 0.1)', color: '#8B3A52' }}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="font-playfair text-base font-bold text-stone">
+                    Personalized Schedule &amp; Intake Coordination
+                  </h4>
+                  <p className="font-poppins text-xs text-stone/75 leading-relaxed mt-1">
+                    To maintain strictly small student groups and hands-on practical table mentoring, we do not require self-enrollment batch slots online. Our senior admissions counselor will personally call you to understand your routine, share upcoming start dates, and schedule your free trial session.
+                  </p>
                 </div>
               </div>
 
-              {/* SECTION 3: APPLICANT DETAILS */}
+              {/* SECTION 2: APPLICANT DETAILS */}
               <div>
                 <h3 className="font-playfair text-lg font-semibold text-stone mb-1">
-                  3. Applicant Information
+                  2. Applicant Information
                 </h3>
                 <p className="text-[11px] text-stone/60 mb-4">
                   Please ensure your WhatsApp number and email are correct to receive your official Application ID.
@@ -521,7 +507,7 @@ function AcademyApplyFormContent() {
                 </div>
               </div>
 
-              {/* SECTION 4: BACKGROUND & GOALS */}
+              {/* SECTION 3: BACKGROUND & GOALS */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-stone mb-1.5">
@@ -560,7 +546,7 @@ function AcademyApplyFormContent() {
                 </div>
               </div>
 
-              {/* SECTION 5: TRIAL DEMO OPT-IN */}
+              {/* SECTION 4: TRIAL DEMO OPT-IN */}
               <div
                 className="p-4 rounded-2xl border flex items-start gap-3"
                 style={{
@@ -586,7 +572,7 @@ function AcademyApplyFormContent() {
                 </label>
               </div>
 
-              {/* SECTION 6: NOTES */}
+              {/* SECTION 5: NOTES */}
               <div>
                 <label className="block text-xs font-semibold text-stone mb-1.5">
                   Questions or Special Inquiries (Optional)

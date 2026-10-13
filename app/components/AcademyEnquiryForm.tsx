@@ -124,7 +124,7 @@ export default function AcademyEnquiryForm({ onClose, compact = false }: Props) 
 
       {!compact && (
         <textarea name="message" rows={3}
-          placeholder="Any questions? (batch timing, fees, location…)"
+          placeholder="Any questions? (fees, syllabus, location, counselor consultation…)"
           value={form.message} onChange={handleChange}
           className={`${fieldClass} resize-none`} style={fieldStyle}
         />
@@ -145,7 +145,7 @@ export default function AcademyEnquiryForm({ onClose, compact = false }: Props) 
       </button>
 
       <p className="font-poppins text-[10px] text-center" style={{ color: '#9A7A7A' }}>
-        No spam. Used only to guide your enrolment.
+        No generic online batches. An admissions counselor will personally call you to coordinate timings and free demo sessions.
       </p>
     </form>
   )

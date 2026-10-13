@@ -116,7 +116,7 @@ export default function AcademyPage() {
                   Explore Courses
                 </a>
                 <a
-                  href="https://wa.me/919129577514?text=Namaste%20DoorStep%20Diva%20Academy!%20Please%20share%20the%20complete%20Course%20Syllabus%2C%20fee%20structure%2C%20and%20upcoming%20batch%20dates."
+                  href="https://wa.me/919129577514?text=Namaste%20DoorStep%20Diva%20Academy!%20Please%20share%20the%20complete%20Course%20Syllabus%2C%20fee%20structure%2C%20and%20counselor%20consultation%20details."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-6 py-3.5 rounded-full text-white transition-all duration-200 hover:scale-[1.03] shadow-md"
@@ -247,7 +247,7 @@ export default function AcademyPage() {
               {/* Action Buttons */}
               <div className="flex flex-wrap items-center gap-3.5">
                 <a
-                  href="https://wa.me/919129577514?text=Namaste%20DoorStep%20Diva%20Academy!%20I%20would%20like%20to%20register%20for%20a%20Free%201-Day%20Trial%20Demo%20Class.%20Please%20share%20the%20next%20available%20batch%20date%20and%20timings."
+                  href="https://wa.me/919129577514?text=Namaste%20DoorStep%20Diva%20Academy!%20I%20would%20like%20to%20register%20for%20a%20Free%201-Day%20Trial%20Demo%20Class.%20Please%20connect%20me%20with%20an%20admissions%20counselor."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 font-poppins font-semibold text-sm px-6 py-3.5 rounded-full text-white transition-all duration-200 hover:scale-[1.03] shadow-md"
@@ -576,12 +576,12 @@ export default function AcademyPage() {
                 <span style={{ color: '#8B3A52' }}>Your Journey?</span>
               </h2>
               <p className="font-poppins text-base leading-relaxed mb-6" style={{ color: '#7A5C5C' }}>
-                Fill in your details and our counsellors will reach out with course fees, batch timings, and everything you need to get started.
+                Fill in your details and our counsellors will reach out with course fees, syllabus details, and everything you need to get started.
               </p>
               <ul className="flex flex-col gap-3">
                 {[
                   'Free course consultation call',
-                  'Flexible morning & weekend batches',
+                  'Personalized schedule with counselor',
                   'Industry certification on completion',
                   'No prior experience required',
                 ].map(point => (

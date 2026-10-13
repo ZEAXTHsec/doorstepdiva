@@ -5,42 +5,98 @@ import Image from 'next/image'
 export const metadata: Metadata = {
   title: 'Karwa Chauth At-Home Salon Packages — Delhi NCR & Lucknow | DoorStep Diva',
   description:
-    'Look stunning this Karwa Chauth without the stress of 3-hour parlor queues while fasting. Certified female artists delivering festive glow facials, waxing, mani-pedi & hair styling to your doorstep across Delhi NCR & Lucknow. Pre-book your slot now!',
+    'Look and feel your best this Karwa Chauth without 3-hour parlor queues. Exclusive at-home beauty rituals from ₹999: Chandni Glow, Silky Shine & Chaand Sa Noor. Certified female artists delivering single-use sealed kits across Delhi NCR & Lucknow.',
   keywords:
-    'karwa chauth salon at home, karwa chauth beauty packages delhi, home salon lucknow karwa chauth, at home parlour karwa chauth, karwa chauth facial offers, doorstep mehendi hair spa',
+    'karwa chauth salon at home, karwa chauth beauty packages delhi, home salon lucknow karwa chauth, at home parlour karwa chauth, karwa chauth facial offers, doorstep mehendi hair spa, chandni glow ritual, chaand sa noor',
   alternates: {
     canonical: 'https://mydoorstepdiva.com/karwa-chauth',
   },
   openGraph: {
     title: 'Karwa Chauth At-Home Salon Packages — Delhi NCR & Lucknow | DoorStep Diva',
     description:
-      'Skip the parlor rush while fasting. Certified beauty artists bringing festive glow facials, waxing, manicures & styling to your home in Delhi NCR & Lucknow.',
+      'Skip parlor queues while fasting. Exclusive festive beauty packages from ₹999 delivered to your doorstep in Delhi NCR and Lucknow.',
     url: 'https://mydoorstepdiva.com/karwa-chauth',
-    images: [{ url: 'https://mydoorstepdiva.com/images/karwa-chauth.jpg', width: 1024, height: 1024, alt: 'DoorStep Diva Karwa Chauth At-Home Salon Service' }],
+    images: [{ url: 'https://mydoorstepdiva.com/images/karwa_chauth_official.jpg', width: 1024, height: 1024, alt: 'DoorStep Diva Karwa Chauth At-Home Salon Service' }],
     type: 'website',
   },
 }
 
+interface FestivePackage {
+  id: string
+  name: string
+  badge: string
+  price: number
+  popular?: boolean
+  description: string
+  services: string[]
+}
+
+const FESTIVE_PACKAGES: FestivePackage[] = [
+  {
+    id: 'chandni-glow',
+    name: 'Chandni Glow Ritual',
+    badge: 'Essential Festive Glow',
+    price: 999,
+    description: 'Fresh radiance and relaxation curated for effortless pre-fasting skincare preparation.',
+    services: [
+      'Fruit or suitable skin-type facial',
+      'Arm waxing',
+      'Face mask',
+      'Eyebrow & upper-lip threading',
+      'Relaxing head massage',
+    ],
+  },
+  {
+    id: 'silky-shine',
+    name: 'Silky Shine Ritual',
+    badge: 'Most Popular Choice',
+    price: 1299,
+    popular: true,
+    description: 'Complete nourishment featuring hair spa therapy, deep cleanup, and comprehensive waxing.',
+    services: [
+      'Express facial or cleanup',
+      'Nourishing hair spa',
+      'Arms & underarm waxing',
+      'Eyebrow & upper-lip threading',
+      'Face mask',
+    ],
+  },
+  {
+    id: 'chaand-sa-noor',
+    name: 'Chaand Sa Noor Experience',
+    badge: 'Signature Royal Transformation',
+    price: 1499,
+    description: 'Our premier luxury experience featuring O3+ bridal formulations, hair spa, and arm polishing.',
+    services: [
+      'O3+ or equivalent selected facial',
+      'Nourishing hair spa',
+      'Arms and underarm waxing',
+      'Hand & arm polishing',
+      'Relaxing head massage',
+    ],
+  },
+]
+
 const FAQ_ITEMS = [
   {
     q: 'Why should I book an at-home salon service for Karwa Chauth instead of visiting a parlor?',
-    a: 'On Karwa Chauth and Mehndi eve, neighborhood salons are notoriously overcrowded with 2-to-3 hour waiting queues. Traveling in heavy traffic and waiting in crowded rooms while observing a strict nirjala (waterless) fast causes extreme fatigue and dehydration. DoorStep Diva brings verified female estheticians directly to your home with 100% sealed single-use kits, so you can relax in air-conditioned comfort and get ready stress-free before the moonrise.',
+    a: 'On Karwa Chauth and Mehndi eve, neighborhood salons are notoriously overcrowded with 2-to-3 hour waiting queues. Traveling in heavy traffic and waiting in crowded rooms while observing a strict nirjala (waterless) fast causes extreme fatigue. DoorStep Diva brings verified female estheticians directly to your home with 100% sealed single-use kits, so you can relax in air-conditioned comfort and get ready stress-free before the moonrise.',
   },
   {
     q: 'Which areas in Delhi NCR and Lucknow are covered for Karwa Chauth doorstep services?',
-    a: 'In Delhi NCR, we service South Delhi, Central Delhi, West Delhi, Noida, Greater Noida, and Gurgaon. In Lucknow, we cover Gomti Nagar, Hazratganj, Aliganj, Indira Nagar, Mahanagar, Ashiyana, and surrounding areas. Due to immense festive demand, slots are strictly capped per locality.',
-  },
-  {
-    q: 'When are the Karwa Chauth package prices being revealed?',
-    a: 'Our special festival package rates are being unveiled exclusively to registered early-bird clients first. You can lock in priority artist dispatch and unlock the lowest VIP festive pricing right now with zero advance deposit by submitting the pre-booking form or chatting with our coordinator on WhatsApp.',
-  },
-  {
-    q: 'Should I book my beauty services on Karwa Chauth day or the day prior?',
-    a: 'We strongly recommend scheduling your waxing, deep facials, body polishing, and mani-pedi 1 to 2 days prior (on Mehndi eve). This ensures your skin barrier is fully rested, smooth, and radiant for the main day. On Karwa Chauth day itself, quick glow cleanups, blow-dry styling, and saree draping are most popular.',
+    a: 'In Delhi NCR, we service South Delhi, Central Delhi, West Delhi, Noida, Greater Noida, and Gurgaon. In Lucknow, we cover Gomti Nagar, Hazratganj, Aliganj, Indira Nagar, Mahanagar, Ashiyana, and surrounding areas. Due to immense festive demand, slots are capped per locality.',
   },
   {
     q: 'Are the products safe and hygienic?',
     a: 'Yes, 100%. Every single kit—including bedsheets, gowns, towels, and spatulas—is disposable and unsealed right in front of you. All skincare formulations are authentic branded mono-doses (O3+, Rica, L’Oréal, Cheryl’s).',
+  },
+  {
+    q: 'Should I book my beauty services on Karwa Chauth day or the day prior?',
+    a: 'We strongly recommend scheduling your waxing, deep facials, body polishing, and hair spa 1 to 2 days prior (on Mehndi eve). This ensures your skin barrier is fully rested, smooth, and radiant for the main day. On Karwa Chauth day itself, quick glow cleanups, blow-dry styling, and saree draping are most popular.',
+  },
+  {
+    q: 'Do I have to pay an advance deposit to lock my festive slot?',
+    a: 'No. You can reserve your preferred time window with zero advance payment. You settle securely via UPI or cash only after the beauty ritual is complete and you are delighted with your glow.',
   },
 ]
 
@@ -52,9 +108,9 @@ const KARWA_SCHEMA = {
       '@id': 'https://mydoorstepdiva.com/karwa-chauth#service',
       name: 'DoorStep Diva — Karwa Chauth At-Home Salon & Shringaar',
       url: 'https://mydoorstepdiva.com/karwa-chauth',
-      image: 'https://mydoorstepdiva.com/images/karwa-chauth.jpg',
+      image: 'https://mydoorstepdiva.com/images/karwa_chauth_official.jpg',
       telephone: '+919129577514',
-      priceRange: '₹₹',
+      priceRange: '₹999 - ₹1499',
       currenciesAccepted: 'INR',
       areaServed: [
         { '@type': 'City', name: 'Delhi' },
@@ -62,12 +118,12 @@ const KARWA_SCHEMA = {
         { '@type': 'City', name: 'Gurgaon' },
         { '@type': 'City', name: 'Lucknow' },
       ],
-      description: 'Exclusive Karwa Chauth at-home salon combos, festive facials, waxing, manicures, and styling delivered to your doorstep in Delhi NCR and Lucknow.',
+      description: 'Exclusive Karwa Chauth at-home salon packages from ₹999 delivered to your doorstep in Delhi NCR and Lucknow.',
     },
     {
       '@type': 'FAQPage',
       '@id': 'https://mydoorstepdiva.com/karwa-chauth#faq',
-      mainEntity: FAQ_ITEMS.map(f => ({
+      mainEntity: FAQ_ITEMS.map((f) => ({
         '@type': 'Question',
         name: f.q,
         acceptedAnswer: {
@@ -80,8 +136,6 @@ const KARWA_SCHEMA = {
 }
 
 const WA_PRIMARY = '919129577514'
-
-// ── Refined Professional SVG Icons ────────────────────────────
 
 function SparkleSvg({ className = 'w-3.5 h-3.5 text-[#8B3A52]' }: { className?: string }) {
   return (
@@ -99,34 +153,6 @@ function MoonSvg({ className = 'w-3.5 h-3.5' }: { className?: string }) {
   )
 }
 
-function ShieldCheckSvg() {
-  return (
-    <svg className="w-5 h-5 text-[#8B3A52] mx-auto mb-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-      <path d="M9 12l2 2 4-4" />
-    </svg>
-  )
-}
-
-function UserCheckSvg() {
-  return (
-    <svg className="w-5 h-5 text-[#8B3A52] mx-auto mb-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-      <circle cx="9" cy="7" r="4" />
-      <polyline points="16 11 18 13 22 9" />
-    </svg>
-  )
-}
-
-function CreditCardSvg() {
-  return (
-    <svg className="w-5 h-5 text-[#8B3A52] mx-auto mb-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="5" width="20" height="14" rx="2" />
-      <line x1="2" y1="10" x2="22" y2="10" />
-    </svg>
-  )
-}
-
 function CheckSvg() {
   return (
     <svg className="w-4 h-4 text-[#8B3A52] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -135,35 +161,17 @@ function CheckSvg() {
   )
 }
 
-function LockSvg() {
+function WhatsAppIcon({ size = 16 }: { size?: number }) {
   return (
-    <svg className="w-3 h-3 inline mr-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-    </svg>
-  )
-}
-
-function TableCheckSvg() {
-  return (
-    <svg className="w-4 h-4 text-emerald-700 shrink-0 inline mr-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
-  )
-}
-
-function TableCrossSvg() {
-  return (
-    <svg className="w-4 h-4 text-rose-600 shrink-0 inline mr-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="18" y1="6" x2="6" y2="18" />
-      <line x1="6" y1="6" x2="18" y2="18" />
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
     </svg>
   )
 }
 
 export default function KarwaChauthPage() {
-  const waPrebookText = encodeURIComponent(
-    'Hi DoorStep Diva! I want to pre-book my Karwa Chauth salon slot and unlock the festive combo prices. My city is [Delhi NCR / Lucknow]. Please share details!'
+  const waGeneralText = encodeURIComponent(
+    'Hi DoorStep Diva! I would like to reserve a Karwa Chauth at-home beauty package in [Delhi NCR / Lucknow]. Please share available timings.'
   )
 
   return (
@@ -178,7 +186,7 @@ export default function KarwaChauthPage() {
         {/* Festive Top Urgency Ribbon */}
         <div className="bg-gradient-to-r from-[#701E34] via-[#8B3A52] to-[#701E34] text-white py-2.5 px-4 text-center text-xs sm:text-sm font-medium tracking-wide shadow-sm flex items-center justify-center gap-2">
           <MoonSvg className="w-4 h-4 text-[#F3DBE2]" />
-          <span>Karwa Chauth Festival • Limited At-Home Slots in <strong>Delhi NCR & Lucknow</strong> • Pre-Book Now for Priority Early-Bird Access</span>
+          <span>Karwa Chauth Festival • Limited At-Home Slots in <strong>Delhi NCR & Lucknow</strong> • Pre-Book with Zero Advance</span>
         </div>
 
         {/* ── HERO SECTION ── */}
@@ -190,90 +198,87 @@ export default function KarwaChauthPage() {
               <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#8B3A52]/10 border border-[#8B3A52]/20 text-[#8B3A52] text-xs font-bold uppercase tracking-wider">
                   <SparkleSvg />
-                  <span>Solah Shringar At Your Doorstep</span>
+                  <span>Exclusive Beauty Services For Your Festive Glow</span>
                 </div>
 
                 <h1 className="font-playfair text-3xl sm:text-5xl lg:text-6xl text-stone-900 font-bold leading-tight">
-                  Don’t Stand in <span className="text-[#8B3A52] italic">3-Hour Parlor Queues</span> While Fasting.
+                  This Karwa Chauth, <span className="text-[#8B3A52] italic">Look &amp; Feel Your Best</span>
                 </h1>
 
                 <p className="text-stone-600 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                  Relax in the cool comfort of your home. Our background-verified female artists bring 
-                  <strong> 100% sealed single-use kits</strong>, premium festive glow facials, Rica waxing, hair spas, 
-                  and festive styling directly to you across <strong>Delhi NCR & Lucknow</strong>.
+                  Skip the exhausting 3-hour parlor waiting rooms while fasting. DoorStep Diva brings verified female estheticians directly to your living room with 
+                  <strong> sealed mono-dose kits</strong>, hospital-grade hygiene, and luxury formulations.
                 </p>
 
-                {/* Trust Badges Bar */}
-                <div className="grid grid-cols-3 gap-3 pt-2 max-w-lg mx-auto lg:mx-0">
-                  <div className="p-3.5 rounded-2xl bg-white border border-[#F0D5DD] text-center shadow-sm">
-                    <ShieldCheckSvg />
-                    <span className="text-xs font-semibold text-stone-800 block">100% Sealed</span>
-                    <span className="text-[10px] text-stone-500">Opened in front of you</span>
-                  </div>
-                  <div className="p-3.5 rounded-2xl bg-white border border-[#F0D5DD] text-center shadow-sm">
-                    <UserCheckSvg />
-                    <span className="text-xs font-semibold text-stone-800 block">Verified Experts</span>
-                    <span className="text-[10px] text-stone-500">Trained female artists</span>
-                  </div>
-                  <div className="p-3.5 rounded-2xl bg-white border border-[#F0D5DD] text-center shadow-sm">
-                    <CreditCardSvg />
-                    <span className="text-xs font-semibold text-stone-800 block">Pay After</span>
-                    <span className="text-[10px] text-stone-500">Zero advance needed</span>
-                  </div>
+                {/* 5 Official Poster Trust Points */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-2 max-w-xl mx-auto lg:mx-0">
+                  {[
+                    'Professional Experts',
+                    'At-Home Service',
+                    'Premium Products',
+                    'Safe & Hygienic',
+                    'Pay After Service',
+                  ].map((badge) => (
+                    <div
+                      key={badge}
+                      className="p-3 rounded-xl bg-white border border-[#F0D5DD] text-center shadow-sm flex items-center justify-center gap-2"
+                    >
+                      <span className="text-emerald-600 font-bold text-xs">✓</span>
+                      <span className="text-xs font-semibold text-stone-800">{badge}</span>
+                    </div>
+                  ))}
                 </div>
 
                 {/* Primary CTA Buttons */}
                 <div className="pt-4 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <a
-                    href="#prebook"
+                    href="#packages"
                     className="px-8 py-4 rounded-full bg-[#8B3A52] text-white font-semibold text-sm sm:text-base shadow-lg hover:bg-[#732F42] transition-all hover:scale-[1.02] text-center"
                   >
-                    Pre-Book Your Slot (Lock Early Bird) →
+                    View Official Packages (From ₹999) →
                   </a>
                   <a
-                    href={`https://wa.me/${WA_PRIMARY}?text=${waPrebookText}`}
+                    href={`https://wa.me/${WA_PRIMARY}?text=${waGeneralText}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-8 py-4 rounded-full bg-[#25D366] text-white font-semibold text-sm sm:text-base shadow-md hover:bg-[#1EBE5D] transition-all flex items-center justify-center gap-2"
                   >
-                    <span>Chat on WhatsApp</span>
+                    <WhatsAppIcon size={18} />
+                    <span>WhatsApp Booking Desk</span>
                   </a>
                 </div>
 
-                <p className="text-xs text-stone-500 italic">
-                  Note: Only 25 slots available per sector/locality to maintain premium luxury standards.
+                <p className="text-xs text-stone-500">
+                  Direct Coordinator: <strong>+91 9129577514</strong> • Express dispatch across Delhi NCR & Lucknow
                 </p>
               </div>
 
-              {/* Right Column: High Quality Festive Visual */}
+              {/* Right Column: Official Festive Creative Poster */}
               <div className="lg:col-span-5 relative">
-                <div className="relative mx-auto max-w-md rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                <div className="relative mx-auto max-w-md rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-stone-900 group">
                   <Image
-                    src="/images/karwa-chauth.jpg"
-                    alt="Doorstep Diva Karwa Chauth Festive Glow Salon at Home"
-                    width={600}
-                    height={600}
+                    src="/images/karwa_chauth_official.jpg"
+                    alt="DoorStep Diva Official Karwa Chauth Packages Poster"
+                    width={700}
+                    height={700}
                     priority
-                    className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
+                    className="w-full h-auto object-cover transform group-hover:scale-102 transition-transform duration-500"
                   />
-                  <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-6 text-white text-center">
-                    <span className="text-xs uppercase tracking-widest text-[#F2C2CF] font-bold block mb-1">
-                      Festive Season
+                  <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-5 text-white text-center">
+                    <span className="text-[11px] uppercase tracking-widest text-[#F2C2CF] font-bold block mb-0.5">
+                      Official Festive Campaign
                     </span>
-                    <p className="font-playfair text-xl sm:text-2xl font-bold">
-                      Glow for the Moonrise
-                    </p>
-                    <p className="text-xs text-white/80 mt-1">
-                      Complete Festive Shringaar at Home • Delhi NCR & Lucknow
+                    <p className="font-playfair text-lg font-bold">
+                      Glow for your Special Day
                     </p>
                   </div>
                 </div>
 
-                {/* Floating Discount Tag */}
-                <div className="absolute -top-4 -right-4 sm:-right-6 bg-gradient-to-br from-[#8B3A52] to-[#611F31] text-white p-4 rounded-2xl shadow-xl border border-white/40 text-center animate-bounce">
-                  <span className="text-[10px] uppercase font-bold block tracking-wider text-[#F9D7E1]">VIP Early Bird</span>
-                  <span className="text-xl font-extrabold block">Save 40%</span>
-                  <span className="text-[9px] text-white/80 block">On Pre-Booking</span>
+                {/* Floating Starting Price Tag */}
+                <div className="absolute -top-3 -right-3 sm:-right-5 bg-gradient-to-br from-[#8B3A52] to-[#611F31] text-white p-3.5 sm:p-4 rounded-2xl shadow-xl border border-white/40 text-center">
+                  <span className="text-[10px] uppercase font-bold block tracking-wider text-[#F9D7E1]">Packages Start</span>
+                  <span className="text-xl sm:text-2xl font-extrabold block">₹999</span>
+                  <span className="text-[9px] text-white/80 block">All Inclusive</span>
                 </div>
               </div>
 
@@ -281,224 +286,132 @@ export default function KarwaChauthPage() {
           </div>
         </section>
 
-        {/* ── THE 3 SIGNATURE FESTIVE COMBOS ── */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-y border-[#F3DFE5]">
+        {/* ── THE 3 OFFICIAL FESTIVE COMBOS ── */}
+        <section id="packages" className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-y border-[#F3DFE5]">
           <div className="max-w-6xl mx-auto">
             
             <div className="text-center max-w-2xl mx-auto mb-14">
               <span className="text-xs font-bold text-[#8B3A52] uppercase tracking-widest block mb-2">
-                Curated Karwa Chauth Packages
+                Official Festive Combos
               </span>
               <h2 className="font-playfair text-3xl sm:text-4xl font-bold text-stone-900 mb-3">
-                Choose Your Festive Glow Combo
+                Choose Your Karwa Chauth Package
               </h2>
               <p className="text-stone-600 text-sm">
-                Each combo is carried out using fresh, single-use sealed kits and authentic salon-grade products. 
-                <strong> Official festival prices are revealing soon</strong> — pre-book your slot now to lock in maximum savings!
+                Single-use sealed vanity kits opened in your presence. Authentic premium formulations with zero advance fee.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              
-              {/* COMBO 1 */}
-              <div className="bg-[#FCF8F9] rounded-3xl p-6 sm:p-8 border border-[#EACCD6] flex flex-col justify-between hover:shadow-xl transition-all duration-300 relative group">
-                <div>
-                  <div className="inline-block px-3 py-1 rounded-full bg-[#8B3A52]/10 text-[#8B3A52] text-xs font-bold uppercase tracking-wider mb-4">
-                    Combo 1 • Essential Prep
-                  </div>
-                  <h3 className="font-playfair text-2xl font-bold text-stone-900 mb-2">
-                    Glow & Shringaar
-                  </h3>
-                  <p className="text-xs text-stone-600 mb-6">
-                    Perfect quick turnaround package for instant brightness & silky-smooth skin.
-                  </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+              {FESTIVE_PACKAGES.map((pkg) => {
+                const waText = encodeURIComponent(
+                  `Namaste DoorStep Diva! I would like to book the *${pkg.name}* (₹${pkg.price.toLocaleString('en-IN')}) for Karwa Chauth. My city is [Delhi NCR / Lucknow]. Please confirm available arrival windows.`
+                )
 
-                  <ul className="space-y-3 text-sm text-stone-700 mb-8">
-                    <li className="flex items-center gap-2.5">
-                      <CheckSvg />
-                      <span>Herbal De-Tan & Deep Pore Cleanup</span>
-                    </li>
-                    <li className="flex items-center gap-2.5">
-                      <CheckSvg />
-                      <span>Full Arms + Half Legs Waxing</span>
-                    </li>
-                    <li className="flex items-center gap-2.5">
-                      <CheckSvg />
-                      <span>Eyebrow + Upper Lip Micro-Threading</span>
-                    </li>
-                    <li className="flex items-center gap-2.5">
-                      <CheckSvg />
-                      <span>Instant Glow Vitamin-C Face Mask</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="border-t border-[#EACCD6] pt-6 text-center">
-                  <div className="mb-4">
-                    <span className="text-xs text-stone-500 uppercase tracking-wider block">Festive Package Price</span>
-                    <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-stone-900 text-white font-extrabold text-sm mt-1">
-                      <LockSvg /> Revealing Soon
-                    </span>
-                    <span className="text-[11px] text-[#8B3A52] font-semibold block mt-1">
-                      Pre-book to lock 40% Festive Discount
-                    </span>
-                  </div>
-                  <a
-                    href="#prebook"
-                    className="w-full block py-3 px-6 rounded-full bg-[#8B3A52] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#732F42] transition-colors"
+                return (
+                  <div
+                    key={pkg.id}
+                    className={`rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 relative ${
+                      pkg.popular
+                        ? 'bg-white border-2 border-[#8B3A52] shadow-2xl md:-translate-y-2'
+                        : 'bg-[#FCF8F9] border border-[#EACCD6] hover:shadow-xl'
+                    }`}
                   >
-                    Reserve Combo 1 Slot →
-                  </a>
-                </div>
-              </div>
+                    {pkg.popular && (
+                      <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#8B3A52] text-white text-[10px] font-extrabold uppercase tracking-widest px-4 py-1 rounded-full shadow-md flex items-center gap-1.5 whitespace-nowrap">
+                        <SparkleSvg className="w-3 h-3 text-white" />
+                        <span>Most Popular For Karwa Chauth</span>
+                      </div>
+                    )}
 
-              {/* COMBO 2 (FEATURED / POPULAR) */}
-              <div className="bg-white rounded-3xl p-6 sm:p-8 border-2 border-[#8B3A52] shadow-xl flex flex-col justify-between relative group transform md:-translate-y-2">
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#8B3A52] text-white text-[10px] font-extrabold uppercase tracking-widest px-4 py-1 rounded-full shadow-md flex items-center gap-1.5">
-                  <SparkleSvg className="w-3 h-3 text-white" />
-                  <span>Most Popular For Karwa Chauth</span>
-                </div>
+                    <div>
+                      {/* Package Badge */}
+                      <div className="inline-block px-3 py-1 rounded-full bg-[#8B3A52]/10 text-[#8B3A52] text-xs font-bold uppercase tracking-wider mb-4 mt-1">
+                        {pkg.badge}
+                      </div>
 
-                <div>
-                  <div className="inline-block px-3 py-1 rounded-full bg-[#8B3A52]/10 text-[#8B3A52] text-xs font-bold uppercase tracking-wider mb-4 mt-2">
-                    Combo 2 • Festive Radiance
+                      <h3 className="font-playfair text-2xl font-bold text-stone-900 mb-1">
+                        {pkg.name}
+                      </h3>
+
+                      <p className="text-xs text-stone-600 mb-4 leading-relaxed">
+                        {pkg.description}
+                      </p>
+
+                      {/* Price Banner */}
+                      <div className="py-3 px-4 rounded-2xl bg-[#FAF2F5] border border-[#F3DBE2] mb-6 flex items-baseline justify-between">
+                        <span className="text-xs uppercase tracking-wider font-semibold text-stone-500">
+                          Package Price
+                        </span>
+                        <div className="text-right">
+                          <span className="font-playfair text-3xl font-extrabold text-[#8B3A52]">
+                            ₹{pkg.price.toLocaleString('en-IN')}
+                          </span>
+                          <span className="block text-[10px] text-stone-500">All inclusive · Zero advance</span>
+                        </div>
+                      </div>
+
+                      {/* Service Inclusions */}
+                      <ul className="space-y-3 text-sm text-stone-700 mb-8">
+                        {pkg.services.map((item) => (
+                          <li key={item} className="flex items-start gap-2.5">
+                            <CheckSvg />
+                            <span className="font-medium text-stone-800 text-xs sm:text-sm">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="border-t border-stone-200/80 pt-6 space-y-3">
+                      {/* 1-Tap WhatsApp Booking */}
+                      <a
+                        href={`https://wa.me/${WA_PRIMARY}?text=${waText}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full py-3.5 px-5 rounded-full bg-[#25D366] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#1EBE5D] transition-colors flex items-center justify-center gap-2 shadow-sm"
+                      >
+                        <WhatsAppIcon size={16} />
+                        <span>Book on WhatsApp (₹{pkg.price})</span>
+                      </a>
+
+                      {/* Online Reservation */}
+                      <Link
+                        href={`/book?service=${encodeURIComponent(`Karwa Chauth: ${pkg.name} (₹${pkg.price})`)}`}
+                        className="w-full block py-3 px-5 rounded-full bg-[#8B3A52] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#732F42] transition-colors text-center"
+                      >
+                        Reserve Online (Pay After) →
+                      </Link>
+                    </div>
                   </div>
-                  <h3 className="font-playfair text-2xl font-bold text-stone-900 mb-2">
-                    Chandni Radiance Luxe
-                  </h3>
-                  <p className="text-xs text-stone-600 mb-6">
-                    Our signature bestseller for glass skin, relaxed scalp, and salon-smooth hands and feet.
-                  </p>
-
-                  <ul className="space-y-3 text-sm text-stone-700 mb-8">
-                    <li className="flex items-center gap-2.5">
-                      <CheckSvg />
-                      <span><strong>Korean Glass Glow / O3+ Bridal Facial</strong></span>
-                    </li>
-                    <li className="flex items-center gap-2.5">
-                      <CheckSvg />
-                      <span>Rica Sensitive Waxing (Full Arms + Legs)</span>
-                    </li>
-                    <li className="flex items-center gap-2.5">
-                      <CheckSvg />
-                      <span>Rose Petal Deluxe Manicure + Pedicure</span>
-                    </li>
-                    <li className="flex items-center gap-2.5">
-                      <CheckSvg />
-                      <span>L’Oréal Nourishing Hair Spa with Scalp Massage</span>
-                    </li>
-                    <li className="flex items-center gap-2.5">
-                      <CheckSvg />
-                      <span>Eyebrow + Forehead + Upper Lip Threading</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="border-t border-stone-100 pt-6 text-center">
-                  <div className="mb-4">
-                    <span className="text-xs text-stone-500 uppercase tracking-wider block">Festive Package Price</span>
-                    <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#8B3A52] text-white font-extrabold text-sm mt-1">
-                      <LockSvg /> Revealing Soon
-                    </span>
-                    <span className="text-[11px] text-[#8B3A52] font-semibold block mt-1">
-                      Pre-book to lock 40% Festive Discount
-                    </span>
-                  </div>
-                  <a
-                    href="#prebook"
-                    className="w-full block py-3.5 px-6 rounded-full bg-[#8B3A52] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#732F42] transition-colors shadow-md"
-                  >
-                    Reserve Combo 2 Slot →
-                  </a>
-                </div>
-              </div>
-
-              {/* COMBO 3 */}
-              <div className="bg-[#FCF8F9] rounded-3xl p-6 sm:p-8 border border-[#EACCD6] flex flex-col justify-between hover:shadow-xl transition-all duration-300 relative group">
-                <div>
-                  <div className="inline-block px-3 py-1 rounded-full bg-[#8B3A52]/10 text-[#8B3A52] text-xs font-bold uppercase tracking-wider mb-4">
-                    Combo 3 • Royal Transformation
-                  </div>
-                  <h3 className="font-playfair text-2xl font-bold text-stone-900 mb-2">
-                    Complete Suhagan Diva
-                  </h3>
-                  <p className="text-xs text-stone-600 mb-6">
-                    Head-to-toe royal treatment including hair styling & pre-puja setup.
-                  </p>
-
-                  <ul className="space-y-3 text-sm text-stone-700 mb-8">
-                    <li className="flex items-center gap-2.5">
-                      <CheckSvg />
-                      <span>Gold / Diamond Radiance Luxury Facial</span>
-                    </li>
-                    <li className="flex items-center gap-2.5">
-                      <CheckSvg />
-                      <span>Full Body Rica Waxing</span>
-                    </li>
-                    <li className="flex items-center gap-2.5">
-                      <CheckSvg />
-                      <span>Crystal Spa Manicure + Pedicure with Gel Polish</span>
-                    </li>
-                    <li className="flex items-center gap-2.5">
-                      <CheckSvg />
-                      <span>Hair Spa + Professional Blow Dry Styling</span>
-                    </li>
-                    <li className="flex items-center gap-2.5">
-                      <CheckSvg />
-                      <span>Face, Neck & Back Herbal De-Tan Bleach</span>
-                    </li>
-                    <li className="flex items-center gap-2.5">
-                      <CheckSvg />
-                      <span>Saree Draping & Hair Styling Assistance</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="border-t border-[#EACCD6] pt-6 text-center">
-                  <div className="mb-4">
-                    <span className="text-xs text-stone-500 uppercase tracking-wider block">Festive Package Price</span>
-                    <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-stone-900 text-white font-extrabold text-sm mt-1">
-                      <LockSvg /> Revealing Soon
-                    </span>
-                    <span className="text-[11px] text-[#8B3A52] font-semibold block mt-1">
-                      Pre-book to lock 40% Festive Discount
-                    </span>
-                  </div>
-                  <a
-                    href="#prebook"
-                    className="w-full block py-3 px-6 rounded-full bg-[#8B3A52] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#732F42] transition-colors"
-                  >
-                    Reserve Combo 3 Slot →
-                  </a>
-                </div>
-              </div>
-
+                )
+              })}
             </div>
 
-            {/* WhatsApp Quick Inquire Strip */}
+            {/* Direct Coordinator Assistance */}
             <div className="mt-12 p-6 rounded-2xl bg-[#FDF2F5] border border-[#F3DBE2] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
               <div>
                 <h4 className="font-semibold text-stone-900 text-sm sm:text-base">
-                  Want custom services or a personalized Karwa Chauth family bundle?
+                  Need a customized package or booking for multiple family members?
                 </h4>
                 <p className="text-xs text-stone-600 mt-0.5">
-                  Chat directly with our beauty coordinator for Delhi NCR or Lucknow.
+                  Our festive concierge coordinator will build a custom package for your group.
                 </p>
               </div>
               <a
-                href={`https://wa.me/${WA_PRIMARY}?text=${waPrebookText}`}
+                href={`https://wa.me/${WA_PRIMARY}?text=${waGeneralText}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-2.5 rounded-full bg-[#25D366] text-white text-xs font-bold hover:bg-[#1EBE5D] transition-all shrink-0 flex items-center gap-2"
               >
-                <span>WhatsApp Coordinator (+91 9129577514)</span>
+                <WhatsAppIcon size={16} />
+                <span>Chat with Coordinator (+91 9129577514)</span>
               </a>
             </div>
 
           </div>
         </section>
 
-        {/* ── WHY AT-HOME ON KARWA CHAUTH: COMPARISON TABLE ── */}
+        {/* ── FASTING CONVENIENCE COMPARISON TABLE ── */}
         <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
           <div className="text-center max-w-xl mx-auto mb-12">
             <span className="text-xs font-bold text-[#8B3A52] uppercase tracking-widest block mb-2">The At-Home Difference</span>
@@ -519,23 +432,23 @@ export default function KarwaChauthPage() {
               <tbody className="divide-y divide-stone-100 text-xs sm:text-sm">
                 <tr>
                   <td className="py-4 px-6 font-medium text-stone-900">Fasting Comfort</td>
-                  <td className="py-4 px-6 text-emerald-700 font-semibold"><TableCheckSvg /> 100% relaxed in your AC bedroom; zero exertion</td>
-                  <td className="py-4 px-6 text-rose-600"><TableCrossSvg /> Exhausting travel in heat & traffic while fasting</td>
+                  <td className="py-4 px-6 text-emerald-700 font-semibold">100% relaxed in your AC bedroom; zero exertion</td>
+                  <td className="py-4 px-6 text-rose-600">Exhausting travel in heat &amp; traffic while fasting</td>
                 </tr>
                 <tr>
                   <td className="py-4 px-6 font-medium text-stone-900">Waiting Time</td>
-                  <td className="py-4 px-6 text-emerald-700 font-semibold"><TableCheckSvg /> Zero wait. Artist arrives at your booked time</td>
-                  <td className="py-4 px-6 text-rose-600"><TableCrossSvg /> 2 to 3 hour crowded waiting room queues</td>
+                  <td className="py-4 px-6 text-emerald-700 font-semibold">Zero wait. Artist arrives at your booked time</td>
+                  <td className="py-4 px-6 text-rose-600">2 to 3 hour crowded waiting room queues</td>
                 </tr>
                 <tr>
-                  <td className="py-4 px-6 font-medium text-stone-900">Hygiene & Safety</td>
-                  <td className="py-4 px-6 text-emerald-700 font-semibold"><TableCheckSvg /> Fresh sealed single-use kit unsealed before you</td>
-                  <td className="py-4 px-6 text-stone-600"><TableCrossSvg /> Shared towels, multi-dip wax pots in rush hour</td>
+                  <td className="py-4 px-6 font-medium text-stone-900">Hygiene &amp; Safety</td>
+                  <td className="py-4 px-6 text-emerald-700 font-semibold">Fresh mono-dose kit unsealed in your presence</td>
+                  <td className="py-4 px-6 text-stone-600">Shared towels, multi-dip wax pots in rush hour</td>
                 </tr>
                 <tr>
                   <td className="py-4 px-6 font-medium text-stone-900">Payment Peace of Mind</td>
-                  <td className="py-4 px-6 text-emerald-700 font-semibold"><TableCheckSvg /> Pay via UPI/Cash only AFTER service</td>
-                  <td className="py-4 px-6 text-stone-600"><TableCrossSvg /> Fixed non-refundable advance parlor tokens</td>
+                  <td className="py-4 px-6 text-emerald-700 font-semibold">Pay via UPI/Cash only after service is complete</td>
+                  <td className="py-4 px-6 text-stone-600">Advance deposits &amp; non-refundable token systems</td>
                 </tr>
               </tbody>
             </table>
@@ -554,7 +467,7 @@ export default function KarwaChauthPage() {
                 Lock Your Karwa Chauth Slot
               </h3>
               <p className="text-xs sm:text-sm text-stone-600">
-                Zero advance payment required. Lock your preferred timing window in <strong>Delhi NCR</strong> or <strong>Lucknow</strong> before slots fill up.
+                Zero advance payment required. Lock your preferred arrival window in <strong>Delhi NCR</strong> or <strong>Lucknow</strong> before festival slots fill up.
               </p>
             </div>
 
@@ -594,17 +507,25 @@ export default function KarwaChauthPage() {
                   className="w-full px-4 py-3 rounded-2xl border border-stone-200 text-sm text-stone-900 bg-white focus:outline-none focus:border-[#8B3A52]"
                   required
                 >
-                  <option value="Karwa Chauth Combo 2: Chandni Radiance Luxe">Combo 2: Chandni Radiance Luxe (Most Popular)</option>
-                  <option value="Karwa Chauth Combo 1: Glow & Shringaar">Combo 1: Glow & Shringaar Essentials</option>
-                  <option value="Karwa Chauth Combo 3: Complete Suhagan Diva">Combo 3: Complete Suhagan Diva (Royal Transformation)</option>
-                  <option value="Custom Karwa Chauth Beauty Services">Custom Package / Multiple Family Members</option>
+                  <option value="Karwa Chauth: Silky Shine Ritual (₹1,299)">
+                    Silky Shine Ritual — ₹1,299 (Hair Spa, Cleanup & Waxing) [Most Popular]
+                  </option>
+                  <option value="Karwa Chauth: Chandni Glow Ritual (₹999)">
+                    Chandni Glow Ritual — ₹999 (Facial, Waxing, Threading & Massage)
+                  </option>
+                  <option value="Karwa Chauth: Chaand Sa Noor Experience (₹1,499)">
+                    Chaand Sa Noor Experience — ₹1,499 (O3+ Facial, Hair Spa & Arm Polish)
+                  </option>
+                  <option value="Custom Karwa Chauth Beauty Services">
+                    Custom Package / Multiple Family Members
+                  </option>
                 </select>
               </div>
 
               <div className="bg-[#FAF3F5] rounded-2xl p-4 border border-[#EACCD6]/50 text-xs text-stone-700 flex items-start gap-2.5">
                 <SparkleSvg className="w-4 h-4 text-[#8B3A52] shrink-0 mt-0.5" />
                 <span>
-                  <strong>Early Bird Guarantee:</strong> Submitting takes you directly to the booking confirmation desk. You do not pay anything online today. Our coordinator will call you within 15 minutes to confirm your artist and give you first access to the 40% discount voucher!
+                  <strong>At-Home Guarantee:</strong> Submitting connects you directly to our dispatch coordinator. You do not pay anything online today. Our team will verify your address and confirm your artist arrival time.
                 </span>
               </div>
 
@@ -619,7 +540,7 @@ export default function KarwaChauthPage() {
             <div className="mt-6 text-center">
               <span className="text-xs text-stone-500">Prefer direct WhatsApp? </span>
               <a
-                href={`https://wa.me/${WA_PRIMARY}?text=${waPrebookText}`}
+                href={`https://wa.me/${WA_PRIMARY}?text=${waGeneralText}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs font-semibold text-[#8B3A52] underline"
