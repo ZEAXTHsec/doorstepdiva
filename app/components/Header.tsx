@@ -21,12 +21,44 @@ const MALE_SERVICES = [
   { href: '/services/men', label: 'Groom Artistry',    sub: 'Coming Soon' },
 ]
 
+const FESTIVE_MENU = [
+  {
+    href: '/karwa-chauth',
+    label: 'Karwa Chauth Solah Shringar',
+    sub: 'Chaand Sa Noor · Solah Shringar Kits',
+    tag: 'Active Now',
+  },
+  {
+    href: '/festive#navratri-durga-puja',
+    label: 'Navratri & Durga Puja Radiance',
+    sub: 'Dandiya Long-Wear Glam · Skin Clarifying',
+  },
+  {
+    href: '/festive#diwali-bhai-dooj',
+    label: 'Diwali & Dhanteras Royal Shringaar',
+    sub: 'Deepotsav Gold Radiance · Family Rituals',
+  },
+  {
+    href: '/festive#sawan-teej',
+    label: 'Sawan & Hariyali Teej Shringaar',
+    sub: 'Monsoon Frizz Control · Green Mehendi Care',
+  },
+  {
+    href: '/festive#wedding-guest',
+    label: 'Wedding & Sangeet Guest Artistry',
+    sub: 'Cocktail Artistry · Bride Tribe Prep',
+  },
+]
+
 export default function Header() {
-  const [menuOpen, setMenuOpen]     = useState(false)
-  const [dropOpen, setDropOpen]     = useState(false)
-  const [scrolled, setScrolled]     = useState(false)
-  const [mobileSvcs, setMobileSvcs] = useState(false)
+  const [menuOpen, setMenuOpen]               = useState(false)
+  const [dropOpen, setDropOpen]               = useState(false)
+  const [festiveDropOpen, setFestiveDropOpen] = useState(false)
+  const [scrolled, setScrolled]               = useState(false)
+  const [mobileSvcs, setMobileSvcs]           = useState(false)
+  const [mobileFestive, setMobileFestive]     = useState(false)
   const dropRef = useRef<HTMLDivElement>(null)
+  const festiveDropRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -37,6 +69,7 @@ export default function Header() {
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (dropRef.current && !dropRef.current.contains(e.target as Node)) setDropOpen(false)
+      if (festiveDropRef.current && !festiveDropRef.current.contains(e.target as Node)) setFestiveDropOpen(false)
     }
     document.addEventListener('mousedown', handler)
     return () => document.removeEventListener('mousedown', handler)
@@ -48,7 +81,13 @@ export default function Header() {
   }, [menuOpen])
 
   const { itemCount, openCart } = useCart()
-  const closeAll = () => { setMenuOpen(false); setDropOpen(false); setMobileSvcs(false) }
+  const closeAll = () => {
+    setMenuOpen(false)
+    setDropOpen(false)
+    setFestiveDropOpen(false)
+    setMobileSvcs(false)
+    setMobileFestive(false)
+  }
 
   return (
     <>
@@ -157,8 +196,87 @@ export default function Header() {
               </div>
             </div>
 
+            {/* Festive dropdown */}
+            <div ref={festiveDropRef} className="relative">
+              <button
+                onClick={() => setFestiveDropOpen(o => !o)}
+                onMouseEnter={() => setFestiveDropOpen(true)}
+                aria-expanded={festiveDropOpen}
+                className="flex items-center gap-1.5 font-poppins text-[11px] font-semibold tracking-widest uppercase px-3 py-2 rounded-lg text-stone-light hover:text-rose hover:bg-rose/5 transition-all duration-200"
+              >
+                Festive
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                  style={{ transform: festiveDropOpen ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform .2s ease' }}>
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </button>
+              {/* Dropdown — Single column with luxury festive styling */}
+              <div
+                onMouseLeave={() => setFestiveDropOpen(false)}
+                style={{
+                  position: 'absolute', top: 'calc(100% + 8px)', left: '50%',
+                  transform: festiveDropOpen ? 'translateX(-50%) scaleY(1)' : 'translateX(-50%) scaleY(0.9)',
+                  transformOrigin: 'top',
+                  opacity: festiveDropOpen ? 1 : 0,
+                  pointerEvents: festiveDropOpen ? 'auto' : 'none',
+                  transition: 'all .2s ease',
+                  width: '360px',
+                  background: 'white',
+                  borderRadius: '18px',
+                  boxShadow: '0 20px 60px rgba(139,58,82,0.14), 0 4px 16px rgba(139,58,82,0.07)',
+                  border: '1px solid rgba(196,118,138,0.15)',
+                  overflow: 'hidden',
+                  zIndex: 100,
+                }}
+              >
+                <div style={{ height: 2, background: 'linear-gradient(90deg, transparent, #C8974A 40%, #C4768A, transparent)' }} />
+                <div className="p-3">
+                  <div className="flex items-center justify-between px-3 py-1.5 mb-1 border-b border-blush/20">
+                    <p className="font-poppins text-[9px] font-bold tracking-[0.2em] uppercase" style={{ color: '#8B3A52' }}>
+                      Festive & Occasion Specials
+                    </p>
+                    <span className="font-poppins text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#8B3A52]/10 text-[#8B3A52]">
+                      Occasions
+                    </span>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    {FESTIVE_MENU.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={closeAll}
+                        className="flex items-center justify-between px-3 py-2 rounded-xl hover:bg-petal transition-colors duration-150 group/festive"
+                      >
+                        <div>
+                          <p className="font-poppins text-[11px] font-semibold text-stone group-hover/festive:text-rose transition-colors">
+                            {item.label}
+                          </p>
+                          <p className="font-poppins text-[10px] text-stone-light mt-0.5">
+                            {item.sub}
+                          </p>
+                        </div>
+                        {item.tag && (
+                          <span className="text-[9px] font-semibold uppercase px-2 py-0.5 rounded-full bg-[#8B3A52]/10 text-[#8B3A52] flex-shrink-0">
+                            {item.tag}
+                          </span>
+                        )}
+                      </Link>
+                    ))}
+                  </div>
+                  <div className="mt-2 pt-2 border-t border-blush/20 px-2">
+                    <Link
+                      href="/festive"
+                      onClick={closeAll}
+                      className="block text-center py-2 px-3 rounded-xl bg-petal/60 hover:bg-petal font-poppins text-[11px] font-semibold text-[#8B3A52] transition-colors"
+                    >
+                      Explore All Festive Packages & Pricing →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {[
-              { href: '/festive',  label: 'Festive'   },
               { href: '/academy',  label: 'Academy'   },
               { href: '/areas',    label: 'Areas'     },
               { href: '/about',    label: 'Our Story' },
@@ -172,22 +290,8 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Location Trust Pill + Desktop CTAs */}
+          {/* Desktop CTAs */}
           <div className="hidden md:flex items-center gap-2.5">
-            {/* Hyper-Local City Trust Pill */}
-            <div className="relative group/loc hidden xl:block">
-              <Link
-                href="/areas"
-                onClick={closeAll}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-100/80 hover:bg-[#FDF2F5] text-stone-700 hover:text-[#8B3A52] text-[11px] font-medium transition-colors border border-stone-200/60"
-              >
-                <svg className="w-3.5 h-3.5 text-[#8B3A52]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-                <span>Delhi NCR · Lucknow · Ayodhya</span>
-              </Link>
-            </div>
 
             {/* Cart button */}
             <button
@@ -335,8 +439,51 @@ export default function Header() {
             </div>
           </div>
 
+          {/* Festive accordion */}
+          <button
+            onClick={() => setMobileFestive(o => !o)}
+            className="w-full flex items-center justify-between px-3 py-3 rounded-xl font-poppins text-sm font-semibold text-stone hover:text-rose hover:bg-rose/5 transition-colors"
+          >
+            Festive & Occasions
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+              style={{ transform: mobileFestive ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform .2s' }}>
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div style={{ display: mobileFestive ? 'block' : 'none' }}>
+            <div className="pl-2 pb-2 pt-1 flex flex-col gap-0.5">
+              <p className="font-poppins text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1.5" style={{ color: '#8B3A52' }}>
+                Occasion Packages
+              </p>
+              {FESTIVE_MENU.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={closeAll}
+                  className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-petal transition-colors"
+                >
+                  <div>
+                    <p className="font-poppins text-xs font-semibold text-stone">{item.label}</p>
+                    <p className="font-poppins text-[10px] text-stone-light">{item.sub}</p>
+                  </div>
+                  {item.tag && (
+                    <span className="text-[9px] font-semibold uppercase px-2 py-0.5 rounded-full bg-[#8B3A52]/10 text-[#8B3A52] flex-shrink-0">
+                      {item.tag}
+                    </span>
+                  )}
+                </Link>
+              ))}
+              <Link
+                href="/festive"
+                onClick={closeAll}
+                className="mt-1 px-3 py-2 font-poppins text-xs font-semibold text-[#8B3A52] hover:underline"
+              >
+                View Complete Festive Menu →
+              </Link>
+            </div>
+          </div>
+
           {[
-            { href: '/festive',  label: 'Festive & Occasions' },
             { href: '/academy',  label: 'Academy'             },
             { href: '/areas',    label: 'Service Areas'       },
             { href: '/about',    label: 'Our Story'           },
