@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: 'Karwa Chauth At-Home Salon Packages — Delhi NCR & Lucknow | DoorStep Diva',
@@ -16,7 +15,7 @@ export const metadata: Metadata = {
     description:
       'Skip parlor queues while fasting. Exclusive festive beauty packages from ₹999 delivered to your doorstep in Delhi NCR and Lucknow.',
     url: 'https://mydoorstepdiva.com/karwa-chauth',
-    images: [{ url: 'https://mydoorstepdiva.com/images/karwa_chauth_official.jpg', width: 1024, height: 1024, alt: 'DoorStep Diva Karwa Chauth At-Home Salon Service' }],
+    images: [{ url: 'https://mydoorstepdiva.com/images/og-image.jpg', width: 1200, height: 630, alt: 'DoorStep Diva Karwa Chauth At-Home Salon Service' }],
     type: 'website',
   },
 }
@@ -108,7 +107,7 @@ const KARWA_SCHEMA = {
       '@id': 'https://mydoorstepdiva.com/karwa-chauth#service',
       name: 'DoorStep Diva — Karwa Chauth At-Home Salon & Shringaar',
       url: 'https://mydoorstepdiva.com/karwa-chauth',
-      image: 'https://mydoorstepdiva.com/images/karwa_chauth_official.jpg',
+      image: 'https://mydoorstepdiva.com/images/og-image.jpg',
       telephone: '+919129577514',
       priceRange: '₹999 - ₹1499',
       currenciesAccepted: 'INR',
@@ -190,9 +189,9 @@ export default function KarwaChauthPage() {
         </div>
 
         {/* ── HERO SECTION ── */}
-        <section className="relative overflow-hidden py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
+        <section className="relative overflow-hidden py-14 sm:py-24 px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
               
               {/* Left Column: Headline & Value Prop */}
               <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
@@ -210,7 +209,7 @@ export default function KarwaChauthPage() {
                   <strong> sealed mono-dose kits</strong>, hospital-grade hygiene, and luxury formulations.
                 </p>
 
-                {/* 5 Official Poster Trust Points */}
+                {/* 5 Trust Points */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-2 max-w-xl mx-auto lg:mx-0">
                   {[
                     'Professional Experts',
@@ -253,32 +252,75 @@ export default function KarwaChauthPage() {
                 </p>
               </div>
 
-              {/* Right Column: Official Festive Creative Poster */}
+              {/* Right Column: Luxury Festive Highlights & Rate Card */}
               <div className="lg:col-span-5 relative">
-                <div className="relative mx-auto max-w-md rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-stone-900 group">
-                  <Image
-                    src="/images/karwa_chauth_official.jpg"
-                    alt="DoorStep Diva Official Karwa Chauth Packages Poster"
-                    width={700}
-                    height={700}
-                    priority
-                    className="w-full h-auto object-cover transform group-hover:scale-102 transition-transform duration-500"
+                <div
+                  className="rounded-3xl p-6 sm:p-8 bg-white border border-[#8B3A52]/20 shadow-2xl relative overflow-hidden"
+                  style={{
+                    boxShadow: '0 25px 60px -15px rgba(139, 58, 82, 0.18)',
+                    background: 'linear-gradient(145deg, #FFFFFF 0%, #FDF7F8 100%)',
+                  }}
+                >
+                  {/* Subtle decorative glow */}
+                  <div
+                    className="absolute -top-12 -right-12 w-40 h-40 rounded-full opacity-30 pointer-events-none blur-2xl"
+                    style={{ background: 'radial-gradient(circle, #C8974A, transparent)' }}
                   />
-                  <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-5 text-white text-center">
-                    <span className="text-[11px] uppercase tracking-widest text-[#F2C2CF] font-bold block mb-0.5">
-                      Official Festive Campaign
-                    </span>
-                    <p className="font-playfair text-lg font-bold">
-                      Glow for your Special Day
-                    </p>
-                  </div>
-                </div>
 
-                {/* Floating Starting Price Tag */}
-                <div className="absolute -top-3 -right-3 sm:-right-5 bg-gradient-to-br from-[#8B3A52] to-[#611F31] text-white p-3.5 sm:p-4 rounded-2xl shadow-xl border border-white/40 text-center">
-                  <span className="text-[10px] uppercase font-bold block tracking-wider text-[#F9D7E1]">Packages Start</span>
-                  <span className="text-xl sm:text-2xl font-extrabold block">₹999</span>
-                  <span className="text-[9px] text-white/80 block">All Inclusive</span>
+                  {/* Card Header */}
+                  <div className="flex items-center justify-between pb-5 border-b border-stone-100">
+                    <div>
+                      <span className="font-poppins text-[10px] font-bold uppercase tracking-widest text-[#8B3A52] block">
+                        Festive Rate Card
+                      </span>
+                      <h2 className="font-playfair text-xl font-bold text-stone-900 mt-0.5">
+                        Curated Shringaar Combos
+                      </h2>
+                    </div>
+                    <span className="px-3 py-1 rounded-full bg-[#8B3A52]/10 text-[#8B3A52] font-poppins text-[10px] font-bold uppercase">
+                      From ₹999
+                    </span>
+                  </div>
+
+                  {/* 3 Quick Package Rows */}
+                  <div className="space-y-3.5 my-6">
+                    {FESTIVE_PACKAGES.map((pkg) => (
+                      <Link
+                        key={pkg.id}
+                        href={`#${pkg.id}`}
+                        className={`block p-3.5 rounded-2xl border transition-all ${
+                          pkg.popular
+                            ? 'bg-[#FAF2F5] border-[#8B3A52]/40 shadow-sm'
+                            : 'bg-white border-stone-200/80 hover:border-[#8B3A52]/30'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-serif text-sm font-bold text-stone-900">
+                            {pkg.name}
+                          </span>
+                          <span className="font-playfair text-base font-extrabold text-[#8B3A52]">
+                            ₹{pkg.price.toLocaleString('en-IN')}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-stone-600 line-clamp-1">
+                          {pkg.services.slice(0, 3).join(' • ')}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+
+                  {/* Trust Footnote & Quick Reserve CTA */}
+                  <div className="pt-2 text-center space-y-3">
+                    <p className="font-poppins text-[11px] text-stone-500">
+                      Zero advance deposit • 100% sealed mono-dose kits
+                    </p>
+                    <a
+                      href="#packages"
+                      className="block w-full py-3.5 px-6 rounded-full bg-[#8B3A52] text-white font-poppins text-xs font-bold uppercase tracking-wider hover:bg-[#732F42] transition-colors shadow-md text-center"
+                    >
+                      Explore Package Details & Book →
+                    </a>
+                  </div>
                 </div>
               </div>
 
@@ -311,6 +353,7 @@ export default function KarwaChauthPage() {
                 return (
                   <div
                     key={pkg.id}
+                    id={pkg.id}
                     className={`rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 relative ${
                       pkg.popular
                         ? 'bg-white border-2 border-[#8B3A52] shadow-2xl md:-translate-y-2'
