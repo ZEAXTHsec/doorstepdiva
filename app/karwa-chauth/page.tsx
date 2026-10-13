@@ -303,7 +303,7 @@ export default function KarwaChauthPage() {
         </section>
 
         {/* ── THE 3 OFFICIAL FESTIVE COMBOS ── */}
-        <section id="packages" className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-y border-[#F3DFE5]">
+        <section id="packages" className="scroll-mt-32 sm:scroll-mt-40 py-16 px-4 sm:px-6 lg:px-8 bg-white border-y border-[#F3DFE5]">
           <div className="max-w-6xl mx-auto">
             
             <div className="text-center max-w-2xl mx-auto mb-14">
@@ -328,7 +328,7 @@ export default function KarwaChauthPage() {
                   <div
                     key={pkg.id}
                     id={pkg.id}
-                    className={`rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 relative ${
+                    className={`scroll-mt-32 sm:scroll-mt-40 target:ring-2 target:ring-[#8B3A52] target:ring-offset-4 rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 relative ${
                       pkg.popular
                         ? 'bg-white border-2 border-[#8B3A52] shadow-2xl md:-translate-y-2'
                         : 'bg-[#FCF8F9] border border-[#EACCD6] hover:shadow-xl'

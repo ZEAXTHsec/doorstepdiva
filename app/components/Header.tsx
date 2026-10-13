@@ -16,9 +16,9 @@ const FEMALE_SERVICES = [
 ]
 
 const MALE_SERVICES = [
-  { href: '/services/hair',           label: 'Hair',               sub: 'Cuts · Color · Styling'     },
-  { href: '/services/skin',           label: 'Skin & Grooming',    sub: 'Facials · Cleanup · Care'   },
-  { href: '/services/makeup',         label: 'Grooming',           sub: 'Events · Wedding · Formal'   },
+  { href: '/services/men', label: 'Hair & Styling',    sub: 'Coming Soon' },
+  { href: '/services/men', label: 'Skin & De-Tan',     sub: 'Coming Soon' },
+  { href: '/services/men', label: 'Groom Artistry',    sub: 'Coming Soon' },
 ]
 
 export default function Header() {
@@ -136,14 +136,19 @@ export default function Header() {
                   </div>
                   {/* Male column */}
                   <div style={{ borderLeft: '1px solid rgba(196,118,138,0.10)' }}>
-                    <p className="font-poppins text-[9px] font-bold tracking-[0.2em] uppercase px-3 py-2 mb-1" style={{ color: '#C8974A' }}>Men</p>
+                    <div className="flex items-center justify-between px-3 py-2 mb-1">
+                      <p className="font-poppins text-[9px] font-bold tracking-[0.2em] uppercase" style={{ color: '#C8974A' }}>Men</p>
+                      <span className="font-poppins text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#8B3A52]/10 text-[#8B3A52]">
+                        Coming Soon
+                      </span>
+                    </div>
                     {MALE_SERVICES.map((s) => (
-                      <Link key={s.href} href={s.href} onClick={closeAll}
+                      <Link key={s.label} href={s.href} onClick={closeAll}
                         className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-petal transition-colors duration-150 group/item"
                       >
                         <div>
                           <p className="font-poppins text-[11px] font-semibold text-stone group-hover/item:text-rose transition-colors">{s.label}</p>
-                          <p className="font-poppins text-[10px] text-stone-light mt-0.5">{s.sub}</p>
+                          <p className="font-poppins text-[10px] text-[#8B3A52] font-medium mt-0.5">{s.sub}</p>
                         </div>
                       </Link>
                     ))}
@@ -295,15 +300,19 @@ export default function Header() {
                   </div>
                 </Link>
               ))}
-              <div className="h-px mx-3 my-1" style={{ background: 'rgba(196,118,138,0.12)' }} />
-              <p className="font-poppins text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1.5" style={{ color: '#C8974A' }}>Men</p>
+              <div className="flex items-center justify-between px-3 py-1.5">
+                <p className="font-poppins text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: '#C8974A' }}>Men</p>
+                <span className="font-poppins text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#8B3A52]/10 text-[#8B3A52]">
+                  Coming Soon
+                </span>
+              </div>
               {MALE_SERVICES.map((s) => (
-                <Link key={s.href} href={s.href} onClick={closeAll}
+                <Link key={s.label} href={s.href} onClick={closeAll}
                   className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-petal transition-colors"
                 >
                   <div>
                     <p className="font-poppins text-xs font-semibold text-stone">{s.label}</p>
-                    <p className="font-poppins text-[10px] text-stone-light">{s.sub}</p>
+                    <p className="font-poppins text-[10px] text-[#8B3A52] font-medium">{s.sub}</p>
                   </div>
                 </Link>
               ))}

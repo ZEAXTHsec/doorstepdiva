@@ -100,11 +100,11 @@ const COMMON_ADDONS: CommonAddon[] = [
 ]
 
 const TIMING_OPTIONS = [
-  'Today — Urgent / ASAP Dispatch',
   'Tomorrow — Morning (9:00 AM – 12:00 PM)',
   'Tomorrow — Afternoon (12:00 PM – 4:00 PM)',
   'Tomorrow — Evening (4:00 PM – 8:00 PM)',
   'Specific Upcoming Date',
+  'Flexible / Call Me to Coordinate',
 ]
 
 const WA_NUMBER = '919129577514'
@@ -574,9 +574,17 @@ export default function BookPage() {
 
               {/* 3. TIMING PREFERENCE */}
               <div>
-                <label className="block text-xs font-bold text-stone-800 uppercase tracking-wider mb-2">
-                  3. Preferred Timing / Arrival Window *
-                </label>
+                <div className="flex items-baseline justify-between mb-1.5">
+                  <label className="block text-xs font-bold text-stone-800 uppercase tracking-wider">
+                    3. Preferred Timing / Arrival Window *
+                  </label>
+                  <span className="text-[11px] font-semibold text-[#8B3A52]">
+                    Confirmed Manually
+                  </span>
+                </div>
+                <p className="text-[11px] text-stone-500 mb-3">
+                  All appointments are verified and confirmed manually with you by our coordinator. We do not dispatch without speaking to you.
+                </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   {TIMING_OPTIONS.map(timeOption => {
                     const isSelected = form.preferred_timing === timeOption
@@ -612,6 +620,13 @@ export default function BookPage() {
                     />
                   </div>
                 )}
+
+                <div className="mt-3 p-3 rounded-2xl bg-[#FAF2F5] border border-[#F3DBE2] flex items-start gap-2.5">
+                  <span className="text-[#8B3A52] font-bold text-xs mt-0.5">✓</span>
+                  <p className="text-[11px] text-stone-700 leading-relaxed">
+                    <strong>Manual Confirmation Protocol:</strong> Once you submit, our dispatch coordinator will call or WhatsApp you to confirm your address, confirm your artist assignment, and lock your exact arrival window.
+                  </p>
+                </div>
               </div>
 
               {/* 4. CONTACT & ADDRESS */}

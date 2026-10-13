@@ -7,9 +7,14 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 130px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+  }
+
+  :target {
+    scroll-margin-top: 140px;
   }
 
   body {

@@ -24,16 +24,22 @@ export async function syncBookingToGoogleSheets(data: SyncBookingParams) {
                       data.service_type.toLowerCase().includes('workshop') ||
                       (data.customer_address && data.customer_address.includes('Academy'))
 
+    const isKarwaChauth = data.service_type.toLowerCase().includes('karwa') ||
+                          data.service_type.toLowerCase().includes('chaand') ||
+                          data.service_type.toLowerCase().includes('shringaar') ||
+                          data.service_type.toLowerCase().includes('mehendi') ||
+                          (data.notes && data.notes.toLowerCase().includes('karwa'))
+
     const dateStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
     const cityStr = data.city ? data.city.charAt(0).toUpperCase() + data.city.slice(1) : 'Lucknow'
 
     let code = ''
 
     if (isAcademy) {
-      // Push to '🎓 Academy & Workshop Leads'
+      // Push to 'Academy & Workshop Leads'
       code = `
-        var sheet = ss.getSheetByName('🎓 Academy & Workshop Leads');
-        if (!sheet) sheet = ss.insertSheet('🎓 Academy & Workshop Leads');
+        var sheet = ss.getSheetByName('Academy & Workshop Leads');
+        if (!sheet) sheet = ss.insertSheet('Academy & Workshop Leads');
         var lastRow = sheet.getLastRow();
         var nextSr = lastRow; // Header is row 1
         var rowData = [
@@ -44,9 +50,9 @@ export async function syncBookingToGoogleSheets(data: SyncBookingParams) {
           ${JSON.stringify(data.service_type)},
           ${JSON.stringify(cityStr)},
           'Website Academy Form',
-          '⚡ Admission Lead (New)',
+          'Admission Lead (New)',
           ${JSON.stringify(data.notes || 'Website lead submission')},
-          '=HYPERLINK("https://wa.me/91${cleanPhone}", "💬 Chat on WhatsApp")'
+          '=HYPERLINK("https://wa.me/91${cleanPhone}", "Chat on WhatsApp")'
         ];
         sheet.appendRow(rowData);
         var newRowNum = sheet.getLastRow();
@@ -59,17 +65,47 @@ export async function syncBookingToGoogleSheets(data: SyncBookingParams) {
         sheet.getRange(newRowNum, 10).setHorizontalAlignment('center').setFontColor('#25D366').setFontWeight('bold');
         return { success: true, sheet: 'Academy', row: newRowNum };
       `
+    } else if (isKarwaChauth) {
+      // Push to 'Karwa Chauth Festive Leads'
+      code = `
+        var sheet = ss.getSheetByName('Karwa Chauth Leads');
+        if (!sheet) sheet = ss.insertSheet('Karwa Chauth Leads');
+        var lastRow = sheet.getLastRow();
+        var nextSr = lastRow;
+        var rowData = [
+          nextSr,
+          '${dateStr}',
+          ${JSON.stringify(data.customer_name)},
+          ${JSON.stringify(cleanPhone)},
+          ${JSON.stringify(data.service_type)},
+          ${JSON.stringify(cityStr + (data.customer_address ? ' - ' + data.customer_address.substring(0, 30) : ''))},
+          ${JSON.stringify(data.appointment_date ? data.appointment_date + ' (' + (data.appointment_time || 'Flexible') + ')' : 'Flexible Slot')},
+          'Festive Slot Pending Confirmation',
+          ${JSON.stringify(data.notes || 'Karwa Chauth festive request')},
+          '=HYPERLINK("https://wa.me/91${cleanPhone}", "Chat on WhatsApp")'
+        ];
+        sheet.appendRow(rowData);
+        var newRowNum = sheet.getLastRow();
+        sheet.setRowHeight(newRowNum, 26);
+        sheet.getRange(newRowNum, 1, 1, 10).setBackground('#FFF5F5');
+        sheet.getRange(newRowNum, 1, 1, 10).setFontFamily('Google Sans').setFontSize(9).setVerticalAlignment('middle');
+        sheet.getRange(newRowNum, 1).setHorizontalAlignment('center');
+        sheet.getRange(newRowNum, 2).setHorizontalAlignment('center');
+        sheet.getRange(newRowNum, 4).setNumberFormat('@').setHorizontalAlignment('center');
+        sheet.getRange(newRowNum, 10).setHorizontalAlignment('center').setFontColor('#25D366').setFontWeight('bold');
+        return { success: true, sheet: 'Karwa Chauth', row: newRowNum };
+      `
     } else {
-      // Push to '💅 Salon Bookings (Inbound Ads)'
+      // Push to 'Salon Bookings'
       const priorityTier = cityStr.toLowerCase().includes('lucknow') || cityStr.toLowerCase().includes('ayodhya') || cityStr.toLowerCase().includes('delhi')
-        ? '🟢 Tier 1: Local Booking (Immediate Dispatch)'
-        : '🟡 Tier 2: Named Lead (Confirm Area)'
-      const leadStage = '🔥 Hot Lead (Immediate)'
-      const recAction = data.appointment_date ? `Confirm Booking for ${data.appointment_date} ${data.appointment_time || ''}` : 'Call Immediately / WhatsApp Welcome'
+        ? 'Tier 1: Priority Local (Call to Confirm)'
+        : 'Tier 2: Regional Lead (Confirm Area)'
+      const leadStage = 'New Booking Request'
+      const recAction = data.appointment_date ? `Call to Confirm Slot for ${data.appointment_date} ${data.appointment_time || ''}` : 'Call Coordinator / WhatsApp Welcome'
 
       code = `
-        var sheet = ss.getSheetByName('💅 Salon Bookings (Inbound Ads)');
-        if (!sheet) sheet = ss.insertSheet('💅 Salon Bookings (Inbound Ads)');
+        var sheet = ss.getSheetByName('Salon Bookings');
+        if (!sheet) sheet = ss.insertSheet('Salon Bookings');
         var lastRow = sheet.getLastRow();
         var nextSr = lastRow;
         var rowData = [
@@ -81,7 +117,7 @@ export async function syncBookingToGoogleSheets(data: SyncBookingParams) {
           '${leadStage}',
           'Website Booking Engine',
           ${JSON.stringify(recAction)},
-          '=HYPERLINK("https://wa.me/91${cleanPhone}", "💬 Direct WhatsApp Link")'
+          '=HYPERLINK("https://wa.me/91${cleanPhone}", "Direct WhatsApp Link")'
         ];
         sheet.appendRow(rowData);
         var newRowNum = sheet.getLastRow();
